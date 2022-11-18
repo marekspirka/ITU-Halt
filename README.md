@@ -1,4 +1,4 @@
-# halt
+# Halt.
 
 A new Flutter project.
 
