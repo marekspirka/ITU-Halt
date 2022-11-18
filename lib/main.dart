@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 
 
 ////////////////////////////////////////////DO TO///////////////////////////////////////////////////////
-///2. Doplnit Help Navbar pre Hry
+///2. Doplnit Help Navbar pre Hry - Spravene uz len doplnit pucky pre help
 ///3. Spravit hry
 ///4. Spravit nastavenia
 ///5. Vymysliet ako spravit to vypinanie hry no
