@@ -9,7 +9,7 @@ class LoadingPage extends StatefulWidget {
 class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
-    var time = const Duration(seconds: 5);
+    var time = const Duration(seconds: 2);
     Future.delayed(time, () {
       Navigator.pushAndRemoveUntil(
         context,
