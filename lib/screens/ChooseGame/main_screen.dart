@@ -7,6 +7,7 @@ import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         drawer: NavBar(),
         appBar: AppBar(
@@ -38,6 +39,8 @@ class MainScreen extends StatelessWidget {
   }
 
   sudoku_button(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Center(
         child: InkWell(
       onTap: () {
@@ -45,8 +48,8 @@ class MainScreen extends StatelessWidget {
             .push(MaterialPageRoute(builder: (context) => SudokuScreen()));
       },
       child: Container(
-        height: 200,
-        width: 350,
+        height: screenHeight * 0.2,
+        width: screenWidth * 0.8,
         margin: const EdgeInsets.only(top: 60),
         decoration: BoxDecoration(
             image: const DecorationImage(
@@ -57,8 +60,8 @@ class MainScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: const EdgeInsets.only(bottom: 120),
-              height: 80,
-              width: 350,
+              height: MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.width * 0.8,
               padding: EdgeInsets.symmetric(vertical: 23, horizontal: 99),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
@@ -69,7 +72,6 @@ class MainScreen extends StatelessWidget {
                 'SUDOKU',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 35,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
               ),
@@ -88,8 +90,8 @@ class MainScreen extends StatelessWidget {
             .push(MaterialPageRoute(builder: (context) => VutrdleScreen()));
       },
       child: Container(
-        height: 200,
-        width: 350,
+        height: MediaQuery.of(context).size.height * 0.2,
+        width: MediaQuery.of(context).size.width * 0.8,
         margin: const EdgeInsets.only(top: 40),
         decoration: BoxDecoration(
             image: const DecorationImage(
@@ -100,8 +102,8 @@ class MainScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: const EdgeInsets.only(bottom: 120),
-              height: 80,
-              width: 350,
+              height: MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.width * 0.8,
               padding: EdgeInsets.symmetric(vertical: 23, horizontal: 90),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
@@ -131,8 +133,8 @@ class MainScreen extends StatelessWidget {
             .push(MaterialPageRoute(builder: (context) => FlappyDuckScreen()));
       },
       child: Container(
-        height: 200,
-        width: 350,
+        height: MediaQuery.of(context).size.height * 0.2,
+        width: MediaQuery.of(context).size.width * 0.8,
         margin: const EdgeInsets.only(top: 40),
         decoration: BoxDecoration(
             image: const DecorationImage(
@@ -143,8 +145,8 @@ class MainScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: const EdgeInsets.only(bottom: 120),
-              height: 80,
-              width: 350,
+              height: MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.width * 0.8,
               padding: EdgeInsets.symmetric(vertical: 23, horizontal: 45),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
@@ -155,7 +157,7 @@ class MainScreen extends StatelessWidget {
                 'FLAPPY DUCK',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 35,
+                    fontSize: 1,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
               ),
