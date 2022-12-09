@@ -49,7 +49,7 @@ class MainScreen extends StatelessWidget {
       child: Container(
         height: screenHeight * 0.25,
         width: screenWidth * 0.8,
-        margin: const EdgeInsets.only(top: 25),
+        margin: EdgeInsets.only(top: 25),
         decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
@@ -58,19 +58,19 @@ class MainScreen extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.only(bottom: 140),
-              height: screenHeight * 0.10,
+              margin: EdgeInsets.only(bottom: 130),
+              height: screenHeight * 0.12,
               width: screenWidth * 0.8,
-              padding: EdgeInsets.symmetric(vertical: 25, horizontal: 98),
+              padding: EdgeInsets.symmetric(vertical: 29, horizontal: 94),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(22.0),
                       topRight: Radius.circular(22.0))),
-              child: const Text(
+              child: Text(
                 'SUDOKU',
                 style: TextStyle(
-                    fontSize: 30,
+                    fontSize: MediaQuery.of(context).size.width * 0.08,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
@@ -94,7 +94,7 @@ class MainScreen extends StatelessWidget {
       child: Container(
         height: screenHeight * 0.25,
         width: screenWidth * 0.8,
-        margin: const EdgeInsets.only(top: 40),
+        margin: EdgeInsets.only(top: 30),
         decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
@@ -103,20 +103,20 @@ class MainScreen extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.only(bottom: 140),
-              height: screenHeight * 0.10,
+              margin: EdgeInsets.only(bottom: 130),
+              height: screenHeight * 0.12,
               width: screenWidth * 0.8,
-              padding: EdgeInsets.symmetric(vertical: 25, horizontal: 98),
+              padding: EdgeInsets.symmetric(vertical: 29, horizontal: 86),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(22.0),
                       topRight: Radius.circular(22.0))),
-              child: const Text(
+              child: Text(
                 'VUTRDLE',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 30,
+                    fontSize: MediaQuery.of(context).size.width * 0.08,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
               ),
@@ -139,29 +139,29 @@ class MainScreen extends StatelessWidget {
       child: Container(
         height: screenHeight * 0.25,
         width: screenWidth * 0.8,
-        margin: const EdgeInsets.only(top: 40),
+        margin: EdgeInsets.only(top: 40),
         decoration: BoxDecoration(
-            image: const DecorationImage(
+            image: DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
                 fit: BoxFit.cover),
             borderRadius: BorderRadius.circular(22.0)),
         child: Row(
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.only(bottom: 140),
-              height: screenHeight * 0.10,
+              margin: EdgeInsets.only(bottom: 130),
+              height: screenHeight * 0.12,
               width: screenWidth * 0.8,
-              padding: EdgeInsets.symmetric(vertical: 25, horizontal: 55),
+              padding: EdgeInsets.symmetric(vertical: 29, horizontal: 45),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(22.0),
                       topRight: Radius.circular(22.0))),
-              child: const Text(
+              child: Text(
                 'FLAPPY DUCK',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 30,
+                    fontSize: MediaQuery.of(context).size.width * 0.08,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
               ),
