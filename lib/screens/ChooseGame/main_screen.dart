@@ -49,7 +49,7 @@ class MainScreen extends StatelessWidget {
       child: Container(
         height: screenHeight * 0.25,
         width: screenWidth * 0.8,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.08),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.05),
         decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
@@ -59,8 +59,8 @@ class MainScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width * 0.32),
-              height: screenHeight * 0.11,
+                  bottom: MediaQuery.of(context).size.width * 0.23),
+              height: screenHeight * 0.12,
               width: screenWidth * 0.8,
               padding: EdgeInsets.symmetric(
                   vertical: screenHeight * 0.03,
@@ -97,7 +97,7 @@ class MainScreen extends StatelessWidget {
       child: Container(
         height: screenHeight * 0.25,
         width: screenWidth * 0.8,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.08),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.05),
         decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
@@ -107,7 +107,7 @@ class MainScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width * 0.32),
+                  bottom: MediaQuery.of(context).size.width * 0.23),
               height: screenHeight * 0.12,
               width: screenWidth * 0.8,
               padding: EdgeInsets.symmetric(
@@ -145,7 +145,7 @@ class MainScreen extends StatelessWidget {
       child: Container(
         height: screenHeight * 0.25,
         width: screenWidth * 0.8,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.08),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.05),
         decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
@@ -155,12 +155,12 @@ class MainScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width * 0.32),
+                  bottom: MediaQuery.of(context).size.width * 0.23),
               height: screenHeight * 0.12,
               width: screenWidth * 0.8,
               padding: EdgeInsets.symmetric(
                   vertical: screenHeight * 0.03,
-                  horizontal: screenWidth * 0.11),
+                  horizontal: screenWidth * 0.10),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
