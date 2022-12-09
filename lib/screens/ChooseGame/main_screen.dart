@@ -7,7 +7,6 @@ import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         drawer: NavBar(),
         appBar: AppBar(
@@ -48,9 +47,9 @@ class MainScreen extends StatelessWidget {
             .push(MaterialPageRoute(builder: (context) => SudokuScreen()));
       },
       child: Container(
-        height: screenHeight * 0.2,
+        height: screenHeight * 0.25,
         width: screenWidth * 0.8,
-        margin: const EdgeInsets.only(top: 60),
+        margin: const EdgeInsets.only(top: 25),
         decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
@@ -59,10 +58,10 @@ class MainScreen extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.only(bottom: 120),
-              height: MediaQuery.of(context).size.height * 0.2,
-              width: MediaQuery.of(context).size.width * 0.8,
-              padding: EdgeInsets.symmetric(vertical: 23, horizontal: 99),
+              margin: const EdgeInsets.only(bottom: 140),
+              height: screenHeight * 0.10,
+              width: screenWidth * 0.8,
+              padding: EdgeInsets.symmetric(vertical: 25, horizontal: 98),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
@@ -71,6 +70,7 @@ class MainScreen extends StatelessWidget {
               child: const Text(
                 'SUDOKU',
                 style: TextStyle(
+                    fontSize: 30,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
@@ -83,6 +83,8 @@ class MainScreen extends StatelessWidget {
   }
 
   vutrdle_button(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Center(
         child: InkWell(
       onTap: () {
@@ -90,8 +92,8 @@ class MainScreen extends StatelessWidget {
             .push(MaterialPageRoute(builder: (context) => VutrdleScreen()));
       },
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.2,
-        width: MediaQuery.of(context).size.width * 0.8,
+        height: screenHeight * 0.25,
+        width: screenWidth * 0.8,
         margin: const EdgeInsets.only(top: 40),
         decoration: BoxDecoration(
             image: const DecorationImage(
@@ -101,10 +103,10 @@ class MainScreen extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.only(bottom: 120),
-              height: MediaQuery.of(context).size.height * 0.2,
-              width: MediaQuery.of(context).size.width * 0.8,
-              padding: EdgeInsets.symmetric(vertical: 23, horizontal: 90),
+              margin: const EdgeInsets.only(bottom: 140),
+              height: screenHeight * 0.10,
+              width: screenWidth * 0.8,
+              padding: EdgeInsets.symmetric(vertical: 25, horizontal: 98),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
@@ -114,7 +116,7 @@ class MainScreen extends StatelessWidget {
                 'VUTRDLE',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 35,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
               ),
@@ -126,6 +128,8 @@ class MainScreen extends StatelessWidget {
   }
 
   flappy_duck_button(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Center(
         child: InkWell(
       onTap: () {
@@ -133,8 +137,8 @@ class MainScreen extends StatelessWidget {
             .push(MaterialPageRoute(builder: (context) => FlappyDuckScreen()));
       },
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.2,
-        width: MediaQuery.of(context).size.width * 0.8,
+        height: screenHeight * 0.25,
+        width: screenWidth * 0.8,
         margin: const EdgeInsets.only(top: 40),
         decoration: BoxDecoration(
             image: const DecorationImage(
@@ -144,10 +148,10 @@ class MainScreen extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.only(bottom: 120),
-              height: MediaQuery.of(context).size.height * 0.2,
-              width: MediaQuery.of(context).size.width * 0.8,
-              padding: EdgeInsets.symmetric(vertical: 23, horizontal: 45),
+              margin: const EdgeInsets.only(bottom: 140),
+              height: screenHeight * 0.10,
+              width: screenWidth * 0.8,
+              padding: EdgeInsets.symmetric(vertical: 25, horizontal: 55),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
@@ -157,7 +161,7 @@ class MainScreen extends StatelessWidget {
                 'FLAPPY DUCK',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 1,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
               ),
