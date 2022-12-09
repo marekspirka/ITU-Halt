@@ -7,6 +7,7 @@ import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
         drawer: NavBar(),
         appBar: AppBar(
@@ -38,8 +39,6 @@ class MainScreen extends StatelessWidget {
   }
 
   sudoku_button(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return Center(
         child: InkWell(
       onTap: () {
@@ -47,9 +46,9 @@ class MainScreen extends StatelessWidget {
             .push(MaterialPageRoute(builder: (context) => SudokuScreen()));
       },
       child: Container(
-        height: screenHeight * 0.25,
-        width: screenWidth * 0.8,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.05),
+        height: SizeConfig.safeBlockVertical * 26,
+        width: SizeConfig.safeBlockHorizontal * 80,
+        margin: EdgeInsets.only(top: SizeConfig.safeBlockHorizontal * 5),
         decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
@@ -58,13 +57,13 @@ class MainScreen extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width * 0.23),
-              height: screenHeight * 0.12,
-              width: screenWidth * 0.8,
+              margin:
+                  EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 15),
+              height: SizeConfig.safeBlockVertical * 25,
+              width: SizeConfig.safeBlockHorizontal * 80,
               padding: EdgeInsets.symmetric(
-                  vertical: screenHeight * 0.03,
-                  horizontal: screenWidth * 0.22),
+                  vertical: SizeConfig.safeBlockVertical * 3.2,
+                  horizontal: SizeConfig.safeBlockHorizontal * 21),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
@@ -73,7 +72,7 @@ class MainScreen extends StatelessWidget {
               child: Text(
                 'SUDOKU',
                 style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.08,
+                    fontSize: SizeConfig.safeBlockHorizontal * 8,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
@@ -86,8 +85,6 @@ class MainScreen extends StatelessWidget {
   }
 
   vutrdle_button(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return Center(
         child: InkWell(
       onTap: () {
@@ -95,9 +92,9 @@ class MainScreen extends StatelessWidget {
             .push(MaterialPageRoute(builder: (context) => VutrdleScreen()));
       },
       child: Container(
-        height: screenHeight * 0.25,
-        width: screenWidth * 0.8,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.05),
+        height: SizeConfig.safeBlockVertical * 26,
+        width: SizeConfig.safeBlockHorizontal * 80,
+        margin: EdgeInsets.only(top: SizeConfig.safeBlockHorizontal * 5),
         decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
@@ -106,13 +103,13 @@ class MainScreen extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width * 0.23),
-              height: screenHeight * 0.12,
-              width: screenWidth * 0.8,
+              margin:
+                  EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 15),
+              height: SizeConfig.safeBlockVertical * 25,
+              width: SizeConfig.safeBlockHorizontal * 80,
               padding: EdgeInsets.symmetric(
-                  vertical: screenHeight * 0.03,
-                  horizontal: screenWidth * 0.20),
+                  vertical: SizeConfig.safeBlockVertical * 3.2,
+                  horizontal: SizeConfig.safeBlockHorizontal * 20),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
@@ -122,7 +119,7 @@ class MainScreen extends StatelessWidget {
                 'VUTRDLE',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: MediaQuery.of(context).size.width * 0.08,
+                    fontSize: SizeConfig.safeBlockHorizontal * 8,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
               ),
@@ -134,8 +131,6 @@ class MainScreen extends StatelessWidget {
   }
 
   flappy_duck_button(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return Center(
         child: InkWell(
       onTap: () {
@@ -143,9 +138,9 @@ class MainScreen extends StatelessWidget {
             .push(MaterialPageRoute(builder: (context) => FlappyDuckScreen()));
       },
       child: Container(
-        height: screenHeight * 0.25,
-        width: screenWidth * 0.8,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.05),
+        height: SizeConfig.safeBlockVertical * 26,
+        width: SizeConfig.safeBlockHorizontal * 80,
+        margin: EdgeInsets.only(top: SizeConfig.safeBlockHorizontal * 5),
         decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
@@ -154,13 +149,13 @@ class MainScreen extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width * 0.23),
-              height: screenHeight * 0.12,
-              width: screenWidth * 0.8,
+              margin:
+                  EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 15),
+              height: SizeConfig.safeBlockVertical * 25,
+              width: SizeConfig.safeBlockHorizontal * 80,
               padding: EdgeInsets.symmetric(
-                  vertical: screenHeight * 0.03,
-                  horizontal: screenWidth * 0.10),
+                  vertical: SizeConfig.safeBlockVertical * 3.2,
+                  horizontal: SizeConfig.safeBlockHorizontal * 10),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
@@ -170,7 +165,7 @@ class MainScreen extends StatelessWidget {
                 'FLAPPY DUCK',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: screenWidth * 0.08,
+                    fontSize: SizeConfig.safeBlockHorizontal * 8,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
               ),
@@ -179,5 +174,33 @@ class MainScreen extends StatelessWidget {
         ),
       ),
     ));
+  }
+}
+
+class SizeConfig {
+  late MediaQueryData _mediaQueryData;
+  static double screenWidth = 0.0;
+  static double screenHeight = 0.0;
+  static double blockSizeHorizontal = 0.0;
+  static double blockSizeVertical = 0.0;
+
+  static double _safeAreaHorizontal = 0.0;
+  static double _safeAreaVertical = 0.0;
+  static double safeBlockHorizontal = 0.0;
+  static double safeBlockVertical = 0.0;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = screenWidth / 100;
+    blockSizeVertical = screenHeight / 100;
+
+    _safeAreaHorizontal =
+        _mediaQueryData.padding.left + _mediaQueryData.padding.right;
+    _safeAreaVertical =
+        _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
+    safeBlockHorizontal = (screenWidth - _safeAreaHorizontal) / 100;
+    safeBlockVertical = (screenHeight - _safeAreaVertical) / 100;
   }
 }
