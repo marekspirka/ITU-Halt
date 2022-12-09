@@ -58,10 +58,13 @@ class MainScreen extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 130),
-              height: screenHeight * 0.12,
+              margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.width * 0.32),
+              height: screenHeight * 0.11,
               width: screenWidth * 0.8,
-              padding: EdgeInsets.symmetric(vertical: 29, horizontal: 94),
+              padding: EdgeInsets.symmetric(
+                  vertical: screenHeight * 0.03,
+                  horizontal: screenWidth * 0.22),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
@@ -103,10 +106,13 @@ class MainScreen extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 130),
+              margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.width * 0.32),
               height: screenHeight * 0.12,
               width: screenWidth * 0.8,
-              padding: EdgeInsets.symmetric(vertical: 29, horizontal: 86),
+              padding: EdgeInsets.symmetric(
+                  vertical: screenHeight * 0.03,
+                  horizontal: screenWidth * 0.20),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
@@ -141,17 +147,20 @@ class MainScreen extends StatelessWidget {
         width: screenWidth * 0.8,
         margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.08),
         decoration: BoxDecoration(
-            image: DecorationImage(
+            image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
                 fit: BoxFit.cover),
             borderRadius: BorderRadius.circular(22.0)),
         child: Row(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 130),
+              margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.width * 0.32),
               height: screenHeight * 0.12,
               width: screenWidth * 0.8,
-              padding: EdgeInsets.symmetric(vertical: 29, horizontal: 45),
+              padding: EdgeInsets.symmetric(
+                  vertical: screenHeight * 0.03,
+                  horizontal: screenWidth * 0.11),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
@@ -161,7 +170,7 @@ class MainScreen extends StatelessWidget {
                 'FLAPPY DUCK',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: MediaQuery.of(context).size.width * 0.08,
+                    fontSize: screenWidth * 0.08,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
               ),
