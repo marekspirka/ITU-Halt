@@ -49,7 +49,7 @@ class MainScreen extends StatelessWidget {
       child: Container(
         height: screenHeight * 0.25,
         width: screenWidth * 0.8,
-        margin: EdgeInsets.only(top: 25),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.08),
         decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
@@ -94,7 +94,7 @@ class MainScreen extends StatelessWidget {
       child: Container(
         height: screenHeight * 0.25,
         width: screenWidth * 0.8,
-        margin: EdgeInsets.only(top: 30),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.08),
         decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
@@ -139,7 +139,7 @@ class MainScreen extends StatelessWidget {
       child: Container(
         height: screenHeight * 0.25,
         width: screenWidth * 0.8,
-        margin: EdgeInsets.only(top: 40),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.08),
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/pattern.png'),
