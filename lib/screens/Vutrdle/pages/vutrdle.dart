@@ -38,7 +38,7 @@ class VutrdleScreen extends StatelessWidget {
             flex: 7,
             child: Container(
               color: Colors.yellow,
-              child: Grid(),
+              child: const Grid(),
             ),
           ),
           Expanded(

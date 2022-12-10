@@ -4,6 +4,8 @@ import 'package:Halt/screens/Sudoku/sudoku.dart';
 import 'package:Halt/screens/Vutrdle/pages/vutrdle.dart';
 import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/scale.dart';
+import 'package:provider/provider.dart';
+import 'package:Halt/screens/Vutrdle/controller.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -89,8 +91,10 @@ class MainScreen extends StatelessWidget {
     return Center(
         child: InkWell(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => VutrdleScreen()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => MultiProvider(providers: [
+                  ChangeNotifierProvider(create: (_) => Controller()) //
+                ], child: const VutrdleScreen())));
       },
       child: Container(
         height: SizeConfig.safeBlockVertical * 26,
