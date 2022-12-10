@@ -3,7 +3,7 @@ import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/screens/Settings/settings.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
-import 'package:Halt/screens/Vutrdle/vutrdle.dart';
+import 'package:Halt/screens/Vutrdle/pages/vutrdle.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:Halt/screens/ChooseGame/NavBar_main.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
-import 'package:Halt/screens/Vutrdle/vutrdle.dart';
+import 'package:Halt/screens/Vutrdle/pages/vutrdle.dart';
 import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/scale.dart';
 
