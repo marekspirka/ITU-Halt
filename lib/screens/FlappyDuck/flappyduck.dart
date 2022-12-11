@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:Halt/screens/FlappyDuck/Bird.dart';
 import 'package:Halt/screens/FlappyDuck/background.dart';
 import 'package:Halt/scale.dart';
-import 'package:flutter/rendering.dart';
 
 class FlappyDuckScreen extends StatefulWidget {
   @override
@@ -16,11 +15,14 @@ class FlappyDuckScreen extends StatefulWidget {
 }
 
 class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
+  Duration duration = Duration();
+  Timer? timer;
   static double birdYaxis = 0;
   double time = 0;
   double height = 0;
   double initialHeight = birdYaxis;
   bool gameHasStarted = false;
+  String twoDigits(int n) => n.toString().padLeft(2, '0');
 
   double firstBarrier = 1.8;
   double secondBarrier = 1.8 + 1.5;
@@ -41,6 +43,22 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
       thirdBarrier = 1.8 + 3;
       StartGame = false;
       score = 0;
+    });
+  }
+
+  void reset() {
+    setState(() => duration = Duration());
+  }
+
+  void startTimer() {
+    reset();
+    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
+  }
+
+  void addTime() {
+    setState(() {
+      final seconds = duration.inSeconds + 1;
+      duration = Duration(seconds: seconds);
     });
   }
 
@@ -71,6 +89,8 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
   }
 
   void GameStart() {
+    reset();
+    startTimer();
     gameHasStarted = true;
     Timer.periodic(Duration(milliseconds: 60), (timer) {
       time += 0.05;
@@ -104,6 +124,8 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
   }
 
   void _showDialog() {
+    String minutes = twoDigits(duration.inMinutes.remainder(60));
+    String seconds = twoDigits(duration.inSeconds.remainder(60));
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -132,7 +154,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                         height: SizeConfig.safeBlockVertical * 2,
                       ),
                       Text(
-                        "Čas :            xx:xx  ",
+                        "Čas :           " '$minutes:$seconds',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: SizeConfig.safeBlockHorizontal * 4,
@@ -154,7 +176,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                         height: SizeConfig.safeBlockVertical * 2,
                       ),
                       Text(
-                        "Najvyššie skóre :           " + score.toString(),
+                        "Najvyššie skóre :           " + highscore.toString(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: SizeConfig.safeBlockHorizontal * 4,
@@ -178,7 +200,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                             child: Text(
                               "MENU",
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Color(0xff6BC7EE),
                                   fontSize: SizeConfig.safeBlockHorizontal * 8),
                             ),
                             onPressed: () {
@@ -194,13 +216,14 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                             child: Text(
                               "ZNOVU",
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Color(0xff00FF29),
                                   fontSize: SizeConfig.safeBlockHorizontal * 8),
                             ),
                             onPressed: () {
                               if (score > highscore) {
                                 highscore = score;
                               }
+                              reset();
                               initState();
                               setState(() {
                                 gameHasStarted = false;
