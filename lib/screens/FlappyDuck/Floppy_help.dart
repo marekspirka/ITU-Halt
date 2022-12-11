@@ -76,7 +76,7 @@ Fifth(context) {
   return Container(
     width: SizeConfig.screenWidth * 0.55,
     margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.02),
-    child: Text('Snažte sa vyhýbať Brnenskému oroloju.',
+    child: Text('Snažte sa vyhýbať Brnenskému orloju.',
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.white,

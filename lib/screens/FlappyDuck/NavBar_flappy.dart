@@ -33,7 +33,7 @@ play(context) {
   return Container(
       width: SizeConfig.screenWidth * 0.60,
       margin: EdgeInsets.only(
-          top: SizeConfig.screenHeight * 0.35,
+          top: SizeConfig.screenHeight * 0.38,
           right: SizeConfig.screenWidth * 0.25),
       child: TextButton(
         style: TextButton.styleFrom(
@@ -57,7 +57,7 @@ sudoku(context) {
   return Container(
       margin: EdgeInsets.only(
           top: SizeConfig.screenHeight * 0.02,
-          right: SizeConfig.screenWidth * 0.05),
+          right: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
           primary: Colors.white,
@@ -78,9 +78,7 @@ sudoku(context) {
 
 vutrdle(context) {
   return Container(
-      margin: EdgeInsets.only(
-          top: SizeConfig.screenHeight * 0.01,
-          right: SizeConfig.screenWidth * 0.05),
+      margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
           primary: Colors.white,
@@ -103,7 +101,7 @@ settings(context) {
   return Container(
       width: SizeConfig.screenWidth * 0.60,
       margin: EdgeInsets.only(
-        top: SizeConfig.screenHeight * 0.05,
+        top: SizeConfig.screenHeight * 0.03,
       ),
       child: TextButton(
         style: TextButton.styleFrom(
@@ -111,7 +109,7 @@ settings(context) {
         ),
         child: Text('Nastavení',
             style: TextStyle(
-              fontSize: 35,
+              fontSize: SizeConfig.safeBlockHorizontal * 10,
             )),
         onPressed: () => {
           Navigator.pop(context),
@@ -125,17 +123,14 @@ settings(context) {
 
 quit(context) {
   return Container(
-      width: SizeConfig.screenWidth * 0.60,
-      margin: EdgeInsets.only(
-          top: SizeConfig.screenHeight * 0.05,
-          right: SizeConfig.screenWidth * 0.15),
+      margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.16),
       child: TextButton(
         style: TextButton.styleFrom(
           primary: Colors.white,
         ),
         child: Text('Konec',
             style: TextStyle(
-              fontSize: 35,
+              fontSize: SizeConfig.safeBlockHorizontal * 10,
             )),
         onPressed: () => {
           Navigator.pop(context),

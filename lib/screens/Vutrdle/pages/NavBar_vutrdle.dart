@@ -4,13 +4,15 @@ import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/screens/Settings/settings.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
 import 'package:flutter/material.dart';
+import 'package:Halt/scale.dart';
 
 class NavBarVutrdle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Drawer(
-      width: 270,
-      backgroundColor: Color(0xff2a0c7d),
+      width: SizeConfig.screenWidth * 0.60,
+      backgroundColor: Color(0xff2a0c7d).withOpacity(0.9),
       child: Container(
         alignment: Alignment.center,
         child: Column(
@@ -29,14 +31,17 @@ class NavBarVutrdle extends StatelessWidget {
 
 play(context) {
   return Container(
-      margin: const EdgeInsets.only(top: 220, right: 145),
+      width: SizeConfig.screenWidth * 0.60,
+      margin: EdgeInsets.only(
+          top: SizeConfig.screenHeight * 0.38,
+          right: SizeConfig.screenWidth * 0.25),
       child: TextButton(
         style: TextButton.styleFrom(
           primary: Colors.white,
         ),
         child: Text('Hrát',
             style: TextStyle(
-              fontSize: 35,
+              fontSize: SizeConfig.safeBlockHorizontal * 10,
             )),
         onPressed: () {
           Navigator.pop(context);
@@ -50,14 +55,16 @@ play(context) {
 
 sudoku(context) {
   return Container(
-      margin: const EdgeInsets.only(top: 20, right: 30),
+      margin: EdgeInsets.only(
+          top: SizeConfig.screenHeight * 0.02,
+          right: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
           primary: Colors.white,
         ),
         child: Text('Sudoku',
             style: TextStyle(
-              fontSize: 30,
+              fontSize: SizeConfig.safeBlockHorizontal * 8,
             )),
         onPressed: () {
           Navigator.pop(context);
@@ -71,15 +78,15 @@ sudoku(context) {
 
 flappyduck(context) {
   return Container(
-      width: 250,
-      margin: const EdgeInsets.only(top: 5, left: 35),
+      width: SizeConfig.screenWidth * 0.60,
+      margin: EdgeInsets.only(left: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
           primary: Colors.white,
         ),
         child: Text('Flappy Duck',
             style: TextStyle(
-              fontSize: 30,
+              fontSize: SizeConfig.safeBlockHorizontal * 8,
             )),
         onPressed: () => {
           Navigator.pop(context),
@@ -93,14 +100,16 @@ flappyduck(context) {
 
 settings(context) {
   return Container(
-      margin: const EdgeInsets.only(top: 30, right: 50),
+      margin: EdgeInsets.only(
+          top: SizeConfig.screenHeight * 0.03,
+          left: SizeConfig.screenWidth * 0.02),
       child: TextButton(
         style: TextButton.styleFrom(
           primary: Colors.white,
         ),
         child: Text('Nastavení',
             style: TextStyle(
-              fontSize: 35,
+              fontSize: SizeConfig.safeBlockHorizontal * 10,
             )),
         onPressed: () => {
           Navigator.pop(context),
@@ -114,14 +123,14 @@ settings(context) {
 
 quit(context) {
   return Container(
-      margin: const EdgeInsets.only(top: 20, right: 108),
+      margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.15),
       child: TextButton(
         style: TextButton.styleFrom(
           primary: Colors.white,
         ),
         child: Text('Konec',
             style: TextStyle(
-              fontSize: 35,
+              fontSize: SizeConfig.safeBlockHorizontal * 10,
             )),
         onPressed: () => {
           Navigator.pop(context),

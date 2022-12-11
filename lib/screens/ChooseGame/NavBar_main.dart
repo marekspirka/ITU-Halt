@@ -35,7 +35,7 @@ play(context) {
   return Container(
       width: SizeConfig.screenWidth * 0.60,
       margin: EdgeInsets.only(
-          top: SizeConfig.screenHeight * 0.32,
+          top: SizeConfig.screenHeight * 0.33,
           right: SizeConfig.screenWidth * 0.25),
       child: TextButton(
         style: TextButton.styleFrom(
@@ -58,7 +58,7 @@ play(context) {
 sudoku(context) {
   return Container(
       margin: EdgeInsets.only(
-          top: SizeConfig.screenHeight * 0.02,
+          top: SizeConfig.screenHeight * 0.03,
           right: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
@@ -123,9 +123,10 @@ flappyduck(context) {
 
 settings(context) {
   return Container(
+      width: SizeConfig.screenWidth * 0.60,
       margin: EdgeInsets.only(
-          top: SizeConfig.screenHeight * 0.03,
-          left: SizeConfig.screenWidth * 0.02),
+        top: SizeConfig.screenHeight * 0.03,
+      ),
       child: TextButton(
         style: TextButton.styleFrom(
           primary: Colors.white,
@@ -146,7 +147,7 @@ settings(context) {
 
 quit(context) {
   return Container(
-      margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.15),
+      margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.14),
       child: TextButton(
         style: TextButton.styleFrom(
           primary: Colors.white,
