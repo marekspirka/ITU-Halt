@@ -250,9 +250,10 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                       alignment: Alignment(0, -0.3),
                       child: gameHasStarted
                           ? Text(" ")
-                          : Text("T A P  T O  P L A Y",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white)),
+                          : Text("Š T A R T",
+                              style: TextStyle(
+                                  fontSize: SizeConfig.safeBlockHorizontal * 8,
+                                  color: Colors.white)),
                     ),
                     AnimatedContainer(
                       alignment: Alignment(firstBarrier, 1.1), //prva spodna

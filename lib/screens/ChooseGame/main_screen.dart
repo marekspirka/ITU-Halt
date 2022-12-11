@@ -65,8 +65,8 @@ class MainScreen extends StatelessWidget {
               height: SizeConfig.safeBlockVertical * 25,
               width: SizeConfig.safeBlockHorizontal * 80,
               padding: EdgeInsets.symmetric(
-                  vertical: SizeConfig.safeBlockVertical * 3.2,
-                  horizontal: SizeConfig.safeBlockHorizontal * 21),
+                  vertical: SizeConfig.safeBlockVertical * 2.8,
+                  horizontal: SizeConfig.safeBlockHorizontal * 22),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
                   borderRadius: BorderRadius.only(
@@ -115,7 +115,7 @@ class MainScreen extends StatelessWidget {
               height: SizeConfig.safeBlockVertical * 25,
               width: SizeConfig.safeBlockHorizontal * 80,
               padding: EdgeInsets.symmetric(
-                  vertical: SizeConfig.safeBlockVertical * 3.2,
+                  vertical: SizeConfig.safeBlockVertical * 2.8,
                   horizontal: SizeConfig.safeBlockHorizontal * 20),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
@@ -150,7 +150,7 @@ class MainScreen extends StatelessWidget {
         margin: EdgeInsets.only(top: SizeConfig.safeBlockHorizontal * 5),
         decoration: BoxDecoration(
             image: const DecorationImage(
-                image: AssetImage('assets/images/pattern.png'),
+                image: AssetImage('assets/images/flappy_duck.PNG'),
                 fit: BoxFit.cover),
             borderRadius: BorderRadius.circular(22.0)),
         child: Row(
@@ -161,7 +161,7 @@ class MainScreen extends StatelessWidget {
               height: SizeConfig.safeBlockVertical * 25,
               width: SizeConfig.safeBlockHorizontal * 80,
               padding: EdgeInsets.symmetric(
-                  vertical: SizeConfig.safeBlockVertical * 3.2,
+                  vertical: SizeConfig.safeBlockVertical * 2.8,
                   horizontal: SizeConfig.safeBlockHorizontal * 10),
               decoration: const BoxDecoration(
                   color: Color(0xff000075),
