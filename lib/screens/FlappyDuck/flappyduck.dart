@@ -10,13 +10,10 @@ import 'package:Halt/screens/FlappyDuck/background.dart';
 import 'package:Halt/scale.dart';
 
 class FlappyDuckScreen extends StatefulWidget {
-  @override
   State<FlappyDuckScreen> createState() => _FlappyDuckScreenState();
 }
 
 class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
-  Duration duration = Duration();
-  Timer? timer;
   static double birdYaxis = 0;
   double time = 0;
   double height = 0;
@@ -46,22 +43,6 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
     });
   }
 
-  void reset() {
-    setState(() => duration = Duration());
-  }
-
-  void startTimer() {
-    reset();
-    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
-  }
-
-  void addTime() {
-    setState(() {
-      final seconds = duration.inSeconds + 1;
-      duration = Duration(seconds: seconds);
-    });
-  }
-
   void jump() {
     setState(() {
       time = 0;
@@ -70,18 +51,18 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
   }
 
   bool checkLose() {
-    if (firstBarrier < 0.6 && firstBarrier > -0.6) {
-      if (birdYaxis < -0.6 || birdYaxis > 0.7) {
+    if (firstBarrier < 0.2 && firstBarrier > -0.2) {
+      if (birdYaxis < -0.4 || birdYaxis > 0.7) {
         return true;
       }
     }
-    if (secondBarrier < 0.9 && secondBarrier > -0.2) {
-      if (birdYaxis < -0.8 || birdYaxis > 0.4) {
+    if (secondBarrier < 0.2 && secondBarrier > -0.2) {
+      if (birdYaxis < -0.1 || birdYaxis > 0.4) {
         return true;
       }
     }
     if (thirdBarrier < 0.2 && thirdBarrier > -0.2) {
-      if (birdYaxis < -0.4 || birdYaxis > 0.7) {
+      if (birdYaxis < -0.6 || birdYaxis > 0.4) {
         return true;
       }
     }
@@ -89,8 +70,6 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
   }
 
   void GameStart() {
-    reset();
-    startTimer();
     gameHasStarted = true;
     Timer.periodic(Duration(milliseconds: 60), (timer) {
       time += 0.05;
@@ -124,8 +103,6 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
   }
 
   void _showDialog() {
-    String minutes = twoDigits(duration.inMinutes.remainder(60));
-    String seconds = twoDigits(duration.inSeconds.remainder(60));
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -151,18 +128,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(
-                        height: SizeConfig.safeBlockVertical * 2,
-                      ),
-                      Text(
-                        "Čas :           " '$minutes:$seconds',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: SizeConfig.safeBlockHorizontal * 4,
-                            color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.safeBlockVertical * 2,
+                        height: SizeConfig.safeBlockVertical * 4,
                       ),
                       Text(
                         "Aktuálne skóre :           " + score.toString(),
@@ -173,7 +139,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(
-                        height: SizeConfig.safeBlockVertical * 2,
+                        height: SizeConfig.safeBlockVertical * 3,
                       ),
                       Text(
                         "Najvyššie skóre :           " + highscore.toString(),
@@ -223,7 +189,6 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                               if (score > highscore) {
                                 highscore = score;
                               }
-                              reset();
                               initState();
                               setState(() {
                                 gameHasStarted = false;
@@ -293,7 +258,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                       alignment: Alignment(firstBarrier, 1.1), //prva spodna
                       duration: Duration(milliseconds: 0),
                       child: MyBarrier(
-                        size: SizeConfig.blockSizeVertical * 25,
+                        size: SizeConfig.blockSizeVertical * 42,
                       ),
                     ),
                     AnimatedContainer(
@@ -307,21 +272,21 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                       alignment: Alignment(thirdBarrier, 1.1), //tretia spodna
                       duration: Duration(milliseconds: 0),
                       child: MyBarrier(
-                        size: SizeConfig.blockSizeVertical * 15,
+                        size: SizeConfig.blockSizeVertical * 45,
                       ),
                     ),
                     AnimatedContainer(
                       alignment: Alignment(firstBarrier, -1.1), //prva horna
                       duration: Duration(milliseconds: 0),
                       child: MyBarrier_upsidedown(
-                        size: SizeConfig.blockSizeVertical * 15,
+                        size: SizeConfig.blockSizeVertical * 30,
                       ),
                     ),
                     AnimatedContainer(
                       alignment: Alignment(secondBarrier, -1.1), //druha horna
                       duration: Duration(milliseconds: 0),
                       child: MyBarrier_upsidedown(
-                        size: SizeConfig.blockSizeVertical * 10,
+                        size: SizeConfig.blockSizeVertical * 45,
                       ),
                     ),
                     AnimatedContainer(
@@ -333,48 +298,6 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                     ),
                   ],
                 )),
-            Container(
-              height: 15,
-              color: Colors.green,
-            ),
-            Expanded(
-              child: Container(
-                color: Colors.brown,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("SCORE",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 20)),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(score.toString(),
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 35)),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("BEST",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 20)),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(highscore.toString(),
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 35)),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ],
         ),
       ),
