@@ -14,10 +14,10 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
         drawer: NavBar(),
         appBar: AppBar(
-          title: new Text('Halt.'),
-          titleTextStyle: TextStyle(fontSize: 35),
+          title: const Text('Halt.'),
+          titleTextStyle: const TextStyle(fontSize: 35),
           centerTitle: true,
-          backgroundColor: Color(0xff000075),
+          backgroundColor: const Color(0xff000075),
           elevation: 2,
           toolbarHeight: 60,
         ),

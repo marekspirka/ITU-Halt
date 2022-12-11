@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:Halt/screens/Vutrdle/constants/words.dart';
 import 'package:Halt/screens/Vutrdle/pages/NavBar_vutrdle.dart';
 import 'package:Halt/screens/Vutrdle/pages/Vutrdle_help.dart';
@@ -59,29 +60,30 @@ class _VutrdleScreenState extends State<VutrdleScreen> {
         elevation: 2,
         toolbarHeight: 60,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 7,
-            child: Container(
-              color: Colors.yellow,
-              child: const Grid(),
+      body: Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [backgroundPurple, backgroundPink])),
+        child: Column(
+          children: [
+            const Expanded(
+              flex: 7,
+              child: Grid(),
             ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Container(
-              color: Colors.green,
+            Expanded(
+              flex: 4,
               child: Column(
-                children: [
+                children: const [
                   KeyboardRow(min: 1, max: 10),
                   KeyboardRow(min: 11, max: 19),
                   KeyboardRow(min: 20, max: 29),
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       // Container(
       //   decoration: const BoxDecoration(

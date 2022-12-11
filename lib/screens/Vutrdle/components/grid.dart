@@ -1,4 +1,5 @@
 import 'package:Halt/screens/Vutrdle/components/tile.dart';
+import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class Grid extends StatelessWidget {
@@ -10,16 +11,19 @@ class Grid extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
         itemCount: 30, //set the number of rows
-        padding: EdgeInsets.fromLTRB(36, 20, 36, 20),
+        padding: const EdgeInsets.fromLTRB(36, 20, 36, 20),
         physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisSpacing: 4,
           crossAxisSpacing: 4,
           crossAxisCount: 5,
         ),
         itemBuilder: (context, index) {
           return Container(
-            decoration: BoxDecoration(border: Border.all()),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: wordleTileBackground,
+            ),
             child: Tile(
               index: index,
             ),
