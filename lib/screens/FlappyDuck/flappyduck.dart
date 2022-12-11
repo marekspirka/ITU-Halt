@@ -15,10 +15,9 @@ class FlappyDuckScreen extends StatefulWidget {
 }
 
 class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
-  Duration duration = Duration();
-  Timer? timer;
   static double birdYaxis = 0;
   double time = 0;
+  late Timer _timer;
   double height = 0;
   double initialHeight = birdYaxis;
   bool gameHasStarted = false;
@@ -30,6 +29,64 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
   bool StartGame = false;
   int score = 0;
   int highscore = 0;
+
+  String hoursString = "00", minutesString = "00", secondsString = "00";
+
+  int hours = 0, minutes = 0, second = 0;
+
+  void startTime() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      _startSeconds();
+    });
+  }
+
+  void _startSeconds() {
+    setState(() {
+      if (second < 59) {
+        second++;
+        secondsString = second.toString();
+        if (secondsString.length == 1) {
+          secondsString = "0" + secondsString;
+        }
+      } else {
+        _startMinutes();
+      }
+    });
+  }
+
+  void Reset() {
+    _timer.cancel();
+  }
+
+  void _startMinutes() {
+    setState(() {
+      if (minutes < 59) {
+        second = 0;
+        secondsString = "00";
+        minutes++;
+        minutesString = minutes.toString();
+        if (minutesString.length == 1) {
+          minutesString = "0" + minutesString;
+        }
+      } else {
+        _startHours();
+      }
+    });
+  }
+
+  void _startHours() {
+    setState(() {
+      second = 0;
+      minutes = 0;
+      secondsString = "00";
+      minutesString = "00";
+      hours++;
+      hoursString = hours.toString();
+      if (hoursString.length == 1) {
+        hoursString = "0" + hoursString;
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -43,22 +100,6 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
       thirdBarrier = 1.8 + 3;
       StartGame = false;
       score = 0;
-    });
-  }
-
-  void reset() {
-    setState(() => duration = Duration());
-  }
-
-  void startTimer() {
-    reset();
-    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
-  }
-
-  void addTime() {
-    setState(() {
-      final seconds = duration.inSeconds + 1;
-      duration = Duration(seconds: seconds);
     });
   }
 
@@ -89,8 +130,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
   }
 
   void GameStart() {
-    reset();
-    startTimer();
+    startTime();
     gameHasStarted = true;
     Timer.periodic(Duration(milliseconds: 60), (timer) {
       time += 0.05;
@@ -124,8 +164,6 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
   }
 
   void _showDialog() {
-    String minutes = twoDigits(duration.inMinutes.remainder(60));
-    String seconds = twoDigits(duration.inSeconds.remainder(60));
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -154,7 +192,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                         height: SizeConfig.safeBlockVertical * 2,
                       ),
                       Text(
-                        "Čas :           " '$minutes:$seconds',
+                        "Čas :            $hoursString:$minutesString:$secondsString",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: SizeConfig.safeBlockHorizontal * 4,
@@ -223,7 +261,6 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                               if (score > highscore) {
                                 highscore = score;
                               }
-                              reset();
                               initState();
                               setState(() {
                                 gameHasStarted = false;
@@ -238,6 +275,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
             ),
           );
         });
+    Reset();
   }
 
   @override
