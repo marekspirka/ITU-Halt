@@ -93,8 +93,10 @@ class MainScreen extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => MultiProvider(providers: [
-                  ChangeNotifierProvider(create: (_) => Controller()) //
-                ], child: const VutrdleScreen())));
+                  ChangeNotifierProvider(
+                      create: (_) =>
+                          Controller()) //make controller accessible throughout the project
+                ], child: VutrdleScreen())));
       },
       child: Container(
         height: SizeConfig.safeBlockVertical * 26,

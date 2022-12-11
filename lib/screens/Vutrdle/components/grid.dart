@@ -1,3 +1,4 @@
+import 'package:Halt/screens/Vutrdle/components/tile.dart';
 import 'package:flutter/material.dart';
 
 class Grid extends StatelessWidget {
@@ -19,7 +20,9 @@ class Grid extends StatelessWidget {
         itemBuilder: (context, index) {
           return Container(
             decoration: BoxDecoration(border: Border.all()),
-            child: Center(child: Text(index.toString())),
+            child: Tile(
+              index: index,
+            ),
           );
         });
   }

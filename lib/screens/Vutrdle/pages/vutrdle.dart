@@ -1,16 +1,43 @@
-import 'package:Halt/screens/Vutrdle/data/keys_map.dart';
+import 'dart:math';
+
+import 'package:Halt/screens/Vutrdle/constants/words.dart';
 import 'package:Halt/screens/Vutrdle/pages/NavBar_vutrdle.dart';
 import 'package:Halt/screens/Vutrdle/pages/Vutrdle_help.dart';
 import 'package:Halt/screens/Vutrdle/components/grid.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../components/keyboardRow.dart';
+import '../controller.dart';
 
-class VutrdleScreen extends StatelessWidget {
+class VutrdleScreen extends StatefulWidget {
   const VutrdleScreen({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<VutrdleScreen> createState() => _VutrdleScreenState();
+}
+
+class _VutrdleScreenState extends State<VutrdleScreen> {
+  late String _word;
+
+  @override
+  void initState() {
+    // generate random int up to the maximum in the list of words
+    final r = Random().nextInt(words.length);
+    _word = words[r];
+
+    // set an instance of a build context - at the end of a frame when we DO have an instance
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      // call setCorrectWord with the randomly chosen word
+      Provider.of<Controller>(context, listen: false)
+          .setCorrectWord(word: _word);
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
