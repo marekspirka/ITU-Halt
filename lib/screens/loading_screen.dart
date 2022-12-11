@@ -57,7 +57,7 @@ class _LoadingPageState extends State<LoadingPage> {
                 child: Container(
                     height: height * 0.6, //height to 60% of screen height
                     width: width * 0.6, //width t 60% of screen width
-                    child: Image.asset('assets/images/ITU_logo_duck.png')))),
+                    child: Image.asset('assets/images/Logo.png')))),
       )),
     );
   }
