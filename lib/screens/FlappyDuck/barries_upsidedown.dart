@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class MyBarrier extends StatelessWidget {
+class MyBarrier_upsidedown extends StatelessWidget {
   final size;
 
-  MyBarrier({this.size});
+  MyBarrier_upsidedown({this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class MyBarrier extends StatelessWidget {
         height: size,
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/barriers.png'),
+              image: AssetImage('assets/images/barriers_upsidedown.png'),
               fit: BoxFit.cover),
         ));
   }

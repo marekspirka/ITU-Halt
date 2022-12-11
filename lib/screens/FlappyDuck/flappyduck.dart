@@ -1,11 +1,14 @@
-import 'dart:math';
+import 'dart:async';
 import 'package:Halt/screens/FlappyDuck/Floppy_help.dart';
+import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/FlappyDuck/NavBar_flappy.dart';
 import 'package:Halt/screens/FlappyDuck/barriers.dart';
-import 'package:flutter/gestures.dart';
+import 'package:Halt/screens/FlappyDuck/barries_upsidedown.dart';
 import 'package:flutter/material.dart';
 import 'package:Halt/screens/FlappyDuck/Bird.dart';
-import 'dart:async';
+import 'package:Halt/screens/FlappyDuck/background.dart';
+import 'package:Halt/scale.dart';
+import 'package:flutter/rendering.dart';
 
 class FlappyDuckScreen extends StatefulWidget {
   @override
@@ -13,59 +16,213 @@ class FlappyDuckScreen extends StatefulWidget {
 }
 
 class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
-  static double BirdY = 0;
+  static double birdYaxis = 0;
   double time = 0;
   double height = 0;
-  double inHeaight = BirdY;
-  bool gameStarted = false;
-  static double BarrierX_one = 1;
-  double BarrierX_two = BarrierX_one + 1;
+  double initialHeight = birdYaxis;
+  bool gameHasStarted = false;
+
+  double firstBarrier = 1.8;
+  double secondBarrier = 1.8 + 1.5;
+  double thirdBarrier = 1.8 + 3;
+  bool StartGame = false;
+  int score = 0;
+  int highscore = 0;
+
+  @override
+  void initState() {
+    setState(() {
+      birdYaxis = 0;
+      time = 0;
+      height = 0;
+      initialHeight = birdYaxis;
+      firstBarrier = 1.8;
+      secondBarrier = 1.8 + 1.5;
+      thirdBarrier = 1.8 + 3;
+      StartGame = false;
+      score = 0;
+    });
+  }
 
   void jump() {
     setState(() {
       time = 0;
-      inHeaight = BirdY;
+      initialHeight = birdYaxis;
     });
   }
 
+  bool checkLose() {
+    if (firstBarrier < 0.6 && firstBarrier > -0.6) {
+      if (birdYaxis < -0.6 || birdYaxis > 0.7) {
+        return true;
+      }
+    }
+    if (secondBarrier < 0.9 && secondBarrier > -0.2) {
+      if (birdYaxis < -0.8 || birdYaxis > 0.4) {
+        return true;
+      }
+    }
+    if (thirdBarrier < 0.2 && thirdBarrier > -0.2) {
+      if (birdYaxis < -0.4 || birdYaxis > 0.7) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   void GameStart() {
-    gameStarted = true;
-    Timer.periodic(Duration(milliseconds: 150), (timer) {
+    gameHasStarted = true;
+    Timer.periodic(Duration(milliseconds: 60), (timer) {
       time += 0.05;
       height = -4.9 * time * time + 2.8 * time;
       setState(() {
-        BirdY = inHeaight - height;
-        BarrierX_one -= 0.1;
-        BarrierX_two -= 0.1;
-      });
-
-      setState(() {
-        if (BarrierX_one < -2) {
-          BarrierX_one += 2.2;
+        birdYaxis = initialHeight - height;
+        if (firstBarrier < -2) {
+          score++;
+          firstBarrier += 4.5;
         } else {
-          BarrierX_one -= 0.05;
+          firstBarrier -= 0.04;
+        }
+        if (secondBarrier < -2) {
+          score++;
+          secondBarrier += 4.5;
+        } else {
+          secondBarrier -= 0.04;
+        }
+        if (thirdBarrier < -2) {
+          score++;
+          thirdBarrier += 4.5;
+        } else {
+          thirdBarrier -= 0.04;
         }
       });
-
-      setState(() {
-        if (BarrierX_two < -2) {
-          BarrierX_two += 2.2;
-        } else {
-          BarrierX_two -= 0.05;
-        }
-      });
-      if (BirdY > 1) {
+      if (birdYaxis > 1.3 || checkLose()) {
         timer.cancel();
-        gameStarted = false;
+        _showDialog();
       }
     });
   }
 
+  void _showDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: Colors.black.withOpacity(0.8),
+            child: Container(
+              height: SizeConfig.safeBlockVertical * 35,
+              width: SizeConfig.safeBlockHorizontal * 80,
+              child: Column(children: [
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 2,
+                      ),
+                      Text(
+                        "KONEC",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConfig.safeBlockHorizontal * 8,
+                            color: Colors.red),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 2,
+                      ),
+                      Text(
+                        "Čas :            xx:xx  ",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConfig.safeBlockHorizontal * 4,
+                            color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 2,
+                      ),
+                      Text(
+                        "Aktuálne skóre :           " + score.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConfig.safeBlockHorizontal * 4,
+                            color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 2,
+                      ),
+                      Text(
+                        "Najvyššie skóre :           " + score.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConfig.safeBlockHorizontal * 4,
+                            color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          SizeConfig.screenWidth * 0.09,
+                          0,
+                          SizeConfig.screenWidth * 0.05,
+                          0),
+                      child: Row(
+                        children: [
+                          TextButton(
+                            child: Text(
+                              "MENU",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: SizeConfig.safeBlockHorizontal * 8),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MainScreen()));
+                            },
+                          ),
+                          SizedBox(width: SizeConfig.safeBlockHorizontal * 3.3),
+                          TextButton(
+                            child: Text(
+                              "ZNOVU",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: SizeConfig.safeBlockHorizontal * 8),
+                            ),
+                            onPressed: () {
+                              if (score > highscore) {
+                                highscore = score;
+                              }
+                              initState();
+                              setState(() {
+                                gameHasStarted = false;
+                              });
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
+                      ),
+                    )),
+              ]),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return GestureDetector(
       onTap: () {
-        if (gameStarted) {
+        if (gameHasStarted) {
           jump();
         } else {
           GameStart();
@@ -95,53 +252,104 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                 flex: 2,
                 child: Stack(
                   children: [
+                    Brno(),
                     AnimatedContainer(
-                      alignment: Alignment(0, BirdY),
-                      duration: const Duration(milliseconds: 0),
-                      color: Colors.blue,
+                      alignment: Alignment(0, birdYaxis),
+                      duration: Duration(milliseconds: 0),
                       child: Bird(),
                     ),
                     Container(
                       alignment: Alignment(0, -0.3),
-                      child: gameStarted
+                      child: gameHasStarted
                           ? Text(" ")
-                          : Text("TAP TO PLAY",
+                          : Text("T A P  T O  P L A Y",
                               style:
                                   TextStyle(fontSize: 20, color: Colors.white)),
                     ),
                     AnimatedContainer(
-                      alignment: Alignment(BarrierX_one, 1.1),
+                      alignment: Alignment(firstBarrier, 1.1), //prva spodna
                       duration: Duration(milliseconds: 0),
-                      child: Barrier(
-                        size: 200.0,
+                      child: MyBarrier(
+                        size: SizeConfig.blockSizeVertical * 25,
                       ),
                     ),
                     AnimatedContainer(
-                      alignment: Alignment(BarrierX_one, -1.1),
+                      alignment: Alignment(secondBarrier, 1.1), //druha spodna
                       duration: Duration(milliseconds: 0),
-                      child: Barrier(
-                        size: 200.0,
+                      child: MyBarrier(
+                        size: SizeConfig.blockSizeVertical * 30,
                       ),
                     ),
                     AnimatedContainer(
-                      alignment: Alignment(BarrierX_two, 1.1),
+                      alignment: Alignment(thirdBarrier, 1.1), //tretia spodna
                       duration: Duration(milliseconds: 0),
-                      child: Barrier(
-                        size: 150.0,
+                      child: MyBarrier(
+                        size: SizeConfig.blockSizeVertical * 15,
                       ),
                     ),
                     AnimatedContainer(
-                      alignment: Alignment(BarrierX_two, -1.1),
+                      alignment: Alignment(firstBarrier, -1.1), //prva horna
                       duration: Duration(milliseconds: 0),
-                      child: Barrier(
-                        size: 150.0,
+                      child: MyBarrier_upsidedown(
+                        size: SizeConfig.blockSizeVertical * 15,
+                      ),
+                    ),
+                    AnimatedContainer(
+                      alignment: Alignment(secondBarrier, -1.1), //druha horna
+                      duration: Duration(milliseconds: 0),
+                      child: MyBarrier_upsidedown(
+                        size: SizeConfig.blockSizeVertical * 10,
+                      ),
+                    ),
+                    AnimatedContainer(
+                      alignment: Alignment(thirdBarrier, -1.1), //tretia horna
+                      duration: Duration(milliseconds: 0),
+                      child: MyBarrier_upsidedown(
+                        size: SizeConfig.blockSizeVertical * 25,
                       ),
                     ),
                   ],
                 )),
+            Container(
+              height: 15,
+              color: Colors.green,
+            ),
             Expanded(
               child: Container(
-                color: Colors.green,
+                color: Colors.brown,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("SCORE",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 20)),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(score.toString(),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 35)),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("BEST",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 20)),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(highscore.toString(),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 35)),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
