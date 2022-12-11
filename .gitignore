@@ -42,3 +42,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+android/.gradle/buildOutputCleanup/
+
+android/.gradle/7.4/executionHistory/
+
+android/.gradle/7.4/fileHashes/
+
+*.probe
+
+*.properties
+
+*.java
