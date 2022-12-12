@@ -1,5 +1,7 @@
-import 'package:Halt/screens/Sudoku/components/blok_char.dart';
-import 'package:Halt/screens/Sudoku/components/box_inner.dart';
+import '../../scale.dart';
+import 'package:Halt/screens/Sudoku/constants/sudoku_colors.dart';
+import 'package:Halt/screens/Sudoku/components/blok_item.dart';
+import 'package:Halt/screens/Sudoku/components/inner_blok.dart';
 import 'package:Halt/screens/Sudoku/components/focus_class.dart';
 import 'package:Halt/screens/Sudoku/NavBar_sudoku.dart';
 import 'package:Halt/screens/Sudoku/Sudoku_help.dart';
@@ -19,7 +21,7 @@ class SudokuScreen extends StatefulWidget {
 
 class _SudokuScreenState extends State<SudokuScreen> {
   // TODO naše proměnné
-  List<BoxInner> boxInners = [];
+  List<InnerBlok> innerBloks = [];
   FocusClass focusClass = FocusClass();
   bool isFinish = false;
   String? tapBoxIndex;
@@ -43,6 +45,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       drawer: NavBarSudoku(),
       endDrawer: NavBarSudokuHelp(),
@@ -57,7 +60,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
         title: const Text('Halt.'),
         titleTextStyle: const TextStyle(fontSize: 35),
         centerTitle: true,
-        backgroundColor: const Color(0xff270e17),
+        backgroundColor: navBarBrown,
         elevation: 2,
         toolbarHeight: 60,
       ),
@@ -65,17 +68,15 @@ class _SudokuScreenState extends State<SudokuScreen> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xff4E1C2E),
-              Color(0xffAA6728),
+              backgroundBrown,
+              backgroundOrange,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
         ),
-        // sudoku pattern TODO
 
-        //child: Container(
-        //  alignment: Alignment.center,
+        // TODO sudoku pattern
         child: Column(
           children: [
             // TODO vrchní část
@@ -91,11 +92,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
             Expanded(
               flex: 5,
               child: Container(
-                //color: Colors.blueGrey,
-                //padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                color: Colors.black.withOpacity(0.25),
-                //height: 50,
                 width: double.maxFinite,
                 alignment: Alignment.center,
                 child: GridView.builder(
@@ -109,17 +106,14 @@ class _SudokuScreenState extends State<SudokuScreen> {
                     mainAxisSpacing: 6.0,
                   ),
                   itemBuilder: (context, index) {
-                    BoxInner boxInner = boxInners[index];
+                    InnerBlok innerBlok = innerBloks[index];
 
                     return Container(
-                      //height: 50,
-                      //padding: const EdgeInsets.all(20),
-
                       width: double.maxFinite,
                       alignment: Alignment.center,
                       child: GridView.builder(
                         //itemCount: 9,
-                        itemCount: boxInner.blokChars.length,
+                        itemCount: innerBlok.blokItem.length,
                         shrinkWrap: true,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -129,67 +123,48 @@ class _SudokuScreenState extends State<SudokuScreen> {
                           mainAxisSpacing: 2.5,
                         ),
                         physics: const NeverScrollableScrollPhysics(),
-                        //itemBuilder: (buildContext, index) {
                         itemBuilder: (context, indexChar) {
-                          //
-                          BlokChar blokChar = boxInner.blokChars[indexChar];
-                          //Color color = Colors.yellow.shade100;
-                          Color color = const Color(0x66D9D9D9); // 66 = 40%
+                          BlokItem blokChar = innerBlok.blokItem[indexChar];
+                          Color color = sudokuWhite40;
                           Color colorText = Colors.black;
+                          bool isDefault = blokChar.isDefault;
 
                           // change color base condition
-
                           if (isFinish) {
                             color = Colors.green;
-                          } else if (blokChar.isFocus && blokChar.text != "") {
-                            color = const Color(0xD9F1C942); //D9 = 85%
-                          } else if (blokChar.isFocus && blokChar.text == "") {
-                            color = const Color(0x66F1C942); //66 = 40%
-                          } else if (blokChar.isDefault) {
-                            color = const Color(0xBFD9D9D9); // BF = 75%
-                            //color = Colors.grey.shade400;
+                            // highlight lines or same numbers
+                          } else if (blokChar.isFocusCross ||
+                              blokChar.isFocusNumber) {
+                            color = isDefault ? sudokuYellow85 : sudokuYellow40;
+                            // default numbers
+                          } else if (isDefault) {
+                            color = sudokuWhite75;
                           }
 
-                          if (tapBoxIndex == "${index}-${indexChar}" &&
-                              !isFinish) {
-                            color = const Color(0xA6F1C942); //99 = 65%;
+                          // box with we working
+                          if (tapBoxIndex == "$index-$indexChar" &&
+                              !isDefault &&
+                              blokChar.isFocus) {
+                            color = sudokuYellow65;
                           }
-                          //if (this.isFinish) {
-                          //  colorText = Colors.white;
-                          //} else
+
+                          // fault
                           if (blokChar.isExist && blokChar.text != "") {
-                            if (blokChar.isDefault) {
-                              color = Colors.red.withOpacity(0.85); //D9 = 85%
-                            } else {
-                              color = Colors.red.withOpacity(0.4); //66 = 40%
-                            }
+                            color = isDefault ? sudokuRed85 : sudokuRed40;
                           }
-                          //
+
                           return Container(
-                            /*decoration: BoxDecoration(
-                              color: Colors.yellow,
-                              borderRadius: BorderRadius.circular(5),
-                            ),*/
-                            //color: color,
                             alignment: Alignment.center,
                             child: TextButton(
-                              onPressed: blokChar.isDefault
-                                  ? null
-                                  : () => setFocus(index, indexChar),
+                              onPressed: () => setFocus(index, indexChar,
+                                  "${blokChar.text}", isDefault),
                               style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all(color),
-                                  /*padding:
-                                      MaterialStateProperty.all<EdgeInsets>(
-                                          EdgeInsets.all(15)),
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.red),*/
                                   shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0),
-                                    //side:  BorderSide(color: Colors.red)
                                   ))),
                               child: Text(
                                 "${blokChar.text}",
@@ -210,12 +185,8 @@ class _SudokuScreenState extends State<SudokuScreen> {
             Expanded(
               flex: 2,
               child: Container(
-                // color: Colors.lightGreen,
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                color: Colors.black.withOpacity(0.25),
-                //height: 50,
                 width: double.maxFinite,
-                //width: 200,
                 alignment: Alignment.center,
                 child: GridView.builder(
                   shrinkWrap: true,
@@ -228,65 +199,65 @@ class _SudokuScreenState extends State<SudokuScreen> {
                   ),
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    /*return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.cyanAccent,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      //height: 50,
-                      //padding: const EdgeInsets.all(20),
-                      //width: double.maxFinite,
-                      alignment: Alignment.center,
-                      child: Text("${index + 1}"),
-                    );*/
-                    String text;
+                    String myIndex;
+                    String smallIndex;
                     int? input;
 
                     if (index == 9) {
-                      text = "X";
+                      myIndex = "X";
+                      smallIndex = "";
                       input = null;
                     } else {
-                      text = "${index + 1}";
+                      myIndex = "${index + 1}";
+                      smallIndex = "$index";
                       input = index + 1;
                     }
 
                     return ElevatedButton(
                       onPressed: () => setInput(input),
+
+                      //onPressed: blokChar.isDefault ? null : () => setFocus(index, indexChar, false),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xA6D9D9D9), // A6 = 65%
+                        backgroundColor: sudokuWhite65,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5), // <-- Radius
                         ),
                       ),
-                      /*style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color(0xA6D9D9D9)) // A6 = 65%
-                          ),*/
-                      child: Text(
-                        text,
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 20),
+
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            myIndex,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 24,
+                            ),
+                          ),
+                          Text(
+                            smallIndex,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   },
                 ),
               ),
             ),
+
             // TODO nejspodnější část
             Expanded(
               flex: 1,
               child: Container(
-                //color: Colors.orangeAccent,
-                color: Colors.black.withOpacity(0.25),
-                //padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                 padding: const EdgeInsets.symmetric(vertical: 5),
-                //padding: const EdgeInsets.all(15),
-                //height: 50,
                 width: double.maxFinite,
-                //width: 200,
                 alignment: Alignment.center,
                 child: GridView.builder(
-                  itemCount: 3,
+                  itemCount: 4,
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   physics: const NeverScrollableScrollPhysics(),
@@ -297,55 +268,57 @@ class _SudokuScreenState extends State<SudokuScreen> {
                     mainAxisSpacing: 5.0,
                   ),
                   itemBuilder: (context, index) {
-                    /*return Container(
-                      color: Colors.blueAccent,
-                      //height: 50,
-                      //padding: const EdgeInsets.all(20),
-                      //width: double.maxFinite,
-                      alignment: Alignment.center,
-                      child: Text("${index + 1}"),
-                    );*/
-
                     if (index == 0) {
+                      // TODO nastavení
                       return ElevatedButton(
                         //onPressed: () => setInput(index + 1),
                         onPressed: () => generatePuzzle(),
 
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.black.withOpacity(0.5),
-                          ),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(sudokuBlack50),
                         ),
-                        child: const Icon(Icons.refresh),
+                        child: const Icon(Icons.settings_rounded),
                       );
                     } else if (index == 1) {
+                      // TODO nová hra -> od začátku by bylo lepší
                       return ElevatedButton(
                         //onPressed: () => setInput(index + 1),
                         onPressed: () => generatePuzzle(),
 
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.black.withOpacity(0.5)),
+                            sudokuBlack50,
+                          ),
+                        ),
+                        child: const Icon(Icons.autorenew_rounded),
+                      );
+                    } else if (index == 2) {
+                      // TODO tužka na malé čísla
+                      return ElevatedButton(
+                        //onPressed: () => setInput(index + 1),
+                        onPressed: () => generatePuzzle(),
+
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(sudokuBlack50),
                         ),
 
-                        child: Text(
-                          "${index + 1}",
-                          style: const TextStyle(color: Colors.white),
-                        ),
+                        child: const Icon(Icons.create_rounded),
                       );
                     } else {
+                      // TODO zpátky
                       return ElevatedButton(
                         //onPressed: () => setInput(index + 1),
                         onPressed: () => generatePuzzle(),
 
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.black.withOpacity(0.5)),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(sudokuBlack50),
                         ),
 
-                        child: Text(
-                          "${index + 1}",
-                          style: const TextStyle(color: Colors.white),
+                        child: const Icon(
+                          Icons.arrow_back_rounded,
                         ),
                       );
                     }
@@ -361,7 +334,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
 
   generatePuzzle() {
     // install plugins sudoku generator to generate one
-    boxInners.clear();
+    innerBloks.clear();
     var sudokuGenerator =
         SudokuGenerator(emptySquares: 36); //TODO počet volných polí = obtížnost
     // then we populate to get a possible combination
@@ -385,17 +358,16 @@ class _SudokuScreenState extends State<SudokuScreen> {
               entry.key * sqrt(sudokuGenerator.newSudoku.length).toInt() +
                   (entryIn.key % 9).toInt() ~/ 3;
 
-          //if (boxInners.where((element) => element.index == index).length ==  0) {
-          if (boxInners.where((element) => element.index == index).isEmpty) {
-            boxInners.add(BoxInner(index, []));
+          if (innerBloks.where((element) => element.index == index).isEmpty) {
+            innerBloks.add(InnerBlok(index, []));
           }
 
-          BoxInner boxInner =
-              boxInners.where((element) => element.index == index).first;
+          InnerBlok innerBlok =
+              innerBloks.where((element) => element.index == index).first;
 
-          boxInner.blokChars.add(BlokChar(
+          innerBlok.blokItem.add(BlokItem(
             entryIn.value == 0 ? "" : entryIn.value.toString(),
-            index: boxInner.blokChars.length,
+            index: innerBlok.blokItem.length,
             isDefault: entryIn.value != 0,
             isCorrect: entryIn.value != 0,
             correctText: tempListCompletes[entryIn.key].toString(),
@@ -403,54 +375,83 @@ class _SudokuScreenState extends State<SudokuScreen> {
         });
       },
     );
-
-    // complte generate puzzle sudoku
+    // complete generate puzzle sudoku
   }
 
-  setFocus(int index, int indexChar) {
+  setFocus(int index, int indexChar, String textString, bool defaultNumber) {
     tapBoxIndex = "$index-$indexChar";
-    focusClass.setData(index, indexChar);
-    showFocusCenterLine();
+    BlokItem item = innerBloks[index].blokItem[indexChar];
+    if (item.isFocusCross || item.isFocusNumber) {
+      item.isFocus = false;
+      focusClass.setData(null, null, null);
+      unsetFocus();
+    } else {
+      item.isFocus = true;
+      focusClass.setData(index, indexChar, textString);
+      if (defaultNumber) {
+        showFocusNumber(textString);
+      } else {
+        showFocusCross();
+      }
+    }
     setState(() {});
   }
 
-  void showFocusCenterLine() {
+  unsetFocus() {
+    for (var element in innerBloks) {
+      element.clearFocus();
+    }
+  }
+
+  void showFocusCross() {
     // set focus color for line vertical & horizontal
     int rowNoBox = focusClass.indexBox! ~/ 3;
     int colNoBox = focusClass.indexBox! % 3;
 
-    this.boxInners.forEach((element) => element.clearFocus());
+    for (var element in innerBloks) {
+      element.clearFocus();
+    }
 
-    boxInners.where((element) => element.index ~/ 3 == rowNoBox).forEach(
-        (e) => e.setFocus(focusClass.indexChar!, Direction.Horizontal));
+    innerBloks.where((element) => element.index ~/ 3 == rowNoBox).forEach(
+        (e) => e.setFocus("", focusClass.indexChar!, Direction.horizontal));
 
-    boxInners
-        .where((element) => element.index % 3 == colNoBox)
-        .forEach((e) => e.setFocus(focusClass.indexChar!, Direction.Vertical));
+    innerBloks.where((element) => element.index % 3 == colNoBox).forEach(
+        (e) => e.setFocus("", focusClass.indexChar!, Direction.vertical));
+  }
+
+  void showFocusNumber(String textString) {
+    // set focus color for same numbers
+
+    for (var element in innerBloks) {
+      element.clearFocus();
+    }
+
+    innerBloks.where((element) => element.index == element.index).forEach(
+        (e) => e.setFocus(textString, focusClass.indexChar!, Direction.all));
   }
 
   setInput(int? number) {
-    // set input data based grid
-    // or clear out data
-    if (focusClass.indexBox == null) return;
-    if (boxInners[focusClass.indexBox!].blokChars[focusClass.indexChar!].text ==
-            number.toString() ||
-        number == null) {
-      boxInners.forEach((element) {
-        element.clearFocus();
+    // box is default
+    if (focusClass.indexBox == null ||
+        innerBloks[focusClass.indexBox!]
+            .blokItem[focusClass.indexChar!]
+            .isDefault) {
+      return;
+    }
+    BlokItem item =
+        innerBloks[focusClass.indexBox!].blokItem[focusClass.indexChar!];
+    // set input data or clear data
+    if (item.text == number.toString() || number == null) {
+      for (var element in innerBloks) {
         element.clearExist();
-      });
-      boxInners[focusClass.indexBox!]
-          .blokChars[focusClass.indexChar!]
-          .setEmpty();
-      tapBoxIndex = null;
+      }
+      item.setEmpty();
+      //tapBoxIndex = null;
       isFinish = false;
       showSameInputOnSameLine();
+      // set input data to empty box
     } else {
-      boxInners[focusClass.indexBox!]
-          .blokChars[focusClass.indexChar!]
-          .setText("$number");
-
+      item.setText("$number");
       showSameInputOnSameLine();
 
       checkFinish();
@@ -466,20 +467,22 @@ class _SudokuScreenState extends State<SudokuScreen> {
     int colNoBox = focusClass.indexBox! % 3;
 
     String textInput =
-        boxInners[focusClass.indexBox!].blokChars[focusClass.indexChar!].text!;
+        innerBloks[focusClass.indexBox!].blokItem[focusClass.indexChar!].text!;
 
-    boxInners.forEach((element) => element.clearExist());
+    for (var element in innerBloks) {
+      element.clearExist();
+    }
 
-    boxInners.where((element) => element.index ~/ 3 == rowNoBox).forEach((e) =>
+    innerBloks.where((element) => element.index ~/ 3 == rowNoBox).forEach((e) =>
         e.setExistValue(focusClass.indexChar!, focusClass.indexBox!, textInput,
-            Direction.Horizontal));
+            Direction.horizontal));
 
-    boxInners.where((element) => element.index % 3 == colNoBox).forEach((e) =>
+    innerBloks.where((element) => element.index % 3 == colNoBox).forEach((e) =>
         e.setExistValue(focusClass.indexChar!, focusClass.indexBox!, textInput,
-            Direction.Vertical));
+            Direction.vertical));
 
-    List<BlokChar> exists = boxInners
-        .map((element) => element.blokChars)
+    List<BlokItem> exists = innerBloks
+        .map((element) => element.blokItem)
         .expand((element) => element)
         .where((element) => element.isExist)
         .toList();
@@ -488,8 +491,8 @@ class _SudokuScreenState extends State<SudokuScreen> {
   }
 
   void checkFinish() {
-    int totalUnfinish = boxInners
-        .map((e) => e.blokChars)
+    int totalUnfinish = innerBloks
+        .map((e) => e.blokItem)
         .expand((element) => element)
         .where((element) => !element.isCorrect)
         .length;
