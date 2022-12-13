@@ -5,6 +5,9 @@ import 'package:Halt/screens/Settings/settings.dart';
 import 'package:Halt/screens/Vutrdle/pages/vutrdle.dart';
 import 'package:flutter/material.dart';
 import 'package:Halt/scale.dart';
+import 'package:provider/provider.dart';
+
+import '../Vutrdle/controller.dart';
 
 class NavBarSudoku extends StatelessWidget {
   @override
@@ -68,10 +71,12 @@ vutrdle(context) {
             )),
         onPressed: () => {
           Navigator.pop(context),
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => VutrdleScreen()),
-          )
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => MultiProvider(providers: [
+                    ChangeNotifierProvider(
+                        create: (_) =>
+                            Controller()) //make controller accessible throughout the project
+                  ], child: VutrdleScreen()))),
         },
       ));
 }
