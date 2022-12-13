@@ -43,7 +43,7 @@ class _VutrdleScreenState extends State<VutrdleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBarVutrdle(),
+      drawer: const NavBarVutrdle(),
       endDrawer: NavBarVutrdleHelp(),
       appBar: AppBar(
         actions: [

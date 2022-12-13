@@ -19,14 +19,8 @@ class Grid extends StatelessWidget {
           crossAxisCount: 5,
         ),
         itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: wordleTileBackground,
-            ),
-            child: Tile(
-              index: index,
-            ),
+          return Tile(
+            index: index,
           );
         });
   }

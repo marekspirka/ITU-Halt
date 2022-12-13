@@ -26,12 +26,15 @@ class KeyboardRow extends StatelessWidget {
           //print('index $index of key: ${e.key}');
           if (index >= min && index <= max) {
             Color currentColor = wordleLightGrey;
+            Color fontColor = Colors.white;
             if (e.value == AnswerStage.correct) {
               currentColor = wordleGreen;
             } else if (e.value == AnswerStage.contains) {
               currentColor = wordleYellow;
             } else if (e.value == AnswerStage.incorrect) {
               currentColor = wordleDarkGrey;
+            } else {
+              fontColor = Colors.black;
             }
             return Padding(
               padding: EdgeInsets.all(size.width * 0.006),
@@ -53,15 +56,18 @@ class KeyboardRow extends StatelessWidget {
                             // e.key holds which key was tapped
                             // listen:false to -> we only want to read controller, not listen to it
                             Provider.of<Controller>(context, listen: false)
-                                .setKeyTapped(value: e.key);
+                                .setKeyTapped(value: e.key, context: context);
                           },
                           child: Center(
-                            child: Text(
-                              e.key,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: e.key == 'BACK'
+                                ? const Icon(Icons.backspace_outlined)
+                                : Text(
+                                    e.key,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: fontColor,
+                                    ),
+                                  ),
                           ))),
                 ),
               ),

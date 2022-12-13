@@ -1,3 +1,4 @@
+import 'package:Halt/screens/Vutrdle/components/stats_box.dart';
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/data/keys_map.dart';
 import 'package:Halt/screens/Vutrdle/models/tile_model.dart';
@@ -9,6 +10,7 @@ class Controller extends ChangeNotifier {
   int currentRow = 0; // current row we are working on
   String correctWord = "";
   List<TileModel> tilesEntered = [];
+  bool flipLine = false;
 
   //method to set the word to be guessed
   setCorrectWord({required String word}) {
@@ -16,11 +18,11 @@ class Controller extends ChangeNotifier {
   }
 
   //method that handles individually tapped keys
-  setKeyTapped({required String value}) {
+  setKeyTapped({required String value, required BuildContext context}) {
     if (value == 'ENTER') {
       // enter key
       if (currentTile == 5 * (currentRow + 1)) {
-        checkWord();
+        checkWord(context: context);
       }
     } else if (value == 'BACK') {
       // back key
@@ -43,7 +45,7 @@ class Controller extends ChangeNotifier {
   }
 
   // method to check if the guessed word is correct
-  checkWord() {
+  checkWord({required BuildContext context}) {
     // create new empty lists every time this method runs
     // holds the letters user has put in
     List<String> guessedLetters = [];
@@ -64,6 +66,7 @@ class Controller extends ChangeNotifier {
         tilesEntered[i].answerStage = AnswerStage.correct;
         keysMap.update(tilesEntered[i].letter, (value) => AnswerStage.correct);
       }
+      showDialog(context: context, builder: (_) => StatsBox());
       //guessed word not correct
     } else {
       for (int i = 0; i < 5; i++) {
@@ -108,6 +111,7 @@ class Controller extends ChangeNotifier {
       }
     }
     currentRow++;
+    flipLine = true;
     notifyListeners(); //update listeners once the stage values change
   }
 }
