@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'screens/loading_screen.dart';
-
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+import 'package:Halt/timer.dart';
+import 'dart:async';
+import 'dart:io';
 
 void main() {
+  Timer(Duration(seconds: timeMap['time']!), () {
+    exit(0);
+  });
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -18,8 +27,40 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoadingPage(),
+      home: const LoadingPage(),
     );
+  }
+}
+
+abstract class MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  static const _appTimerDuration = Duration(minutes: 10);
+  late Timer appTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    appTimer = Timer(_appTimerDuration, _timerElapsed);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    appTimer.cancel();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      appTimer = Timer(_appTimerDuration, _timerElapsed);
+    } else {
+      appTimer.cancel();
+    }
+  }
+
+  void _timerElapsed() {
+    // Handle the event
   }
 }
 
