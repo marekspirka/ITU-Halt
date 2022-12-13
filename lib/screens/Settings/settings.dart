@@ -50,13 +50,60 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               // onChanged -> callback which would notify us when it has been changed
               SwitchListTile(
+                  title: const Text("Časovač",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      )),
                   value: _isTimerSwitched,
                   onChanged: (value) {
                     setState(() {
                       _isTimerSwitched = value;
                     });
                     SettingsData.saveTimerToggle(isToggled: _isTimerSwitched);
-                  })
+                  }),
+
+              const Text(
+                "AUTOŘI",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              const Text(
+                "Kateřina Lojdová",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
+              const Text(
+                "Andrea Michlíková",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
+              const Text(
+                "Marek Špirka",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
+              const Text(
+                "\nVUT FIT - ITU",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
             ],
           ),
         ),

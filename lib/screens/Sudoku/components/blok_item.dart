@@ -6,7 +6,6 @@ class BlokItem {
   bool isFocus = false; // highlight one item
   bool isFocusCross = false; // highlight cross
   bool isFocusNumber = false; // highlight same numbers
-  bool isWrong = false; // number is wrong
   bool isCorrect; // number is correct
   bool isDefault; // generate number
   bool isExist = false;

@@ -54,7 +54,6 @@ class InnerBlok {
 
     temp.where((element) => element.text == textInput).forEach((element) {
       element.isExist = true;
-      element.isWrong = true;
     });
   }
 
