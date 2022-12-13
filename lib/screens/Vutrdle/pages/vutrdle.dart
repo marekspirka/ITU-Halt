@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:Halt/screens/Vutrdle/constants/words.dart';
 import 'package:Halt/screens/Vutrdle/pages/NavBar_vutrdle.dart';
@@ -42,6 +43,7 @@ class _VutrdleScreenState extends State<VutrdleScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       drawer: const NavBarVutrdle(),
       endDrawer: NavBarVutrdleHelp(),
