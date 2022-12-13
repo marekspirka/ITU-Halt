@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'screens/loading_screen.dart';
 import 'package:Halt/timer.dart';
-import 'dart:async';
 import 'dart:io';
 
 void main() {
-  Timer(Duration(seconds: timeMap['time']!), () {
-    exit(0);
-  });
+  //Timer(Duration(seconds: timeMap['time']!), () {
+  //  exit(0);
+  //});
   runApp(const MyApp());
 }
 
@@ -29,38 +28,6 @@ class _MyAppState extends State<MyApp> {
       ),
       home: const LoadingPage(),
     );
-  }
-}
-
-abstract class MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  static const _appTimerDuration = Duration(minutes: 10);
-  late Timer appTimer;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    appTimer = Timer(_appTimerDuration, _timerElapsed);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    appTimer.cancel();
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      appTimer = Timer(_appTimerDuration, _timerElapsed);
-    } else {
-      appTimer.cancel();
-    }
-  }
-
-  void _timerElapsed() {
-    // Handle the event
   }
 }
 
