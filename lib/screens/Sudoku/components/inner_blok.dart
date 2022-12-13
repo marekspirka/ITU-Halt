@@ -18,8 +18,6 @@ class InnerBlok {
       temp =
           blokItem.where((element) => element.index! % 3 == index % 3).toList();
     } else {
-      //temp =
-      //  blokItem.where((element) => element.correctText == text).toList();
       temp = blokItem.where((element) => element.text == text).toList();
     }
 
@@ -56,11 +54,13 @@ class InnerBlok {
 
     temp.where((element) => element.text == textInput).forEach((element) {
       element.isExist = true;
+      element.isWrong = true;
     });
   }
 
   clearFocus() {
     for (var element in blokItem) {
+      element.isFocus = false;
       element.isFocusCross = false;
       element.isFocusNumber = false;
     }
