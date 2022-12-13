@@ -1,6 +1,7 @@
 import 'package:Halt/screens/Vutrdle/components/stats_box.dart';
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/data/keys_map.dart';
+import 'package:Halt/screens/Vutrdle/data/stats.dart';
 import 'package:Halt/screens/Vutrdle/models/tile_model.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,10 @@ class Controller extends ChangeNotifier {
   String correctWord = "";
   List<TileModel> tilesEntered = [];
   bool flipLine = false;
+  bool gameWon = false;
+  bool gameCompleted = false;
+  int currentStreak = 0;
+  int maxstreak = 0;
 
   //method to set the word to be guessed
   setCorrectWord({required String word}) {
@@ -67,6 +72,8 @@ class Controller extends ChangeNotifier {
         keysMap.update(tilesEntered[i].letter, (value) => AnswerStage.correct);
       }
       showDialog(context: context, builder: (_) => StatsBox());
+      gameWon = true;
+      gameCompleted = true;
       //guessed word not correct
     } else {
       for (int i = 0; i < 5; i++) {
@@ -112,6 +119,23 @@ class Controller extends ChangeNotifier {
     }
     currentRow++;
     flipLine = true;
+    if (currentRow == 6) {
+      gameCompleted = true;
+    }
+
+    //compute streaks
+    if (gameCompleted) {
+      if (gameWon) {
+        currentStreak++;
+      } else {
+        currentStreak = 0;
+      }
+      if (currentStreak > maxstreak) {
+        maxstreak = currentStreak;
+      }
+      results.update('currentStreak', (value) => currentStreak);
+      results.update('maxStreak', (value) => maxstreak);
+    }
     notifyListeners(); //update listeners once the stage values change
   }
 }

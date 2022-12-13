@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:Halt/screens/Vutrdle/controller.dart';
 
 class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
