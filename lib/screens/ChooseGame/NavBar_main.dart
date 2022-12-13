@@ -3,17 +3,21 @@ import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/screens/Settings/settings.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
+import 'package:Halt/screens/Vutrdle/controller.dart';
 import 'package:Halt/screens/Vutrdle/pages/vutrdle.dart';
 import 'package:flutter/material.dart';
 import 'package:Halt/scale.dart';
+import 'package:provider/provider.dart';
 
 class NavBar extends StatelessWidget {
+  const NavBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Drawer(
       width: SizeConfig.screenWidth * 0.60,
-      backgroundColor: Color(0xff1A0F8E).withOpacity(0.9),
+      backgroundColor: const Color(0xff1A0F8E).withOpacity(0.9),
       child: Container(
         alignment: Alignment.center,
         child: Column(
@@ -39,7 +43,7 @@ play(context) {
           right: SizeConfig.screenWidth * 0.25),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Hrát',
             style: TextStyle(
@@ -49,7 +53,7 @@ play(context) {
           Navigator.pop(context);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MainScreen()),
+            MaterialPageRoute(builder: (context) => const MainScreen()),
           );
         },
       ));
@@ -62,7 +66,7 @@ sudoku(context) {
           right: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Sudoku',
             style: TextStyle(
@@ -72,7 +76,7 @@ sudoku(context) {
           Navigator.pop(context);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SudokuScreen()),
+            MaterialPageRoute(builder: (context) => const SudokuScreen()),
           );
         },
       ));
@@ -83,7 +87,7 @@ vutrdle(context) {
       margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Vutrdle',
             style: TextStyle(
@@ -91,10 +95,12 @@ vutrdle(context) {
             )),
         onPressed: () => {
           Navigator.pop(context),
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => VutrdleScreen()),
-          )
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => MultiProvider(providers: [
+                    ChangeNotifierProvider(
+                        create: (_) =>
+                            Controller()) //make controller accessible throughout the project
+                  ], child: const VutrdleScreen()))),
         },
       ));
 }
@@ -105,7 +111,7 @@ flappyduck(context) {
       margin: EdgeInsets.only(left: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Flappy Duck',
             style: TextStyle(
@@ -129,7 +135,7 @@ settings(context) {
       ),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Nastavení',
             style: TextStyle(
@@ -139,7 +145,7 @@ settings(context) {
           Navigator.pop(context),
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SettingsScreen()),
+            MaterialPageRoute(builder: (context) => const SettingsScreen()),
           )
         },
       ));
@@ -150,7 +156,7 @@ quit(context) {
       margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.14),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Konec',
             style: TextStyle(
