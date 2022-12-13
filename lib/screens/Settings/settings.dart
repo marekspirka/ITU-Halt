@@ -3,6 +3,8 @@ import 'package:Halt/screens/Settings/settings_logic.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:flutter/material.dart';
 
+// ANDY INSERT PROMENNA HERE ⬇️
+
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
@@ -12,6 +14,27 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _isTimerSwitched = false;
+  // Color  _minutesTextColor;
+  Color _minutesTextColor = const Color.fromARGB(100, 255, 255, 255);
+  Color _tileBackgroundColor = const Color.fromARGB(100, 64, 64, 64);
+  // _SettingsScreenState(): _minutesTextColor = await _getMinutesTextColor();
+  // Color _tileBackgroundColor = await _getTileBackgroundColor();
+
+  static Future<Color> _getMinutesTextColor() async {
+    if (await SettingsData.getTimerToggle() == false) {
+      return const Color.fromARGB(100, 255, 255, 255);
+    } else {
+      return Colors.white;
+    }
+  }
+
+  static Future<Color> _getTileBackgroundColor() async {
+    if (await SettingsData.getTimerToggle() == false) {
+      return const Color.fromARGB(100, 64, 64, 64);
+    } else {
+      return const Color.fromARGB(255, 64, 64, 64);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +82,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           fontSize: 20,
                         )),
                     value: _isTimerSwitched,
-                    onChanged: (value) {
+                    onChanged: (value) async {
                       setState(() {
                         _isTimerSwitched = value;
                       });
                       SettingsData.saveTimerToggle(isToggled: _isTimerSwitched);
+                      if (await SettingsData.getTimerToggle()) {
+                        _minutesTextColor = Colors.white;
+                        _tileBackgroundColor =
+                            const Color.fromARGB(255, 64, 64, 64);
+                      }
                     }),
               ),
 
@@ -76,15 +104,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       height: 50,
                       width: 50,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 64, 64, 64),
+                        color: _tileBackgroundColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const FittedBox(
+                      child: FittedBox(
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
+                          // ANDY INSERT PROMENNA HERE ⬇️
                           child: Text('5',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: _minutesTextColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                               ),
@@ -92,12 +121,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(30, 10, 10, 10),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 10, 10, 10),
                       child: Text(
                         'minut',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: _minutesTextColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),

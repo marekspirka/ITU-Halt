@@ -46,7 +46,7 @@ class _VutrdleScreenState extends State<VutrdleScreen> {
     SizeConfig().init(context);
     return Scaffold(
       drawer: const NavBarVutrdle(),
-      endDrawer: NavBarVutrdleHelp(),
+      endDrawer: const NavBarVutrdleHelp(),
       appBar: AppBar(
         actions: [
           Builder(

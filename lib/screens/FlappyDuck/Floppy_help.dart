@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:Halt/scale.dart';
 
 class NavBarFlappyHelp extends StatelessWidget {
+  const NavBarFlappyHelp({super.key});
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

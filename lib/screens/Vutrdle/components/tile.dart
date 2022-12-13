@@ -23,7 +23,6 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   Color _backgroundColor = wordleTileBackground;
   late AnswerStage _answerStage;
-  bool _animate = false;
 
   @override
   void initState() {

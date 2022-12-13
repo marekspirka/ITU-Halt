@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 import '../Vutrdle/controller.dart';
 
 class NavBarFlappy extends StatelessWidget {
+  const NavBarFlappy({super.key});
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -40,7 +42,7 @@ play(context) {
           right: SizeConfig.screenWidth * 0.25),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Hrát',
             style: TextStyle(
@@ -63,7 +65,7 @@ sudoku(context) {
           right: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Sudoku',
             style: TextStyle(
@@ -84,7 +86,7 @@ vutrdle(context) {
       margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Vutrdle',
             style: TextStyle(
@@ -110,7 +112,7 @@ settings(context) {
       ),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Nastavení',
             style: TextStyle(
@@ -131,7 +133,7 @@ quit(context) {
       margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.16),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Konec',
             style: TextStyle(
