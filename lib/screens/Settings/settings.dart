@@ -2,6 +2,7 @@ import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Settings/settings_logic.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 // ANDY INSERT PROMENNA HERE ⬇️
 
@@ -14,6 +15,8 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _isTimerSwitched = false;
+  final player = AudioPlayer();
+  bool mute = false;
   // Color  _minutesTextColor;
   Color _minutesTextColor = const Color.fromARGB(100, 255, 255, 255);
   Color _tileBackgroundColor = const Color.fromARGB(100, 64, 64, 64);
@@ -136,8 +139,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
 
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: SwitchListTile(
+                    title: const Text("Hudba",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        )),
+                    value: mute,
+                    onChanged: (value) {
+                      setState(() {
+                        mute = value;
+                      });
+                      if (value == false) {
+                        player.stop();
+                      } else {
+                        player.play(AssetSource('music/music.mp3'));
+                      }
+                    }),
+              ),
+
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 170, 0, 0),
+                padding: EdgeInsets.fromLTRB(0, 140, 0, 0),
                 child: Text(
                   "AUTOŘI",
                   style: TextStyle(
