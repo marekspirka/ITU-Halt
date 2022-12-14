@@ -1,10 +1,10 @@
 //created by Kateřina Lojdová - xlojdo00, Marek Špirka - xspirk01
 // holds the main settings screen layout
 import 'package:Halt/scale.dart';
-import 'package:Halt/screens/Settings/settings_logic.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 
 import 'package:Halt/scale.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
@@ -22,12 +22,13 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  // determines the value of timer toggle
-  bool _isTimerSwitched = false;
   //instance of an audio player
   final player = AudioPlayer();
   // tells if music is played
   bool mute = false;
+  // determines the value of timer toggle
+  bool timer = false;
+  int value = 0;
   Color _minutesTextColor = const Color.fromARGB(100, 255, 255, 255);
   Color _tileBackgroundColor = const Color.fromARGB(100, 64, 64, 64);
 
@@ -77,20 +78,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         )),
-                    value: _isTimerSwitched,
-                    onChanged: (value) async {
-                      _isTimerSwitched = value;
+                    value: timer,
+                    onChanged: (value) {
                       setState(() {
-                        globalTimeSet();
-                        // Timer(Duration(minutes: globals.userTime), () {
-                        //   exit(0);
-                        // });
+                        timer = value;
                       });
-                      SettingsData.saveTimerToggle(isToggled: _isTimerSwitched);
-                      if (await SettingsData.getTimerToggle()) {
+                      if (value == true) {
                         _minutesTextColor = Colors.white;
+                        _tileBackgroundColor = wordleDarkGrey;
+                      } else {
+                        _minutesTextColor =
+                            const Color.fromARGB(100, 255, 255, 255);
                         _tileBackgroundColor =
-                            const Color.fromARGB(255, 64, 64, 64);
+                            const Color.fromARGB(100, 64, 64, 64);
+                        ;
                       }
                     }),
               ),
@@ -100,26 +101,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: _tileBackgroundColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: FittedBox(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          // ANDY INSERT PROMENNA HERE ⬇️
-                          child: Text('5',
-                              style: TextStyle(
+                    Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: _tileBackgroundColor,
+                          ),
+                          onPressed: () {
+                            builder:
+                            (_) => Container(
+                                width: 300,
+                                height: 250,
+                                child: CupertinoPicker(
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 64,
+                                  children: const [
+                                    Center(child: Text('5')),
+                                    Center(child: Text('10')),
+                                    Center(child: Text('15')),
+                                    Center(child: Text('20')),
+                                    Center(child: Text('25')),
+                                    Center(child: Text('30')),
+                                  ],
+                                  onSelectedItemChanged: (int value) {
+                                    setState(() => this.value = value);
+                                    globals.userTime = value;
+                                  },
+                                ));
+                          },
+                          child: Text(
+                            '${globals.userTime}',
+                            style: TextStyle(
                                 color: _minutesTextColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                              textAlign: TextAlign.center),
-                        ),
-                      ),
+                                fontWeight: FontWeight.bold),
+                          )),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(30, 10, 10, 10),
@@ -159,7 +174,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               //authors
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
+                padding: EdgeInsets.fromLTRB(0, 90, 0, 0),
                 child: Text(
                   "AUTOŘI",
                   style: TextStyle(
@@ -206,5 +221,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     globals.isTimeOn = true;
     globals.isTimeOff = true;
+  }
+}
+
+class TimePicker extends StatelessWidget {
+  int _selectedValue = 0;
+
+  TimePicker({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    void _timePicker(BuildContext context) {
+      showCupertinoModalPopup(
+          context: context,
+          builder: (_) => Container(
+                width: 300,
+                height: 250,
+                child: CupertinoPicker(
+                  backgroundColor: Colors.white,
+                  itemExtent: 30,
+                  scrollController: FixedExtentScrollController(initialItem: 1),
+                  children: [
+                    Text('0'),
+                    Text('1'),
+                    Text('2'),
+                  ],
+                  onSelectedItemChanged: (value) {
+                    setState(() {
+                      _selectedValue = value;
+                    });
+                  },
+                ),
+              ));
+    }
   }
 }
