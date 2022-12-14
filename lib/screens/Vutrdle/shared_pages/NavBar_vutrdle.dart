@@ -1,3 +1,5 @@
+//created by Marek Špirka - xspirk01
+// holds a navigation bar that lest user move through different parts of the app
 import 'dart:io';
 import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/FlappyDuck/flappyduck.dart';

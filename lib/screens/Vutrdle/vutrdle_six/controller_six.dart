@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds the controller for a 6-letter game
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/shared_components/stats_box_lost.dart';
 import 'package:Halt/screens/Vutrdle/shared_components/stats_box_won.dart';

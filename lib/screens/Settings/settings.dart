@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00, Marek Špirka - xspirk01
+// holds the main settings screen layout
 import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Settings/settings_logic.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
@@ -14,30 +16,14 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  // determines the value of timer toggle
   bool _isTimerSwitched = false;
+  //instance of an audio player
   final player = AudioPlayer();
+  // tells if music is played
   bool mute = false;
-  // Color  _minutesTextColor;
   Color _minutesTextColor = const Color.fromARGB(100, 255, 255, 255);
   Color _tileBackgroundColor = const Color.fromARGB(100, 64, 64, 64);
-  // _SettingsScreenState(): _minutesTextColor = await _getMinutesTextColor();
-  // Color _tileBackgroundColor = await _getTileBackgroundColor();
-
-  static Future<Color> _getMinutesTextColor() async {
-    if (await SettingsData.getTimerToggle() == false) {
-      return const Color.fromARGB(100, 255, 255, 255);
-    } else {
-      return Colors.white;
-    }
-  }
-
-  static Future<Color> _getTileBackgroundColor() async {
-    if (await SettingsData.getTimerToggle() == false) {
-      return const Color.fromARGB(100, 64, 64, 64);
-    } else {
-      return const Color.fromARGB(255, 64, 64, 64);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               // onChanged -> callback which would notify us when it has been changed
+              //timer toggle
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: SwitchListTile(
@@ -97,7 +84,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       }
                     }),
               ),
-
+              // user input -> for how long shold the app be running
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: Row(
@@ -138,7 +125,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ],
                 ),
               ),
-
+              // music player toggle <- by Marek Špirka - xspirk01
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: SwitchListTile(
@@ -160,7 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       }
                     }),
               ),
-
+              //authors
               const Padding(
                 padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
                 child: Text(

@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds the main page for a 5-letter game
 import 'dart:math';
 
 import 'package:Halt/scale.dart';
@@ -31,6 +33,7 @@ class _VutrdleScreenFiveState extends State<VutrdleScreenFive> {
   void initState() {
     // generate random int up to the maximum in the list of words
     final r = Random().nextInt(wordsFive.length);
+    // set the correct word that we would be guessing
     _word = wordsFive[r];
     correctWord = wordsFive[r];
 

@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds the keyboard row for a 5-letter game
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
@@ -12,12 +14,14 @@ class KeyboardRow extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  //constrain what letters from map we want to display
   final int min, max;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Consumer<ControllerFive>(builder: (_, notifier, __) {
+      //index of the current letter
       int index = 0;
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -25,6 +29,7 @@ class KeyboardRow extends StatelessWidget {
           index++;
           //choose only the relevant keys from the map
           if (index >= min && index <= max) {
+            // change color according to the state of the letter
             Color currentColor = wordleLightGrey;
             Color fontColor = Colors.white;
             if (e.value == AnswerStage.correct) {
@@ -44,12 +49,13 @@ class KeyboardRow extends StatelessWidget {
                 child: SizedBox(
                   // individual buttons
                   width: (e.key == 'ENTER' || e.key == 'BACK')
-                      ? size.width * 0.13
+                      ? size.width * 0.13 // make enter and back bigger
                       : size.width * 0.085,
                   height: size.height * 0.080,
                   child: Material(
                       color: currentColor,
                       child: InkWell(
+                          // animates on keypress
                           onTap: () {
                             // method in controller.dart
                             // provider will pull method of controller thanks to <Controller>
@@ -60,8 +66,10 @@ class KeyboardRow extends StatelessWidget {
                           },
                           child: Center(
                             child: e.key == 'BACK'
-                                ? const Icon(Icons.backspace_outlined)
+                                ? const Icon(Icons
+                                    .backspace_outlined) // show icon on the BACK key
                                 : Text(
+                                    // show key text instead of icon
                                     e.key,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -71,7 +79,7 @@ class KeyboardRow extends StatelessWidget {
                           ))),
                 ),
               ),
-            ); // index is from 1 here
+            );
           } else {
             return const SizedBox();
           }

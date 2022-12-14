@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds the helper for a 6-letter game
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_six/controller_six.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_six/data/helper_values.dart';
@@ -10,10 +12,12 @@ class HelperBar extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  // how many numbers we want to display
   final int max;
 
   @override
   Widget build(BuildContext context) {
+    // size context for future scaling
     final size = MediaQuery.of(context).size;
     return Consumer<ControllerSix>(builder: (_, notifier, __) {
       int index = 0;
@@ -23,7 +27,7 @@ class HelperBar extends StatelessWidget {
           index++;
           Color currentColor = wordleLightGrey;
           Color fontColor = Colors.transparent;
-          //print('index $index of key: ${e.key}');
+          // show correctly guessed letter
           if (index <= max) {
             if (e.value == HelperStage.guessed) {
               currentColor = wordleGreen;

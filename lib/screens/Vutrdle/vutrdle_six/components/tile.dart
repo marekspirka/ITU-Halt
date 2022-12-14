@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds the helper bar for a 6-letter game
 import 'dart:math';
 
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
@@ -29,6 +31,7 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _backgroundColor = wordleTileBackground;
     });
+    // setup animation controller
     _animationController = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
     super.initState();
@@ -62,6 +65,7 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
             notifier.flipLine = false;
           });
 
+          // change tile color based on stage of the letter
           if (_answerStage == AnswerStage.correct) {
             _backgroundColor = wordleGreen;
           } else if (_answerStage == AnswerStage.contains) {

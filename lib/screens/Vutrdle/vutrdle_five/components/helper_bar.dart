@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds the helper bar for a 5-letter game
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/data/helper_values.dart';
@@ -14,17 +16,20 @@ class HelperBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //context for further sizing
     final size = MediaQuery.of(context).size;
     return Consumer<ControllerFive>(builder: (_, notifier, __) {
+      // index of a given letter
       int index = 0;
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: helperMap.entries.map((e) {
           index++;
           Color currentColor = wordleLightGrey;
+          // we dont want to show the guessed word -> hide by making it transparent
           Color fontColor = Colors.transparent;
-          //print('index $index of key: ${e.key}');
           if (index <= max) {
+            // set tile as guessed -> show contents
             if (e.value == HelperStage.guessed) {
               currentColor = wordleGreen;
               fontColor = Colors.white;
@@ -42,6 +47,7 @@ class HelperBar extends StatelessWidget {
                       color: currentColor,
                       child: Center(
                         child: Text(
+                          // text of the button - key from map
                           e.key,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -51,7 +57,7 @@ class HelperBar extends StatelessWidget {
                       )),
                 ),
               ),
-            ); // index is from 1 here
+            );
           } else {
             return const SizedBox();
           }

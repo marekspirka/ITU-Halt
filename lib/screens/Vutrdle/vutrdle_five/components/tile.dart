@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds the tile for a 5-letter game
 import 'dart:math';
 
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
@@ -26,9 +28,11 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
+    // set tile background once it has changed
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _backgroundColor = wordleTileBackground;
     });
+    // set up animation duration
     _animationController = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
     super.initState();
@@ -36,6 +40,7 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
+    // dispose of animation controller
     _animationController.dispose();
     super.dispose();
   }
@@ -53,6 +58,7 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
             .letter; //set text to letters entered at the index passed to the widget
         _answerStage = notifier.tilesEntered[widget.index].answerStage;
         if (notifier.flipLine) {
+          // set delay so that the cascade works
           final delay = widget.index - (notifier.currentRow - 1) * 5;
           //flip the tiles in cascading form
           Future.delayed(Duration(milliseconds: 300 * delay), () {
@@ -62,6 +68,7 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
             notifier.flipLine = false;
           });
 
+          //change tile color according to answer stage
           if (_answerStage == AnswerStage.correct) {
             _backgroundColor = wordleGreen;
           } else if (_answerStage == AnswerStage.contains) {
@@ -77,6 +84,7 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
         return AnimatedBuilder(
           animation: _animationController,
           builder: (_, child) {
+            //correct the letters on tiles
             double flipCorrection = 0;
             if (_animationController.value > 0.50) {
               flipCorrection = pi;
@@ -101,6 +109,7 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
                           .contain, // make text as big as possible without overlapping
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
+                        // change letter color when the tile is flipped
                         child: flipCorrection > 0
                             ? Text(
                                 text,
@@ -120,6 +129,7 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
           },
         );
       } else {
+        //return basic emptz container
         return Container(
           decoration: BoxDecoration(
             color: _backgroundColor,

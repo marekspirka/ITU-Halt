@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds a popup window that is shown when user wins a game
 import 'dart:io';
 
 import 'package:Halt/scale.dart';
@@ -39,6 +41,7 @@ class StatsBoxWon extends StatelessWidget {
               color: Colors.black,
             ),
           )),
+          //show current streak
           Expanded(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -67,6 +70,7 @@ class StatsBoxWon extends StatelessWidget {
               ),
             ],
           )),
+          // show max streak
           Expanded(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -95,6 +99,7 @@ class StatsBoxWon extends StatelessWidget {
               ),
             ],
           )),
+          // show time remaining until the app shuts down
           Expanded(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -121,6 +126,7 @@ class StatsBoxWon extends StatelessWidget {
               ),
             ],
           )),
+          // play the game once more
           Expanded(
               child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -142,6 +148,7 @@ class StatsBoxWon extends StatelessWidget {
                 },
                 child: const Text('Hádej další')),
           )),
+          // exit the app
           Expanded(
               child: Padding(
             padding: const EdgeInsets.all(8.0),

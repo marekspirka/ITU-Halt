@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds a popup window that is shown when user loses a game
 import 'dart:io';
 
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
@@ -22,6 +24,7 @@ class StatsBoxLost extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // the exit button
           IconButton(
               alignment: Alignment.centerRight,
               onPressed: () {
@@ -37,6 +40,7 @@ class StatsBoxLost extends StatelessWidget {
               fontSize: 25,
             ),
           )),
+          // show the correct word
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             child: Expanded(
@@ -50,6 +54,7 @@ class StatsBoxLost extends StatelessWidget {
               ),
             ),
           ),
+          //show current streak
           Expanded(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -78,6 +83,7 @@ class StatsBoxLost extends StatelessWidget {
               ),
             ],
           )),
+          //show max streak
           Expanded(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -106,6 +112,7 @@ class StatsBoxLost extends StatelessWidget {
               ),
             ],
           )),
+          // show time remaining in the app
           Expanded(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -140,6 +147,7 @@ class StatsBoxLost extends StatelessWidget {
               ),
             ],
           )),
+          // play once more
           Expanded(
               child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -161,6 +169,7 @@ class StatsBoxLost extends StatelessWidget {
                 },
                 child: const Text('Hádej další')),
           )),
+          //exit the app
           Expanded(
               child: Padding(
             padding: const EdgeInsets.all(8.0),

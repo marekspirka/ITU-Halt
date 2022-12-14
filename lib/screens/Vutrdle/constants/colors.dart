@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds colors used throughout the app
 import 'package:flutter/material.dart';
 
 const wordleYellow = Color.fromARGB(220, 241, 201, 66);

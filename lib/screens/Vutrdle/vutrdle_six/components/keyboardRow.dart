@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds the keyboard row for a 6-letter game
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_six/controller_six.dart';
@@ -16,6 +18,7 @@ class KeyboardRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // get size context for future scaling
     final size = MediaQuery.of(context).size;
     return Consumer<ControllerSix>(builder: (_, notifier, __) {
       int index = 0;
@@ -23,7 +26,7 @@ class KeyboardRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: keysMap.entries.map((e) {
           index++;
-          //print('index $index of key: ${e.key}');
+          //print only the relevant letters
           if (index >= min && index <= max) {
             Color currentColor = wordleLightGrey;
             Color fontColor = Colors.white;
@@ -71,7 +74,7 @@ class KeyboardRow extends StatelessWidget {
                           ))),
                 ),
               ),
-            ); // index is from 1 here
+            );
           } else {
             return const SizedBox();
           }

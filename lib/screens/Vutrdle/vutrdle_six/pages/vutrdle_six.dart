@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds the main screen a 6-letter game
 import 'dart:math';
 
 import 'package:Halt/scale.dart';
@@ -32,6 +34,7 @@ class _VutrdleScreenSixState extends State<VutrdleScreenSix> {
   void initState() {
     // generate random int up to the maximum in the list of words
     final r = Random().nextInt(wordsSix.length);
+    // set correct word
     _word = wordsSix[r];
     correctWord = wordsSix[r];
 

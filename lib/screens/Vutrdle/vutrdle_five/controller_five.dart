@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds the controller for a 5-letter game
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/shared_components/stats_box_lost.dart';
 import 'package:Halt/screens/Vutrdle/shared_components/stats_box_won.dart';
@@ -142,8 +144,6 @@ class ControllerFive extends ChangeNotifier {
       if (results['currentStreak']! > results['maxStreak']!) {
         results['maxStreak'] = results['currentStreak']!;
       }
-      // results.update('currentStreak', (value) => value++);
-      // results.update('maxStreak', (value) => value++);
     }
     notifyListeners(); //update listeners once the stage values change
   }

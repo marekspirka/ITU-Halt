@@ -1,3 +1,6 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds instructions on how to play the game
+// lets the user chosse difficulty
 import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
@@ -117,6 +120,7 @@ class NavBarVutrdleHelp extends StatelessWidget {
                       fontSize: SizeConfig.safeBlockHorizontal * 6,
                     ),
                   ),
+                  // play guessing 5-letter words
                   SizedBox(
                     width: 200,
                     height: 30,
@@ -134,6 +138,8 @@ class NavBarVutrdleHelp extends StatelessWidget {
                       child: Image.asset('assets/images/five.png'),
                     ),
                   ),
+
+                  // play guessing 6-letter words
                   SizedBox(
                     width: 200,
                     height: 30,

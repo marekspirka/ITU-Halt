@@ -1,3 +1,5 @@
+//created by Kateřina Lojdová - xlojdo00
+// holds a map of keys and their values for a five-letter game
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 
 String correctWord = '';
