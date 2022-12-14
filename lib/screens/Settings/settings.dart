@@ -162,7 +162,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
 
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 140, 0, 0),
+                padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
                 child: Text(
                   "AUTOŘI",
                   style: TextStyle(

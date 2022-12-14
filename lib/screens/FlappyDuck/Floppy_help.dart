@@ -42,7 +42,7 @@ First(context) {
   return Container(
     width: SizeConfig.screenWidth * 0.55,
     margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.15),
-    child: Text('Ako hrať túto hru?',
+    child: Text('Jak hrát?',
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.white,
@@ -53,10 +53,10 @@ First(context) {
 
 Second(context) {
   return Container(
-    width: SizeConfig.screenWidth * 0.55,
+    width: SizeConfig.screenWidth * 0.50,
     margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.05),
     child: Text(
-        'Snažte sa udržať kachnu čo najdlhšie vo vzduchu a vyhýbajte sa prekážkam.',
+        'Snažte se kachničku udržet co nejdéle ve vzduchu a vyhýbejte se překážkám.',
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.white,
@@ -67,9 +67,9 @@ Second(context) {
 
 Third(context) {
   return Container(
-    width: SizeConfig.screenWidth * 0.55,
+    width: SizeConfig.screenWidth * 0.50,
     margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.05),
-    child: Text('Po kliknutí na kachnu sa hra spustí.',
+    child: Text('Po kliknutí na kachničku se hra spustí.',
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.white,
@@ -91,7 +91,7 @@ Fifth(context) {
   return Container(
     width: SizeConfig.screenWidth * 0.55,
     margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.02),
-    child: Text('Snažte sa vyhýbať Brnenskému orloju.',
+    child: Text('Snažte se vyhýbat Brněnskému orloji.',
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.white,
@@ -102,7 +102,7 @@ Fifth(context) {
 
 Sixth(context) {
   return Container(
-    margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.02),
+    margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.07),
     width: 300,
     height: 100,
     child: Image.asset('assets/images/barriers.png'),
