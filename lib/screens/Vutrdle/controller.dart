@@ -1,4 +1,5 @@
-import 'package:Halt/screens/Vutrdle/components/stats_box.dart';
+import 'package:Halt/screens/Vutrdle/components/stats_box_lost.dart';
+import 'package:Halt/screens/Vutrdle/components/stats_box_won.dart';
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/data/helper_values.dart';
 import 'package:Halt/screens/Vutrdle/data/keys_map.dart';
@@ -77,7 +78,7 @@ class Controller extends ChangeNotifier {
         tilesEntered[i].answerStage = AnswerStage.correct;
         keysMap.update(tilesEntered[i].letter, (value) => AnswerStage.correct);
       }
-      showDialog(context: context, builder: (_) => StatsBox());
+      showDialog(context: context, builder: (_) => const StatsBoxWon());
       gameWon = true;
       gameCompleted = true;
       //guessed word not correct
@@ -128,6 +129,7 @@ class Controller extends ChangeNotifier {
     flipLine = true;
     if (currentRow == 6) {
       gameCompleted = true;
+      showDialog(context: context, builder: (_) => const StatsBoxLost());
     }
 
     //compute streaks

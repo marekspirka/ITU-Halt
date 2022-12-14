@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HelperBar extends StatelessWidget {
-  HelperBar({
+  const HelperBar({
     required this.max,
     Key? key,
   }) : super(key: key);
 
   final int max;
-  Color currentColor = wordleLightGrey;
-  Color fontColor = Colors.transparent;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +21,8 @@ class HelperBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: helperMap.entries.map((e) {
           index++;
+          Color currentColor = wordleLightGrey;
+          Color fontColor = Colors.transparent;
           //print('index $index of key: ${e.key}');
           if (index <= max) {
             if (e.value == HelperStage.guessed) {
@@ -30,34 +30,25 @@ class HelperBar extends StatelessWidget {
               fontColor = Colors.white;
             }
             return Padding(
-              padding: EdgeInsets.all(size.width * 0.006),
+              padding: EdgeInsets.all(size.width * 0.008),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 // rounded edges
                 child: SizedBox(
                   // individual buttons
                   width: size.width * 0.085,
-                  height: size.height * 0.090,
+                  height: size.height * 0.055,
                   child: Material(
                       color: currentColor,
-                      child: InkWell(
-                          onTap: () {
-                            // method in controller.dart
-                            // provider will pull method of controller thanks to <Controller>
-                            // e.key holds which key was tapped
-                            // listen:false to -> we only want to read controller, not listen to it
-                            Provider.of<Controller>(context, listen: false)
-                                .setKeyTapped(value: e.key, context: context);
-                          },
-                          child: Center(
-                            child: Text(
-                              e.key,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: fontColor,
-                              ),
-                            ),
-                          ))),
+                      child: Center(
+                        child: Text(
+                          e.key,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: fontColor,
+                          ),
+                        ),
+                      )),
                 ),
               ),
             ); // index is from 1 here

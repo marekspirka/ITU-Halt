@@ -4,6 +4,7 @@ import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Vutrdle/components/helper_bar.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:Halt/screens/Vutrdle/constants/words.dart';
+import 'package:Halt/screens/Vutrdle/data/keys_map.dart';
 import 'package:Halt/screens/Vutrdle/pages/NavBar_vutrdle.dart';
 import 'package:Halt/screens/Vutrdle/pages/Vutrdle_help.dart';
 import 'package:Halt/screens/Vutrdle/components/grid.dart';
@@ -31,6 +32,7 @@ class _VutrdleScreenState extends State<VutrdleScreen> {
     // generate random int up to the maximum in the list of words
     final r = Random().nextInt(words.length);
     _word = words[r];
+    correctWord = words[r];
 
     // set an instance of a build context - at the end of a frame when we DO have an instance
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -70,14 +72,15 @@ class _VutrdleScreenState extends State<VutrdleScreen> {
                 end: Alignment.bottomCenter,
                 colors: [backgroundPurple, backgroundPink])),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Expanded(
               flex: 7,
               child: Grid(),
             ),
-            Expanded(
+            const Expanded(
                 child: HelperBar(
-              max: 6,
+              max: 5,
             )),
             Expanded(
               flex: 4,
@@ -92,18 +95,6 @@ class _VutrdleScreenState extends State<VutrdleScreen> {
           ],
         ),
       ),
-      // Container(
-      //   decoration: const BoxDecoration(
-      //     gradient: LinearGradient(
-      //       colors: [
-      //         Color(0xff3c12b4),
-      //         Color(0xff941397),
-      //       ],
-      //       begin: Alignment.topCenter,
-      //       end: Alignment.bottomCenter,
-      //     ),
-      //   ),
-      // )
     );
   }
 }

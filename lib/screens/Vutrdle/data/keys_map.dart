@@ -1,5 +1,7 @@
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 
+String correctWord = '';
+
 Map<String, AnswerStage> keysMap = {
   'Q': AnswerStage.notAnswered,
   'W': AnswerStage.notAnswered,
