@@ -32,6 +32,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Color _minutesTextColor = const Color.fromARGB(100, 255, 255, 255);
   Color _tileBackgroundColor = const Color.fromARGB(100, 64, 64, 64);
 
+  void _showPicker(BuildContext context) {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (_) => Container(
+              width: 300,
+              height: 250,
+              child: CupertinoPicker(
+                backgroundColor: Colors.white,
+                itemExtent: 30,
+                scrollController: FixedExtentScrollController(initialItem: 1),
+                children: [
+                  Text('5'),
+                  Text('10'),
+                  Text('15'),
+                  Text('20'),
+                  Text('25'),
+                  Text('30'),
+                ],
+                onSelectedItemChanged: (int value) {
+                  setState(() {
+                    globals.userTime = value;
+                  });
+                },
+              ),
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -82,6 +109,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onChanged: (value) {
                       setState(() {
                         timer = value;
+                        globalTimeSet();
+                        Timer(Duration(minutes: globals.userTime - 1), () {
+                          exit(0);
+                        });
                       });
                       if (value == true) {
                         _minutesTextColor = Colors.white;
@@ -107,28 +138,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: _tileBackgroundColor,
                           ),
-                          onPressed: () {
-                            builder:
-                            (_) => Container(
-                                width: 300,
-                                height: 250,
-                                child: CupertinoPicker(
-                                  backgroundColor: Colors.white,
-                                  itemExtent: 64,
-                                  children: const [
-                                    Center(child: Text('5')),
-                                    Center(child: Text('10')),
-                                    Center(child: Text('15')),
-                                    Center(child: Text('20')),
-                                    Center(child: Text('25')),
-                                    Center(child: Text('30')),
-                                  ],
-                                  onSelectedItemChanged: (int value) {
-                                    setState(() => this.value = value);
-                                    globals.userTime = value;
-                                  },
-                                ));
-                          },
+                          onPressed: () => _showPicker(context),
                           child: Text(
                             '${globals.userTime}',
                             style: TextStyle(
@@ -221,38 +231,5 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     globals.isTimeOn = true;
     globals.isTimeOff = true;
-  }
-}
-
-class TimePicker extends StatelessWidget {
-  int _selectedValue = 0;
-
-  TimePicker({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    void _timePicker(BuildContext context) {
-      showCupertinoModalPopup(
-          context: context,
-          builder: (_) => Container(
-                width: 300,
-                height: 250,
-                child: CupertinoPicker(
-                  backgroundColor: Colors.white,
-                  itemExtent: 30,
-                  scrollController: FixedExtentScrollController(initialItem: 1),
-                  children: [
-                    Text('0'),
-                    Text('1'),
-                    Text('2'),
-                  ],
-                  onSelectedItemChanged: (value) {
-                    setState(() {
-                      _selectedValue = value;
-                    });
-                  },
-                ),
-              ));
-    }
   }
 }
