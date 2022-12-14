@@ -1,3 +1,6 @@
+/**
+ * Creator Marek Spirka
+ */
 import 'dart:async';
 import 'package:Halt/screens/FlappyDuck/Floppy_help.dart';
 import 'package:Halt/screens/ChooseGame/main_screen.dart';
@@ -14,6 +17,7 @@ class FlappyDuckScreen extends StatefulWidget {
 }
 
 class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
+  //deklarovanie premmenych pre celu hru
   static double birdYaxis = 0;
   double time = 0;
   double height = 0;
@@ -28,6 +32,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
   int score = 0;
   int highscore = 0;
 
+  //inicializovanie zaciatku hry
   @override
   void initState() {
     setState(() {
@@ -43,6 +48,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
     });
   }
 
+  //funkcia na skakanie s kackou
   void jump() {
     setState(() {
       time = 0;
@@ -50,6 +56,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
     });
   }
 
+  //funkcia, ktora nam kontroluje dotyk s barierou ak sa dotkneme bariery funkcia vrati true
   bool checkLose() {
     if (firstBarrier < 0.2 && firstBarrier > -0.2) {
       if (birdYaxis < -0.4 || birdYaxis > 0.7) {
@@ -69,6 +76,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
     return false;
   }
 
+  //funkcia, ktora spusta zaciatok hry a skonci sa ak vyjdeme s kackou mimo obrazovku alebo sa dotkneme bariery
   void GameStart() {
     gameHasStarted = true;
     Timer.periodic(Duration(milliseconds: 60), (timer) {
@@ -76,6 +84,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
       height = -4.9 * time * time + 2.8 * time;
       setState(() {
         birdYaxis = initialHeight - height;
+        //urcuje nam, ze ak sa bariera dostane na lavy okraj obrazovky presunieme ju na pravu stranu, takto sa to prevadza aj s dalsimi 2 barierami
         if (firstBarrier < -2) {
           score++;
           firstBarrier += 4.5;
@@ -95,6 +104,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
           thirdBarrier -= 0.04;
         }
       });
+      //ak vyjdeme von z obrazovky alebo sa dotkneme bariery ukaze sa nam dialog okno so statistikami
       if (birdYaxis > 1.3 || checkLose()) {
         timer.cancel();
         _showDialog();
@@ -102,15 +112,19 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
     });
   }
 
+  //dialog okno pri ukonceni hry
   void _showDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return Dialog(
-            backgroundColor: Colors.black.withOpacity(0.8),
+            backgroundColor: Colors.black
+                .withOpacity(0.8), //nastavenie background color dialogu
             child: Container(
-              height: SizeConfig.safeBlockVertical * 35,
-              width: SizeConfig.safeBlockHorizontal * 80,
+              height:
+                  SizeConfig.safeBlockVertical * 35, //nastavenie vysky so scale
+              width: SizeConfig.safeBlockHorizontal *
+                  80, //nastavenie sirky so scale
               child: Column(children: [
                 Expanded(
                   flex: 2,
@@ -131,7 +145,9 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                         height: SizeConfig.safeBlockVertical * 4,
                       ),
                       Text(
-                        "Aktuálne skóre :           " + score.toString(),
+                        "Aktuálne skóre :           " +
+                            score
+                                .toString(), //aktulne skore, ktore sme ziskali v danej hre
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: SizeConfig.safeBlockHorizontal * 4,
@@ -142,7 +158,9 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                         height: SizeConfig.safeBlockVertical * 3,
                       ),
                       Text(
-                        "Najvyššie skóre :           " + highscore.toString(),
+                        "Najvyššie skóre :           " +
+                            highscore
+                                .toString(), //najvyssie skore, ktore sme dosiahli pri hrani hry, pri odideni s hry sa resetuje na 0
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: SizeConfig.safeBlockHorizontal * 4,
@@ -152,6 +170,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                     ],
                   ),
                 ),
+                //inicializovanie a nastavenie vzhladu tlacidiel na odidenie z hry alebo restartovanie hry
                 Expanded(
                     flex: 1,
                     child: Padding(
@@ -205,9 +224,11 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
         });
   }
 
+  //nastavenie hlavnej vizualnej casti hry a volanie vsetkych potrebnych funkcii
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    //na tapnutie na obrazovku sa bud hra zacne alebo ak sa uz zacala tak sa vykonava funckia jump
     return GestureDetector(
       onTap: () {
         if (gameHasStarted) {
@@ -217,15 +238,16 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
         }
       },
       child: Scaffold(
+        //otvorenie pomocky ako hrat danu hru
         drawer: NavBarFlappy(),
         endDrawer: NavBarFlappyHelp(),
+        //otvorenie MenuBar aplikacie
         appBar: AppBar(
           actions: [
             Builder(
-                builder: (context) => // Ensure Scaffold is in context
-                    IconButton(
-                        icon: Icon(Icons.question_mark_outlined),
-                        onPressed: () => Scaffold.of(context).openEndDrawer())),
+                builder: (context) => IconButton(
+                    icon: Icon(Icons.question_mark_outlined),
+                    onPressed: () => Scaffold.of(context).openEndDrawer())),
           ],
           title: new Text('Halt.'),
           titleTextStyle: TextStyle(fontSize: 35),
@@ -235,13 +257,16 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
           toolbarHeight: 60,
         ),
         body: Column(
+          //vizualna cast stranky
           children: [
             Expanded(
                 flex: 2,
                 child: Stack(
                   children: [
-                    Brno(),
+                    //volanie background funkcie
+                    background(),
                     AnimatedContainer(
+                      //nastavenie kachny na vychodziu poziciu
                       alignment: Alignment(0, birdYaxis),
                       duration: Duration(milliseconds: 0),
                       child: Bird(),
@@ -255,6 +280,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                                   fontSize: SizeConfig.safeBlockHorizontal * 8,
                                   color: Colors.white)),
                     ),
+                    //nastavenie vysky/sirky vsetkych barier
                     AnimatedContainer(
                       alignment: Alignment(firstBarrier, 1.1), //prva spodna
                       duration: Duration(milliseconds: 0),

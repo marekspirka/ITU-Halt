@@ -1,16 +1,20 @@
+/**
+ * Creator Marek Spirka
+ */
 import 'package:flutter/material.dart';
 
-class Brno extends StatelessWidget {
-  const Brno({super.key});
+class background extends StatelessWidget {
+  const background({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: double.infinity,
-        height: double.infinity,
+        width: double.infinity, //sirka na celu stranu
+        height: double.infinity, //vyska na celu stranu
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/background_flappy.png'),
+              image: AssetImage(
+                  'assets/images/background_flappy.png'), //odkaz na pozadie
               fit: BoxFit.cover),
         ));
   }

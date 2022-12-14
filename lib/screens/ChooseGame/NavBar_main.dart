@@ -1,3 +1,6 @@
+/**
+ * Creator Marek Spirka
+ */
 import 'dart:io';
 import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
@@ -16,6 +19,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    //vytvorenie a graficke navrhnutie Navbaru
     return Drawer(
       width: SizeConfig.screenWidth * 0.60,
       backgroundColor: const Color(0xff1A0F8E).withOpacity(0.9),
@@ -23,6 +27,7 @@ class NavBar extends StatelessWidget {
         alignment: Alignment.center,
         child: Column(
           children: [
+            //odkazovanie sa na nastavenia a ine hry v Menu Bar
             play(context),
             sudoku(context),
             vutrdle(context),
@@ -36,6 +41,8 @@ class NavBar extends StatelessWidget {
   }
 }
 
+//Nastavenie text button, ktory sa po stlaceni dostane na hlavnu stranku vyberu hry
+//textu nastavujeme pozadovane parametre a graficke prevedenie
 play(context) {
   return Container(
       width: SizeConfig.screenWidth * 0.60,
@@ -60,6 +67,8 @@ play(context) {
       ));
 }
 
+//Nastavenie text button, ktory sa po stlaceni dostane na cast aplikacie kde je hra sudoku
+//textu nastavujeme pozadovane parametre a graficke prevedenie
 sudoku(context) {
   return Container(
       margin: EdgeInsets.only(
@@ -83,6 +92,8 @@ sudoku(context) {
       ));
 }
 
+//Nastavenie text button, ktory sa po stlaceni dostane na cast aplikacie kde je hra vutrdle
+//textu nastavujeme pozadovane parametre a graficke prevedenie
 vutrdle(context) {
   return Container(
       margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.09),
@@ -106,6 +117,8 @@ vutrdle(context) {
       ));
 }
 
+//Nastavenie text button, ktory sa po stlaceni dostane na cast aplikacie kde je hra flappy duck
+//textu nastavujeme pozadovane parametre a graficke prevedenie
 flappyduck(context) {
   return Container(
       width: SizeConfig.screenWidth * 0.60,
@@ -128,6 +141,8 @@ flappyduck(context) {
       ));
 }
 
+//Nastavenie text button, ktory sa po stlaceni dostane na cast aplikacie kde su nastavenia aplikacie
+//textu nastavujeme pozadovane parametre a graficke prevedenie
 settings(context) {
   return Container(
       width: SizeConfig.screenWidth * 0.60,
@@ -152,6 +167,8 @@ settings(context) {
       ));
 }
 
+//Nastavenie text button, ktory po stlaceni vypne aplikaciu
+//textu nastavujeme pozadovane parametre a graficke prevedenie
 quit(context) {
   return Container(
       margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.14),

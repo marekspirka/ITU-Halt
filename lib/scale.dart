@@ -1,4 +1,12 @@
+/**
+ * Creator Marek Spirka
+ */
 import 'package:flutter/material.dart';
+
+/**
+ * Tato trieda nam urcuje sirku nasich vsetkych elementov nasej aplikacie a textu
+ * Sirka/ Vyska sa vypocitavaju na zaklade rozsirenia displeja na ktorom sa dana aplikacia spustila
+ */
 
 class SizeConfig {
   late MediaQueryData _mediaQueryData;

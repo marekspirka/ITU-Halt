@@ -1,5 +1,11 @@
+/**
+ * Creator Marek Spirka
+ */
 import 'package:flutter/material.dart';
 
+/**
+ * Tato trieda sa vola vo flappyduck.dart a urcuje mu vzhlad Barier
+ */
 class MyBarrier_upsidedown extends StatelessWidget {
   final size;
 
@@ -12,7 +18,8 @@ class MyBarrier_upsidedown extends StatelessWidget {
         height: size,
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/barriers_upsidedown.png'),
+              image: AssetImage(
+                  'assets/images/barriers_upsidedown.png'), //odkaz na barieru otocenu naopak aby sla z hornej castu aplikacie
               fit: BoxFit.cover),
         ));
   }

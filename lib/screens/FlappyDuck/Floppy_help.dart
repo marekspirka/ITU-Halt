@@ -1,6 +1,13 @@
+/**
+ * Creator Marek Spirka
+ */
 import 'package:flutter/material.dart';
 import 'package:Halt/scale.dart';
 
+/**
+ * V tomto subore sa vytvare help menu pre uzivatele ako hrat danu hru
+ * Okno sa vytvori a graficky nastavi na pozadovany styl
+ */
 class NavBarFlappyHelp extends StatelessWidget {
   const NavBarFlappyHelp({super.key});
 
@@ -13,6 +20,7 @@ class NavBarFlappyHelp extends StatelessWidget {
         child: Container(
             alignment: Alignment.center,
             child: Column(
+              //volanie funkcii, ktore nam tvoria cely HelpBar
               children: [
                 First(context),
                 Second(context),
@@ -24,6 +32,11 @@ class NavBarFlappyHelp extends StatelessWidget {
             )));
   }
 }
+
+/**
+ * Funkcie, ktore vracaju text alebo obrazok do HelpBar hru Floppy duck
+ * nastavujeme tam velkost podla scale a farbu daneho textu 
+ */
 
 First(context) {
   return Container(
