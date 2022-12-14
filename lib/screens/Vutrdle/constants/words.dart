@@ -1,1 +1,12 @@
-const List<String> words = ['PIZZA'];
+const List<String> words = [
+  'PILKA',
+  'IRSKO',
+  'IVANA',
+  'ARGOT',
+  'ARIEL',
+  'ATOMY',
+  'SADIT',
+  'SHORA',
+  'TAJNO',
+  'TRIKO',
+];

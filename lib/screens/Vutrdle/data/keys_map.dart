@@ -1,7 +1,5 @@
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 
-import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
-
 Map<String, AnswerStage> keysMap = {
   'Q': AnswerStage.notAnswered,
   'W': AnswerStage.notAnswered,

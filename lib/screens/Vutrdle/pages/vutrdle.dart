@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:Halt/scale.dart';
+import 'package:Halt/screens/Vutrdle/components/helper_bar.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:Halt/screens/Vutrdle/constants/words.dart';
 import 'package:Halt/screens/Vutrdle/pages/NavBar_vutrdle.dart';
@@ -74,6 +75,10 @@ class _VutrdleScreenState extends State<VutrdleScreen> {
               flex: 7,
               child: Grid(),
             ),
+            Expanded(
+                child: HelperBar(
+              max: 6,
+            )),
             Expanded(
               flex: 4,
               child: Column(

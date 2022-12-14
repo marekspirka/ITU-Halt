@@ -1,5 +1,6 @@
 import 'package:Halt/screens/Vutrdle/components/stats_box.dart';
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
+import 'package:Halt/screens/Vutrdle/data/helper_values.dart';
 import 'package:Halt/screens/Vutrdle/data/keys_map.dart';
 import 'package:Halt/screens/Vutrdle/data/stats.dart';
 import 'package:Halt/screens/Vutrdle/models/tile_model.dart';
@@ -20,6 +21,11 @@ class Controller extends ChangeNotifier {
   //method to set the word to be guessed
   setCorrectWord({required String word}) {
     correctWord = word;
+    // initialise correct word for helper bar
+    helperList = correctWord.split('');
+    for (int i = 0; i < helperList.length; i++) {
+      helperMap[helperList[i]] = HelperStage.notguessed;
+    }
   }
 
   //method that handles individually tapped keys
@@ -82,6 +88,7 @@ class Controller extends ChangeNotifier {
           notGuessedYet.remove(guessedWord[i]);
           tilesEntered[i + (currentRow * 5)].answerStage = AnswerStage.correct;
           keysMap.update(guessedWord[i], (value) => AnswerStage.correct);
+          helperMap.update(guessedWord[i], (value) => HelperStage.guessed);
         }
       }
       //check for letters in wrong positions
