@@ -6,6 +6,7 @@ import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/data/helper_values.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/data/keys_map.dart';
 import 'package:Halt/screens/Vutrdle/stats.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
@@ -138,6 +139,8 @@ class StatsBoxWon extends StatelessWidget {
                   //reset key colors
                   keysMap.updateAll(
                       (key, value) => value = AnswerStage.notAnswered);
+                  helperMap.updateAll(
+                      (key, value) => value = HelperStage.notguessed);
                   Navigator.pop(context);
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => MultiProvider(providers: [
