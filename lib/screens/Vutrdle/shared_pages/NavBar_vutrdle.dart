@@ -8,7 +8,6 @@ import 'package:Halt/screens/Sudoku/sudoku.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:Halt/scale.dart';
-import 'package:provider/provider.dart';
 
 import 'package:intl/intl.dart';
 import 'dart:async';

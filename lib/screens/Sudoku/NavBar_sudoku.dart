@@ -1,7 +1,6 @@
 import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/screens/Settings/settings.dart';
-import 'package:Halt/screens/Sudoku/sudoku.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
 
@@ -147,7 +146,7 @@ class _NavBarSudokuState extends State<NavBarSudoku> {
     return Container(
       width: SizeConfig.screenWidth * 0.60,
       margin: EdgeInsets.only(
-          top: SizeConfig.screenHeight * 0.02,
+          top: SizeConfig.screenHeight * 0.38,
           right: SizeConfig.screenWidth * 0.25),
       child: TextButton(
         style: TextButton.styleFrom(

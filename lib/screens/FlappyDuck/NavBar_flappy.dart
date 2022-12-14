@@ -3,7 +3,6 @@
  */
 import 'dart:io';
 import 'package:Halt/screens/ChooseGame/main_screen.dart';
-import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/screens/Settings/settings.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
