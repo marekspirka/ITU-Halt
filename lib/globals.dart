@@ -6,6 +6,7 @@ bool isGlobal = false;
 bool isTimeOn = false;
 bool isTimeOff = false;
 
+int sudokuDifficulty = 36;
 int userTime = 10;
 
 DateTime startTime = DateFormat("mm:ss").parse("00:00");

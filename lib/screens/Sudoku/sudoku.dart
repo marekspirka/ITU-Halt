@@ -1,3 +1,5 @@
+// created by Andrea Michlíková - xmichl11
+
 import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Sudoku/constants/sudoku_colors.dart';
 import 'package:Halt/screens/Sudoku/components/blok_item.dart';
@@ -22,28 +24,30 @@ class SudokuScreen extends StatefulWidget {
 }
 
 class _SudokuScreenState extends State<SudokuScreen> {
-  // TODO naše proměnné
-
   double safeBlockHorizontal = SizeConfig.safeBlockHorizontal;
   double safeBlockVertical = SizeConfig.safeBlockVertical;
 
-  List<InnerBlok> innerBloks = [];
+  bool mute = false;
 
-  //InputInner inputInnerBloks = InputInner();
+  List<InnerBlok> innerBloks = [];
   List<InputClass> inputClassBlok = [];
   List<int> inputNumber = [];
 
   SettingsClass settings = SettingsClass();
   FocusClass focusClass = FocusClass();
   String? tapBoxIndex;
+  String difficulty = 'Lehké';
+  Color difficultyColorEasy = sudokuYellow85;
+  Color difficultyColorMedium = sudokuWhite45;
+  Color difficultyColorHard = sudokuWhite45;
   bool isFinish = false;
   bool smallNumber = false;
 
   @override
   void initState() {
     generateSudoku();
+    focusClass.inputNumber = 0;
 
-    // TODO: implement initState
     super.initState();
   }
 
@@ -66,10 +70,9 @@ class _SudokuScreenState extends State<SudokuScreen> {
       appBar: AppBar(
         actions: [
           Builder(
-              builder: (context) => // Ensure Scaffold is in context
-                  IconButton(
-                      icon: const Icon(Icons.question_mark_outlined),
-                      onPressed: () => Scaffold.of(context).openEndDrawer())),
+              builder: (context) => IconButton(
+                  icon: const Icon(Icons.question_mark_outlined),
+                  onPressed: () => Scaffold.of(context).openEndDrawer())),
         ],
         title: const Text('Halt.'),
         titleTextStyle: const TextStyle(fontSize: 35),
@@ -89,19 +92,27 @@ class _SudokuScreenState extends State<SudokuScreen> {
             end: Alignment.bottomCenter,
           ),
         ),
-
-        // TODO sudoku pattern
         child: Column(
           children: [
-            // TODO vrchní část
-            // Expanded(
-            //   //flex: 1,
-            //   child: Container(
-            //       //height: 50,
-            //       ),
-            // ),
+            // vrchní část
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.center,
+                //heightFactor: safeBlockVertical * 0.2,
+                //widthFactor: safeBlockHorizontal * 0.2,
+                child: Text(
+                  difficulty,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+            ),
 
-            // TODO prostřední část
+            // prostřední část
             Expanded(
               flex: 5,
               child: Container(
@@ -219,7 +230,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
               ),
             ),
 
-            // TODO spodní část
+            // spodní část
             Expanded(
               flex: 2,
               child: Container(
@@ -297,7 +308,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
               ),
             ),
 
-            // TODO nejspodnější část
+            // nejspodnější část
             Expanded(
               flex: 1,
               child: Container(
@@ -317,10 +328,9 @@ class _SudokuScreenState extends State<SudokuScreen> {
                   ),
                   itemBuilder: (context, index) {
                     if (index == 0) {
-                      // TODO nastavení
+                      // nastavení
                       return ElevatedButton(
-                        //onPressed: () => setInput(index + 1),
-                        onPressed: () => showDialogF(),
+                        onPressed: () => sudokuSettings(),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: sudokuBlack50,
                           shape: RoundedRectangleBorder(
@@ -330,7 +340,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
                         child: const Icon(Icons.settings_rounded),
                       );
                     } else if (index == 1) {
-                      // TODO nová hra -> od začátku by bylo lepší
+                      // nová hra
                       return ElevatedButton(
                         onPressed: () => generateSudoku(),
                         style: ElevatedButton.styleFrom(
@@ -342,7 +352,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
                         child: const Icon(Icons.autorenew_rounded),
                       );
                     } else if (index == 2) {
-                      // TODO tužka na malé čísla
+                      // tužka na malé čísla
                       return ElevatedButton(
                         onPressed: () {
                           setState(() => smallNumber = !smallNumber);
@@ -357,11 +367,11 @@ class _SudokuScreenState extends State<SudokuScreen> {
                         child: const Icon(Icons.create_rounded),
                       );
                     } else {
-                      // TODO zpátky
+                      // zpátky
                       return ElevatedButton(
-                        //onPressed: () => setInput(index + 1),
-                        onPressed: () => generateSudoku(),
-
+                        onPressed: () {
+                          setState(() => clearNotDefault());
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: sudokuBlack50,
                           shape: RoundedRectangleBorder(
@@ -384,7 +394,6 @@ class _SudokuScreenState extends State<SudokuScreen> {
   }
 
   generatePuzzle() {
-    // install plugins sudoku generator to generate one
     innerBloks.clear();
     inputClassBlok.clear();
 
@@ -393,10 +402,10 @@ class _SudokuScreenState extends State<SudokuScreen> {
     }
     inputClassBlok.add(InputClass(9, -1, false, false));
 
-    var sudokuGenerator =
-        SudokuGenerator(emptySquares: 36); //TODO počet volných polí = obtížnost
-    // then we populate to get a possible combination
-    // Quiver for easy populate collection using partition
+    var sudokuGenerator = SudokuGenerator(
+        emptySquares:
+            globals.sudokuDifficulty); //počet volných polí = obtížnost
+
     List<List<List<int>>> completes = partition(sudokuGenerator.newSudokuSolved,
             sqrt(sudokuGenerator.newSudoku.length).toInt())
         .toList();
@@ -430,6 +439,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
             isCorrect: entryIn.value != 0,
             correctText: tempListCompletes[entryIn.key].toString(),
           ));
+
           if (entryIn.value != 0) {
             inputClassBlok[entryIn.value - 1].numberInput--;
             if (inputClassBlok[entryIn.value - 1].numberInput == 0) {
@@ -439,8 +449,6 @@ class _SudokuScreenState extends State<SudokuScreen> {
         });
       },
     );
-
-    // complete generate puzzle sudoku
   }
 
   setFocus(int index, int indexChar, String textString, bool defaultNumber) {
@@ -485,6 +493,14 @@ class _SudokuScreenState extends State<SudokuScreen> {
     }
   }
 
+  clearNotDefault() {
+    for (var element in innerBloks) {
+      element.clearNotDefault();
+      element.clearFocus();
+      element.clearExist();
+    }
+  }
+
   void showFocusCross() {
     // set focus color for line vertical & horizontal
     int rowNoBox = focusClass.indexBox! ~/ 3;
@@ -520,7 +536,6 @@ class _SudokuScreenState extends State<SudokuScreen> {
 
   setInputFocus(int index, int? number, String myIndex) {
     // set highlight to input box
-
     if (focusClass.indexBox == null) {
       InputClass item = inputClassBlok[index];
       if (!item.isInputFocus) {
@@ -617,7 +632,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
     isFinish = totalUnfinish == 0;
   }
 
-  void showDialogF() {
+  void sudokuSettings() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -625,88 +640,112 @@ class _SudokuScreenState extends State<SudokuScreen> {
           return Dialog(
             insetPadding: EdgeInsets.symmetric(
                 horizontal: safeBlockHorizontal * 5,
-                vertical: safeBlockVertical * 10),
+                vertical: safeBlockVertical * 30),
             backgroundColor: sudokuBlack75,
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(5.0))),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Expanded(
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  TextButton(
-                    child: Text(
-                      "Zvýraznit stejné hodnoty",
-                      style: TextStyle(
-                          color: sudokuWhite,
-                          fontSize: safeBlockHorizontal * 5),
-                    ),
-                    onPressed: () {},
-                  ),
-                  Switch(
-                    // This bool value toggles the switch.
-                    value: settings.hightlightSameValues,
-                    activeColor: Colors.red,
-                    onChanged: (value) {
-                      // This is called when the user toggles the switch.
-                      setState(() => settings.hightlightSameValues = value);
-                    },
-                  ),
-
-                  // onPressed: () {
-                  //   setState(() => smallNumber = !smallNumber);
-                  // },
-
-                  // Switch(
-                  //   // thumb color (round icon)
-                  //   activeColor: Colors.amber,
-                  //   activeTrackColor: Colors.cyan,
-                  //   inactiveThumbColor: Colors.blueGrey.shade600,
-                  //   inactiveTrackColor: Colors.grey.shade400,
-                  //   splashRadius: 50.0,
-                  //   // boolean variable value
-                  //   value: settings.hightlightSameValues,
-                  //   // changes the state of the switch
-                  //   onChanged: (value) =>
-                  //       setState(() => settings.hightlightSameValues = value),
-                  // ),
-                  // SwitchListTile(
-                  //   value: settings.hightlightSameValues,
-                  //   onChanged: (value) {
-                  //     setState(() {
-                  //       settings.hightlightSameValues = value;
-                  //     });
-                  //   },
-                  // ),
-                ]),
-              ),
-              Expanded(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const Text(
-                      'NASTAVENÍ',
+                      'OBTÍŽNOST',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 30,
+                        height: 3,
                       ),
                     ),
-                    // onChanged -> callback which would notify us when it has been changed
-                    SwitchListTile(
-                        title: const Text(
-                          "Zvýraznit stejné hodnoty",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() => {
+                              difficulty = "Lehké",
+                              globals.sudokuDifficulty = 36,
+                              difficultyColorEasy = sudokuYellow85,
+                              difficultyColorMedium = sudokuWhite45,
+                              difficultyColorHard = sudokuWhite45,
+                            });
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: difficultyColorEasy,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
                         ),
-                        value: settings.hightlightSameValues,
-                        onChanged: (value) {
-                          setState(() {
-                            settings.hightlightSameValues = value;
-                          });
-                        })
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Lehké",
+                            style: TextStyle(
+                                color: sudokuBlack,
+                                fontSize: safeBlockHorizontal * 6.5),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() => {
+                              difficulty = "Střední",
+                              globals.sudokuDifficulty = 47,
+                              difficultyColorEasy = sudokuWhite45,
+                              difficultyColorMedium = sudokuYellow85,
+                              difficultyColorHard = sudokuWhite45,
+                            });
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: difficultyColorMedium,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Střední",
+                            style: TextStyle(
+                                color: sudokuBlack,
+                                fontSize: safeBlockHorizontal * 6.5),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() => {
+                              difficulty = "Těžké",
+                              globals.sudokuDifficulty = 54,
+                              difficultyColorEasy = sudokuWhite45,
+                              difficultyColorMedium = sudokuWhite45,
+                              difficultyColorHard = sudokuYellow85,
+                            });
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: difficultyColorHard,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Těžké",
+                            style: TextStyle(
+                                color: sudokuBlack,
+                                fontSize: safeBlockHorizontal * 6.5),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

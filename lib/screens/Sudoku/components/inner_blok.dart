@@ -57,6 +57,16 @@ class InnerBlok {
     });
   }
 
+  clearNotDefault() {
+    for (var element in blokItem) {
+      if (!element.isDefault) {
+        element.isCorrect = false;
+        element.text = "";
+        element.correctText = "";
+      }
+    }
+  }
+
   clearFocus() {
     for (var element in blokItem) {
       element.isFocus = false;
