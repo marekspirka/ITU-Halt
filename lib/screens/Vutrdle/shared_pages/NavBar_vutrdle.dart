@@ -6,6 +6,10 @@ import 'package:Halt/screens/Sudoku/sudoku.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:Halt/scale.dart';
+import 'package:provider/provider.dart';
+
+import '../vutrdle_five/controller_five.dart';
+import '../vutrdle_five/pages/vutrdle_five.dart';
 
 class NavBarVutrdle extends StatefulWidget {
   const NavBarVutrdle({super.key});
@@ -25,6 +29,7 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
         alignment: Alignment.center,
         child: Column(
           children: [
+            menu(context),
             play(context),
             sudoku(context),
             flappyduck(context),
@@ -37,11 +42,34 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
   }
 }
 
+menu(context) {
+  return Container(
+      margin: EdgeInsets.only(
+          top: SizeConfig.screenHeight * 0.32,
+          right: SizeConfig.screenWidth * 0.20),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.white,
+        ),
+        child: Text('Menu',
+            style: TextStyle(
+              fontSize: SizeConfig.safeBlockHorizontal * 10,
+            )),
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const MainScreen()),
+          );
+        },
+      ));
+}
+
 play(context) {
   return Container(
       width: SizeConfig.screenWidth * 0.60,
       margin: EdgeInsets.only(
-          top: SizeConfig.screenHeight * 0.38,
+          top: SizeConfig.screenHeight * 0.02,
           right: SizeConfig.screenWidth * 0.25),
       child: TextButton(
         style: TextButton.styleFrom(
@@ -53,10 +81,12 @@ play(context) {
             )),
         onPressed: () {
           Navigator.pop(context);
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const MainScreen()),
-          );
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => MultiProvider(providers: [
+                    ChangeNotifierProvider(
+                        create: (_) =>
+                            ControllerFive()) //make controller accessible throughout the project
+                  ], child: const VutrdleScreenFive())));
         },
       ));
 }

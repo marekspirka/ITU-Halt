@@ -3,6 +3,7 @@
  */
 import 'dart:io';
 import 'package:Halt/screens/ChooseGame/main_screen.dart';
+import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/screens/Settings/settings.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
@@ -26,6 +27,7 @@ class NavBarFlappy extends StatelessWidget {
         child: Column(
           //odkazovanie sa na nastavenia a ine hry v Menu Bar
           children: [
+            menu(context),
             play(context),
             sudoku(context),
             vutrdle(context),
@@ -39,11 +41,35 @@ class NavBarFlappy extends StatelessWidget {
 
 //Nastavenie text button, ktory sa po stlaceni dostane na hlavnu stranku vyberu hry
 //textu nastavujeme pozadovane parametre a graficke prevedenie
+  menu(context) {
+    return Container(
+        margin: EdgeInsets.only(
+            top: SizeConfig.screenHeight * 0.32,
+            right: SizeConfig.screenWidth * 0.20),
+        child: TextButton(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.white,
+          ),
+          child: Text('Menu',
+              style: TextStyle(
+                fontSize: SizeConfig.safeBlockHorizontal * 10,
+              )),
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MainScreen()),
+            );
+          },
+        ));
+  }
+
+  //Nastavenie text button, ktory sa po stlaceni dostane na hlavnu stranku vyberu hry
+//textu nastavujeme pozadovane parametre a graficke prevedenie
   play(context) {
     return Container(
-        width: SizeConfig.screenWidth * 0.60,
         margin: EdgeInsets.only(
-            top: SizeConfig.screenHeight * 0.38,
+            top: SizeConfig.screenHeight * 0.02,
             right: SizeConfig.screenWidth * 0.25),
         child: TextButton(
           style: TextButton.styleFrom(
@@ -57,7 +83,7 @@ class NavBarFlappy extends StatelessWidget {
             Navigator.pop(context);
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const MainScreen()),
+              MaterialPageRoute(builder: (context) => FlappyDuckScreen()),
             );
           },
         ));

@@ -185,7 +185,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                             child: Text(
                               "MENU",
                               style: TextStyle(
-                                  color: Color(0xff6BC7EE),
+                                  color: const Color(0xff6BC7EE),
                                   fontSize: SizeConfig.safeBlockHorizontal * 8),
                             ),
                             onPressed: () {
@@ -193,7 +193,8 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => MainScreen()));
+                                      builder: (context) =>
+                                          const MainScreen()));
                             },
                           ),
                           SizedBox(width: SizeConfig.safeBlockHorizontal * 3.3),
@@ -201,7 +202,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                             child: Text(
                               "ZNOVU",
                               style: TextStyle(
-                                  color: Color(0xff00FF29),
+                                  color: const Color(0xff00FF29),
                                   fontSize: SizeConfig.safeBlockHorizontal * 8),
                             ),
                             onPressed: () {
@@ -239,8 +240,8 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
       },
       child: Scaffold(
         //otvorenie pomocky ako hrat danu hru
-        drawer: NavBarFlappy(),
-        endDrawer: NavBarFlappyHelp(),
+        drawer: const NavBarFlappy(),
+        endDrawer: const NavBarFlappyHelp(),
         //otvorenie MenuBar aplikacie
         appBar: AppBar(
           actions: [
@@ -250,7 +251,7 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                     onPressed: () => Scaffold.of(context).openEndDrawer())),
           ],
           title: new Text('Halt.'),
-          titleTextStyle: TextStyle(fontSize: 35),
+          titleTextStyle: const TextStyle(fontSize: 35),
           centerTitle: true,
           backgroundColor: Colors.black,
           elevation: 2,
@@ -264,17 +265,17 @@ class _FlappyDuckScreenState extends State<FlappyDuckScreen> {
                 child: Stack(
                   children: [
                     //volanie background funkcie
-                    background(),
+                    const background(),
                     AnimatedContainer(
                       //nastavenie kachny na vychodziu poziciu
                       alignment: Alignment(0, birdYaxis),
-                      duration: Duration(milliseconds: 0),
+                      duration: const Duration(milliseconds: 0),
                       child: Bird(),
                     ),
                     Container(
-                      alignment: Alignment(0, -0.3),
+                      alignment: const Alignment(0, -0.3),
                       child: gameHasStarted
-                          ? Text(" ")
+                          ? const Text(" ")
                           : Text("Š T A R T",
                               style: TextStyle(
                                   fontSize: SizeConfig.safeBlockHorizontal * 8,
