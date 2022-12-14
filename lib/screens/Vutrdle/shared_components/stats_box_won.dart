@@ -1,11 +1,13 @@
 import 'dart:io';
 
-import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/data/keys_map.dart';
 import 'package:Halt/screens/Vutrdle/stats.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StatsBoxWon extends StatelessWidget {
   const StatsBoxWon({super.key});
@@ -135,12 +137,19 @@ class StatsBoxWon extends StatelessWidget {
                   //reset key colors
                   keysMap.updateAll(
                       (key, value) => value = AnswerStage.notAnswered);
-                  //reset game history
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MainScreen()),
-                      (route) => false);
+                  Navigator.pop(context);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MultiProvider(providers: [
+                            ChangeNotifierProvider(
+                                create: (_) =>
+                                    ControllerFive()) //make controller accessible throughout the project
+                          ], child: const VutrdleScreenFive())));
+                  // //reset game history
+                  // Navigator.pushAndRemoveUntil(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const MainScreen()),
+                  //     (route) => false);
                 },
                 child: const Text('Hádej další')),
           )),

@@ -17,8 +17,6 @@ class ControllerFive extends ChangeNotifier {
   bool flipLine = false;
   bool gameWon = false;
   bool gameCompleted = false;
-  int currentStreak = 0;
-  int maxstreak = 0;
 
   //method to set the word to be guessed
   setCorrectWord({required String word}) {
@@ -136,15 +134,15 @@ class ControllerFive extends ChangeNotifier {
     //compute streaks
     if (gameCompleted) {
       if (gameWon) {
-        currentStreak++;
+        results.update('currentStreak', (value) => ++value);
       } else {
-        currentStreak = 0;
+        results.update('currentStreak', (value) => 0);
       }
-      if (currentStreak > maxstreak) {
-        maxstreak = currentStreak;
+      if (results['currentStreak']! > results['maxStreak']!) {
+        results['maxStreak'] = results['currentStreak']!;
       }
-      results.update('currentStreak', (value) => currentStreak);
-      results.update('maxStreak', (value) => maxstreak);
+      // results.update('currentStreak', (value) => value++);
+      // results.update('maxStreak', (value) => value++);
     }
     notifyListeners(); //update listeners once the stage values change
   }

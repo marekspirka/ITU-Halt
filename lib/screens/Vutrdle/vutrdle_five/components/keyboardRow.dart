@@ -23,7 +23,7 @@ class KeyboardRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: keysMap.entries.map((e) {
           index++;
-          //print('index $index of key: ${e.key}');
+          //choose only the relevant keys from the map
           if (index >= min && index <= max) {
             Color currentColor = wordleLightGrey;
             Color fontColor = Colors.white;
