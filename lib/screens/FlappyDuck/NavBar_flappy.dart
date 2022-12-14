@@ -112,8 +112,11 @@ class _NavBarFlappyState extends State<NavBarFlappy> {
             },
           ));
     } else {
-      return const Text(
-        "",
+      return Container(
+        width: SizeConfig.screenWidth * 0.60,
+        margin: EdgeInsets.only(
+          top: SizeConfig.screenHeight * 0.2,
+        ),
       );
     }
   }
@@ -123,7 +126,7 @@ class _NavBarFlappyState extends State<NavBarFlappy> {
   menu(context) {
     return Container(
         margin: EdgeInsets.only(
-            top: SizeConfig.screenHeight * 0.32,
+            top: SizeConfig.screenHeight * 0.12,
             right: SizeConfig.screenWidth * 0.20),
         child: TextButton(
           style: TextButton.styleFrom(

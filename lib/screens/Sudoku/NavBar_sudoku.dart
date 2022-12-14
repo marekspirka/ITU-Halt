@@ -89,8 +89,8 @@ class _NavBarSudokuState extends State<NavBarSudoku> {
       return Container(
           width: SizeConfig.screenWidth * 0.60,
           margin: EdgeInsets.only(
-              top: SizeConfig.screenHeight * 0.18,
-              bottom: SizeConfig.screenWidth * 0.0),
+            top: SizeConfig.screenHeight * 0.2,
+          ),
           child: TextButton(
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
@@ -108,8 +108,11 @@ class _NavBarSudokuState extends State<NavBarSudoku> {
             },
           ));
     } else {
-      return const Text(
-        "",
+      return Container(
+        width: SizeConfig.screenWidth * 0.60,
+        margin: EdgeInsets.only(
+          top: SizeConfig.screenHeight * 0.2,
+        ),
       );
     }
   }
@@ -117,7 +120,7 @@ class _NavBarSudokuState extends State<NavBarSudoku> {
   menu(context) {
     return Container(
         margin: EdgeInsets.only(
-            top: SizeConfig.screenHeight * 0.32,
+            top: SizeConfig.screenHeight * 0.12,
             right: SizeConfig.screenWidth * 0.20),
         child: TextButton(
           style: TextButton.styleFrom(

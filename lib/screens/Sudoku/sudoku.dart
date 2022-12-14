@@ -94,13 +94,12 @@ class _SudokuScreenState extends State<SudokuScreen> {
         child: Column(
           children: [
             // TODO vrchní část
-            Expanded(
-              //flex: 1,
-              child: Container(
-                //height: 50,
-                color: Colors.lightBlueAccent.withOpacity(0.25),
-              ),
-            ),
+            // Expanded(
+            //   //flex: 1,
+            //   child: Container(
+            //       //height: 50,
+            //       ),
+            // ),
 
             // TODO prostřední část
             Expanded(
