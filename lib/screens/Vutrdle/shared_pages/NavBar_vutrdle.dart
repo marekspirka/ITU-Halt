@@ -55,7 +55,7 @@ play(context) {
           Navigator.pop(context);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MainScreen()),
+            MaterialPageRoute(builder: (context) => const MainScreen()),
           );
         },
       ));
@@ -78,7 +78,7 @@ sudoku(context) {
           Navigator.pop(context);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SudokuScreen()),
+            MaterialPageRoute(builder: (context) => const SudokuScreen()),
           );
         },
       ));
@@ -123,7 +123,7 @@ settings(context) {
           Navigator.pop(context),
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SettingsScreen()),
+            MaterialPageRoute(builder: (context) => const SettingsScreen()),
           )
         },
       ));

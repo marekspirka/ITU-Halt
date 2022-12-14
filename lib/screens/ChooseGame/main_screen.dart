@@ -107,7 +107,7 @@ class MainScreen extends StatelessWidget {
         margin: EdgeInsets.only(top: SizeConfig.safeBlockHorizontal * 5),
         decoration: BoxDecoration(
             image: const DecorationImage(
-                image: AssetImage('assets/images/pattern.png'),
+                image: AssetImage('assets/images/wordle_card.jpg'),
                 fit: BoxFit.cover),
             borderRadius: BorderRadius.circular(22.0)),
         child: Row(

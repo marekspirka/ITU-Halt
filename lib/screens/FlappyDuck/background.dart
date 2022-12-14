@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:Halt/scale.dart';
 
 class Brno extends StatelessWidget {
+  const Brno({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

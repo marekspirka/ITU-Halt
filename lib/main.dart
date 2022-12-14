@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'screens/loading_screen.dart';
-import 'package:Halt/timer.dart';
-import 'dart:io';
 
 void main() {
   //Timer(Duration(seconds: timeMap['time']!), () {

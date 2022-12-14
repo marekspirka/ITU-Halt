@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 enum AnswerStage {
   correct, // correct letter in the correct position
   incorrect, // letter not in the word

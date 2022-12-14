@@ -1,6 +1,6 @@
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
-import 'package:Halt/screens/Vutrdle/vutrdle_five/components/stats_box_lost.dart';
-import 'package:Halt/screens/Vutrdle/vutrdle_five/components/stats_box_won.dart';
+import 'package:Halt/screens/Vutrdle/shared_components/stats_box_lost.dart';
+import 'package:Halt/screens/Vutrdle/shared_components/stats_box_won.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/data/helper_values.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/data/keys_map.dart';
 import 'package:Halt/screens/Vutrdle/stats.dart';
