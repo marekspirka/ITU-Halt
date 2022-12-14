@@ -1,3 +1,5 @@
+// created by Andrea Michlíková - xmichl11
+// holds class BlockItem - information about one square
 class BlokItem {
   String? text; // number + "" (null)
   String? correctText; // correct number

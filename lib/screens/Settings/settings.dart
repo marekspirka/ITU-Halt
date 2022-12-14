@@ -3,16 +3,13 @@
 import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 
-import 'package:Halt/scale.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:intl/intl.dart';
 import '../../globals.dart' as globals;
-import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
-
-// ANDY INSERT PROMENNA HERE ⬇️
+import 'dart:async';
+import 'dart:io';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

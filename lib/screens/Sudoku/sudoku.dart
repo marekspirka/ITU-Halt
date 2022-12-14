@@ -1,5 +1,5 @@
 // created by Andrea Michlíková - xmichl11
-
+// holds the controller for a game
 import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Sudoku/constants/sudoku_colors.dart';
 import 'package:Halt/screens/Sudoku/components/blok_item.dart';
@@ -27,21 +27,19 @@ class _SudokuScreenState extends State<SudokuScreen> {
   double safeBlockHorizontal = SizeConfig.safeBlockHorizontal;
   double safeBlockVertical = SizeConfig.safeBlockVertical;
 
-  bool mute = false;
-
   List<InnerBlok> innerBloks = [];
   List<InputClass> inputClassBlok = [];
   List<int> inputNumber = [];
-
-  SettingsClass settings = SettingsClass();
   FocusClass focusClass = FocusClass();
   String? tapBoxIndex;
+  bool isFinish = false;
+  bool smallNumber = false;
+
+  // variables for sudoku settings
   String difficulty = 'Lehké';
   Color difficultyColorEasy = sudokuYellow85;
   Color difficultyColorMedium = sudokuWhite45;
   Color difficultyColorHard = sudokuWhite45;
-  bool isFinish = false;
-  bool smallNumber = false;
 
   @override
   void initState() {
@@ -51,6 +49,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
     super.initState();
   }
 
+  // generate new sudoku
   void generateSudoku() {
     isFinish = false;
     focusClass = FocusClass();
@@ -94,13 +93,11 @@ class _SudokuScreenState extends State<SudokuScreen> {
         ),
         child: Column(
           children: [
-            // vrchní část
+            // top part
             Expanded(
               flex: 1,
               child: Container(
                 alignment: Alignment.center,
-                //heightFactor: safeBlockVertical * 0.2,
-                //widthFactor: safeBlockHorizontal * 0.2,
                 child: Text(
                   difficulty,
                   style: const TextStyle(
@@ -112,7 +109,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
               ),
             ),
 
-            // prostřední část
+            // middle part
             Expanded(
               flex: 5,
               child: Container(
@@ -136,7 +133,6 @@ class _SudokuScreenState extends State<SudokuScreen> {
                       width: double.maxFinite,
                       alignment: Alignment.center,
                       child: GridView.builder(
-                        //itemCount: 9,
                         itemCount: innerBlok.blokItem.length,
                         shrinkWrap: true,
                         gridDelegate:
@@ -150,7 +146,6 @@ class _SudokuScreenState extends State<SudokuScreen> {
                         itemBuilder: (context, indexChar) {
                           BlokItem itemBlok = innerBlok.blokItem[indexChar];
                           Color color = sudokuWhite45;
-
                           bool isDefault = itemBlok.isDefault;
 
                           // change color base condition
@@ -172,7 +167,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
                             color = sudokuYellow65;
                           }
 
-                          // fault
+                          // error highlight
                           if (itemBlok.isExist && itemBlok.text != "") {
                             color = isDefault ? sudokuRed85 : sudokuRed40;
                           }
@@ -230,7 +225,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
               ),
             ),
 
-            // spodní část
+            // bottom part = "keyboard"
             Expanded(
               flex: 2,
               child: Container(
@@ -253,10 +248,12 @@ class _SudokuScreenState extends State<SudokuScreen> {
                     String smallIndex;
                     int? input;
 
+                    // button delete
                     if (index == 9) {
                       myIndex = "X";
                       smallIndex = "";
                       input = null;
+                      // numbers
                     } else {
                       myIndex = "${inputClass.index + 1}";
                       smallIndex = "${inputClass.numberInput}";
@@ -273,9 +270,9 @@ class _SudokuScreenState extends State<SudokuScreen> {
                                 : inputClass.isInputFocus);
                         setState(() => inputClass.isInputAll =
                             (inputClass.numberInput == 0) ? true : false);
-                        //inputClassBlok[number - 1].numberInput++;
                       },
                       style: ElevatedButton.styleFrom(
+                        // set correct background
                         backgroundColor: inputClass.isInputAll
                             ? sudokuWhite45
                             : inputClass.isInputFocus
@@ -288,12 +285,15 @@ class _SudokuScreenState extends State<SudokuScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          // big numbers
                           Text(
                             myIndex,
                             style: TextStyle(
                                 color: sudokuBlack,
                                 fontSize: safeBlockHorizontal * 6.5),
                           ),
+
+                          // small numbers
                           Text(
                             smallIndex,
                             style: TextStyle(
@@ -308,7 +308,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
               ),
             ),
 
-            // nejspodnější část
+            // lowest part
             Expanded(
               flex: 1,
               child: Container(
@@ -328,7 +328,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
                   ),
                   itemBuilder: (context, index) {
                     if (index == 0) {
-                      // nastavení
+                      // settings
                       return ElevatedButton(
                         onPressed: () => sudokuSettings(),
                         style: ElevatedButton.styleFrom(
@@ -340,7 +340,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
                         child: const Icon(Icons.settings_rounded),
                       );
                     } else if (index == 1) {
-                      // nová hra
+                      // new game
                       return ElevatedButton(
                         onPressed: () => generateSudoku(),
                         style: ElevatedButton.styleFrom(
@@ -352,7 +352,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
                         child: const Icon(Icons.autorenew_rounded),
                       );
                     } else if (index == 2) {
-                      // tužka na malé čísla
+                      // pencil fo the small numbers
                       return ElevatedButton(
                         onPressed: () {
                           setState(() => smallNumber = !smallNumber);
@@ -367,7 +367,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
                         child: const Icon(Icons.create_rounded),
                       );
                     } else {
-                      // zpátky
+                      // game from the beginning
                       return ElevatedButton(
                         onPressed: () {
                           setState(() => clearNotDefault());
@@ -393,10 +393,14 @@ class _SudokuScreenState extends State<SudokuScreen> {
     );
   }
 
+  // generate the puzzle
   generatePuzzle() {
+    // clear small square
     innerBloks.clear();
+    // clear "keyboard"
     inputClassBlok.clear();
 
+    // set InputClass
     for (int i = 0; i < 9; i++) {
       inputClassBlok.add(InputClass(i, 9, false, false));
     }
@@ -404,7 +408,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
 
     var sudokuGenerator = SudokuGenerator(
         emptySquares:
-            globals.sudokuDifficulty); //počet volných polí = obtížnost
+            globals.sudokuDifficulty); //number of free fields = difficulty
 
     List<List<List<int>>> completes = partition(sudokuGenerator.newSudokuSolved,
             sqrt(sudokuGenerator.newSudoku.length).toInt())
@@ -432,6 +436,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
           InnerBlok innerBlok =
               innerBloks.where((element) => element.index == index).first;
 
+          // set the small squares
           innerBlok.blokItem.add(BlokItem(
             entryIn.value == 0 ? "" : entryIn.value.toString(),
             index: innerBlok.blokItem.length,
@@ -440,6 +445,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
             correctText: tempListCompletes[entryIn.key].toString(),
           ));
 
+          // set the small numbers
           if (entryIn.value != 0) {
             inputClassBlok[entryIn.value - 1].numberInput--;
             if (inputClassBlok[entryIn.value - 1].numberInput == 0) {
@@ -451,10 +457,12 @@ class _SudokuScreenState extends State<SudokuScreen> {
     );
   }
 
+  // set focus and highlight
   setFocus(int index, int indexChar, String textString, bool defaultNumber) {
     tapBoxIndex = "$index-$indexChar";
     BlokItem item = innerBloks[index].blokItem[indexChar];
 
+    // don't set the highlight vertically and horizontally
     if (focusClass.inputNumber != 0) {
       focusClass.setData(index, indexChar, textString);
       setInput(focusClass.inputNumber);
@@ -487,12 +495,14 @@ class _SudokuScreenState extends State<SudokuScreen> {
     setState(() {});
   }
 
+  // unset focus
   unsetFocus() {
     for (var element in innerBloks) {
       element.clearFocus();
     }
   }
 
+  // set the table to originally state
   clearNotDefault() {
     for (var element in innerBloks) {
       element.clearNotDefault();
@@ -501,8 +511,8 @@ class _SudokuScreenState extends State<SudokuScreen> {
     }
   }
 
+  // set focus color for line vertical & horizontal
   void showFocusCross() {
-    // set focus color for line vertical & horizontal
     int rowNoBox = focusClass.indexBox! ~/ 3;
     int colNoBox = focusClass.indexBox! % 3;
 
@@ -517,9 +527,8 @@ class _SudokuScreenState extends State<SudokuScreen> {
         (e) => e.setFocus("", focusClass.indexChar!, Direction.vertical));
   }
 
+  // set focus color for same numbers
   void showFocusNumber(String textString) {
-    // set focus color for same numbers
-
     for (var element in innerBloks) {
       element.clearFocus();
     }
@@ -534,8 +543,8 @@ class _SudokuScreenState extends State<SudokuScreen> {
     }
   }
 
+  // set highlight to "keyboard"
   setInputFocus(int index, int? number, String myIndex) {
-    // set highlight to input box
     if (focusClass.indexBox == null) {
       InputClass item = inputClassBlok[index];
       if (!item.isInputFocus) {
@@ -547,10 +556,10 @@ class _SudokuScreenState extends State<SudokuScreen> {
       }
       return;
     }
-
     setInput(number);
   }
 
+  // unset highlight to "keyboard"
   unsetInputFocus(int index) {
     for (var element in inputClassBlok) {
       if (element.index != index) {
@@ -559,6 +568,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
     }
   }
 
+  // set the value of "keyboard" item to small square
   setInput(int? number) {
     BlokItem item =
         innerBloks[focusClass.indexBox!].blokItem[focusClass.indexChar!];
@@ -591,7 +601,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
     setState(() {});
   }
 
-  // show duplicate number on same line vertical & horizontal
+  // show duplicate number on same line vertical & horizontal and in block
   void showSameInputOnSameLine() {
     int rowNoBox = focusClass.indexBox! ~/ 3;
     int colNoBox = focusClass.indexBox! % 3;
@@ -603,14 +613,17 @@ class _SudokuScreenState extends State<SudokuScreen> {
       element.clearExist();
     }
 
+    // horizontally
     innerBloks.where((element) => element.index ~/ 3 == rowNoBox).forEach((e) =>
         e.setExistValue(focusClass.indexChar!, focusClass.indexBox!, textInput,
             Direction.horizontal));
 
+    // vertically
     innerBloks.where((element) => element.index % 3 == colNoBox).forEach((e) =>
         e.setExistValue(focusClass.indexChar!, focusClass.indexBox!, textInput,
             Direction.vertical));
 
+    // in the same block
     List<BlokItem> exists = innerBloks
         .map((element) => element.blokItem)
         .expand((element) => element)
@@ -618,10 +631,9 @@ class _SudokuScreenState extends State<SudokuScreen> {
         .toList();
 
     if (exists.length == 1) exists[0].isExist = false;
-    //if (exists.length == 1) exists[0].isWrong = false;
   }
 
-// sudoku is complete
+  // sudoku is complete
   void checkFinish() {
     int totalUnfinish = innerBloks
         .map((e) => e.blokItem)
@@ -632,6 +644,7 @@ class _SudokuScreenState extends State<SudokuScreen> {
     isFinish = totalUnfinish == 0;
   }
 
+  // sudoku difficulty settings
   void sudokuSettings() {
     showDialog(
         context: context,
@@ -752,5 +765,5 @@ class _SudokuScreenState extends State<SudokuScreen> {
             ]),
           );
         });
-  } // showDialogF()
+  } // sudokuSettings()
 } // class _SudokuScreenState

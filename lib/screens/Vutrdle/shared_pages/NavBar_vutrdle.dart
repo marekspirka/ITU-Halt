@@ -1,20 +1,17 @@
-//created by Marek Špirka - xspirk01
+// created by Andrea Michlíková - xmichl11, Marek Špirka - xspirk01
 // holds a navigation bar that lest user move through different parts of the app
-import 'dart:io';
 import 'package:Halt/screens/ChooseGame/main_screen.dart';
-import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/screens/Settings/settings.dart';
+import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
-import 'package:Halt/screens/Vutrdle/constants/colors.dart';
+
 import 'package:flutter/material.dart';
 import 'package:Halt/scale.dart';
 
-import 'package:intl/intl.dart';
+import 'dart:io';
 import 'dart:async';
+import 'package:intl/intl.dart';
 import '../../../globals.dart' as globals;
-
-import '../vutrdle_five/controller_five.dart';
-import '../vutrdle_five/pages/vutrdle_five.dart';
 
 class NavBarVutrdle extends StatefulWidget {
   const NavBarVutrdle({super.key});
@@ -28,9 +25,11 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
   Duration myDuration = const Duration(days: 5);
 
   @override
+  // by Marek Špirka - xspirk01
   Widget build(BuildContext context) {
     (globals.isTimeOff) ? startTimer() : nop();
     SizeConfig().init(context);
+    //vytvorenie a graficke navrhnutie Navbaru
     return Drawer(
       width: SizeConfig.screenWidth * 0.60,
       backgroundColor: Colors.black.withOpacity(0.8),
@@ -49,13 +48,16 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
     );
   }
 
+  // by Andrea Michlíková - xmichl11
   nop() {
     return;
   }
 
+  // start the timer <- by Andrea Michlíková - xmichl11
   void startTimer() {
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setCountDown();
+      // when leaving navbar stop timer
       if (!globals.isTimeOff) {
         countdownTimer.cancel();
       }
@@ -64,6 +66,7 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
     });
   }
 
+  // decrease the timer <- by Andrea Michlíková - xmichl11
   void setCountDown() {
     const reduceSecondsBy = 1;
     setState(() {
@@ -72,6 +75,7 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
     });
   }
 
+  // set the globals variable <- by Andrea Michlíková - xmichl11
   void globalTimeSet() {
     DateTime now = DateTime.now();
     String myTime = DateFormat('mm:ss').format(now);
@@ -79,6 +83,9 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
     globals.userTimeLeft = globals.endTime.difference(globals.startTime);
   }
 
+  // Setting the text button, which, when pressed, will take you to the main game selection page
+  // we set the required parameters and graphic design of the text
+  // Andrea Michlíková - xmichl11
   myTimer(context) {
     if (globals.isGlobal && globals.isTimeOn) {
       globalTimeSet();
@@ -122,33 +129,40 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
     }
   }
 
+  // Nastavenie text button, ktory sa po stlaceni dostane na hlavnu stranku vyberu hry
+  // textu nastavujeme pozadovane parametre a graficke prevedenie
+  // Marek Špirka - xspirk01
   menu(context) {
     return Container(
-        margin: EdgeInsets.only(
-            right: SizeConfig.screenWidth * 0.17,
-            top: SizeConfig.screenHeight * 0.05),
-        child: TextButton(
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.white,
-          ),
-          child: Text('Menu',
-              style: TextStyle(
-                fontSize: SizeConfig.safeBlockHorizontal * 10,
-              )),
-          onPressed: () => {
-            globals.isTimeOff = false,
-            Timer(const Duration(seconds: 1), () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MainScreen()),
-              );
-              globals.isTimeOff = true;
-            }),
-          },
-        ));
+      margin: EdgeInsets.only(
+          right: SizeConfig.screenWidth * 0.20,
+          top: SizeConfig.screenHeight * 0.05),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.white,
+        ),
+        child: Text('Menu',
+            style: TextStyle(
+              fontSize: SizeConfig.safeBlockHorizontal * 10,
+            )),
+        onPressed: () => {
+          globals.isTimeOff = false,
+          Timer(const Duration(seconds: 1), () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MainScreen()),
+            );
+            globals.isTimeOff = true;
+          }),
+        },
+      ),
+    );
   }
 
+  // Nastavenie text button, ktory sa po stlaceni dostane na cast aplikacie kde je hra sudoku
+  // textu nastavujeme pozadovane parametre a graficke prevedenie
+  // Marek Špirka - xspirk01
   sudoku(context) {
     return Container(
       margin: EdgeInsets.only(
@@ -164,22 +178,22 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
             )),
         onPressed: () => {
           globals.isTimeOff = false,
-          Timer(
-            const Duration(seconds: 1),
-            () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SudokuScreen()),
-              );
-              globals.isTimeOff = true;
-            },
-          ),
+          Timer(const Duration(seconds: 1), () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SudokuScreen()),
+            );
+            globals.isTimeOff = true;
+          }),
         },
       ),
     );
   }
 
+  //Nastavenie text button, ktory sa po stlaceni dostane na cast aplikacie kde je hra flappyduck
+  //textu nastavujeme pozadovane parametre a graficke prevedenie
+  //Marek Špirka - xspirk01
   flappyduck(context) {
     return Container(
       width: SizeConfig.screenWidth * 0.60,
@@ -194,53 +208,57 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
             )),
         onPressed: () => {
           globals.isTimeOff = false,
-          Timer(
-            const Duration(seconds: 1),
-            () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_scaffoldKey) => FlappyDuckScreen()),
-              );
-              globals.isTimeOff = true;
-            },
-          ),
+          Timer(const Duration(seconds: 1), () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_scaffoldKey) => FlappyDuckScreen()),
+            );
+            globals.isTimeOff = true;
+          }),
         },
       ),
     );
   }
 
+  // Nastavenie text button, ktory sa po stlaceni dostane na cast aplikacie kde su nastavenia aplikacie
+  // textu nastavujeme pozadovane parametre a graficke prevedenie
+  // Marek Špirka - xspirk01
   settings(context) {
     return Container(
-        margin: EdgeInsets.only(
-            top: SizeConfig.screenHeight * 0.03,
-            left: SizeConfig.screenWidth * 0.02),
-        child: TextButton(
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.white,
-          ),
-          child: Text('Nastavení',
-              style: TextStyle(
-                fontSize: SizeConfig.safeBlockHorizontal * 10,
-              )),
-          onPressed: () => {
-            globals.isTimeOff = false,
-            Timer(const Duration(seconds: 1), () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
-              );
-              globals.isTimeOff = true;
-            }),
-          },
-        ));
+      margin: EdgeInsets.only(
+        top: SizeConfig.screenHeight * 0.03,
+      ),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.white,
+        ),
+        child: Text('Nastavení',
+            style: TextStyle(
+              fontSize: SizeConfig.safeBlockHorizontal * 10,
+            )),
+        onPressed: () => {
+          globals.isTimeOff = false,
+          Timer(const Duration(seconds: 1), () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsScreen()),
+            );
+
+            globals.isTimeOff = true;
+          }),
+        },
+      ),
+    );
   }
 
+  // Nastavenie text button, ktory po stlaceni vypne aplikaciu
+  // textu nastavujeme pozadovane parametre a graficke prevedenie
+  // Marek Špirka - xspirk01
   quit(context) {
     return Container(
-      margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.15),
+      margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.16),
       child: TextButton(
         style: TextButton.styleFrom(
           foregroundColor: Colors.white,

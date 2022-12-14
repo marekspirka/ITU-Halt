@@ -1,3 +1,5 @@
+// created by Andrea Michlíková - xmichl11
+// holds global variable used throughout the app
 library my_prj.globals;
 
 import 'package:intl/intl.dart';

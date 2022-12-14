@@ -1,3 +1,5 @@
+// created by Andrea Michlíková - xmichl11
+// holds instructions on how to play the game
 import 'package:Halt/scale.dart';
 import 'package:flutter/material.dart';
 

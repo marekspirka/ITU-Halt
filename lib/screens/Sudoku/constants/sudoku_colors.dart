@@ -1,3 +1,5 @@
+// created by Andrea Michlíková - xmichl11
+// holds colors used throughout the app
 import 'package:flutter/material.dart';
 
 const navBarBrown = Color(0xFF270E17);
