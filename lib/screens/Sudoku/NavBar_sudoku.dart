@@ -37,7 +37,6 @@ class _NavBarSudokuState extends State<NavBarSudoku> {
           children: [
             myTimer(context),
             menu(context),
-            play(context),
             vutrdle(context),
             flappyduck(context),
             settings(context),
@@ -46,33 +45,6 @@ class _NavBarSudokuState extends State<NavBarSudoku> {
         ),
       ),
     );
-  }
-
-  menu(context) {
-    return Container(
-        margin: EdgeInsets.only(
-            top: SizeConfig.screenHeight * 0.32,
-            right: SizeConfig.screenWidth * 0.20),
-        child: TextButton(
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.white,
-          ),
-          child: Text('Menu',
-              style: TextStyle(
-                fontSize: SizeConfig.safeBlockHorizontal * 10,
-              )),
-          onPressed: () => {
-            globals.isTimeOff = false,
-            Timer(const Duration(seconds: 1), () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MainScreen()),
-              );
-              globals.isTimeOff = true;
-            }),
-          },
-        ));
   }
 
   nop() {
@@ -142,33 +114,31 @@ class _NavBarSudokuState extends State<NavBarSudoku> {
     }
   }
 
-  play(context) {
+  menu(context) {
     return Container(
-      width: SizeConfig.screenWidth * 0.60,
-      margin: EdgeInsets.only(
-          top: SizeConfig.screenHeight * 0.38,
-          right: SizeConfig.screenWidth * 0.25),
-      child: TextButton(
-        style: TextButton.styleFrom(
-          foregroundColor: Colors.white,
-        ),
-        child: Text('Hrát',
-            style: TextStyle(
-              fontSize: SizeConfig.safeBlockHorizontal * 10,
-            )),
-        onPressed: () => {
-          globals.isTimeOff = false,
-          Timer(const Duration(seconds: 1), () {
-            Navigator.pop(context);
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MainScreen()),
-            );
-            globals.isTimeOff = true;
-          }),
-        },
-      ),
-    );
+        margin: EdgeInsets.only(
+            top: SizeConfig.screenHeight * 0.32,
+            right: SizeConfig.screenWidth * 0.20),
+        child: TextButton(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.white,
+          ),
+          child: Text('Menu',
+              style: TextStyle(
+                fontSize: SizeConfig.safeBlockHorizontal * 10,
+              )),
+          onPressed: () => {
+            globals.isTimeOff = false,
+            Timer(const Duration(seconds: 1), () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MainScreen()),
+              );
+              globals.isTimeOff = true;
+            }),
+          },
+        ));
   }
 
   vutrdle(context) {

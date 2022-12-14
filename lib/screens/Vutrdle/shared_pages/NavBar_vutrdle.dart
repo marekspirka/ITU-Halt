@@ -39,7 +39,7 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
         child: Column(
           children: [
             myTimer(context),
-            play(context),
+            menu(context),
             sudoku(context),
             flappyduck(context),
             settings(context),
@@ -52,33 +52,6 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
 
   nop() {
     return;
-  }
-
-  menu(context) {
-    return Container(
-        margin: EdgeInsets.only(
-            top: SizeConfig.screenHeight * 0.32,
-            right: SizeConfig.screenWidth * 0.20),
-        child: TextButton(
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.white,
-          ),
-          child: Text('Menu',
-              style: TextStyle(
-                fontSize: SizeConfig.safeBlockHorizontal * 10,
-              )),
-          onPressed: () => {
-            globals.isTimeOff = false,
-            Timer(const Duration(seconds: 1), () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MainScreen()),
-              );
-              globals.isTimeOff = true;
-            }),
-          },
-        ));
   }
 
   void startTimer() {
@@ -144,17 +117,16 @@ class _NavBarVutrdleState extends State<NavBarVutrdle> {
     }
   }
 
-  play(context) {
+  menu(context) {
     return Container(
-        width: SizeConfig.screenWidth * 0.60,
         margin: EdgeInsets.only(
-            top: SizeConfig.screenHeight * 0.18,
-            right: SizeConfig.screenWidth * 0.25),
+            top: SizeConfig.screenHeight * 0.32,
+            right: SizeConfig.screenWidth * 0.20),
         child: TextButton(
           style: TextButton.styleFrom(
             foregroundColor: Colors.white,
           ),
-          child: Text('Hrát',
+          child: Text('Menu',
               style: TextStyle(
                 fontSize: SizeConfig.safeBlockHorizontal * 10,
               )),

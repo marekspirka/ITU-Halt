@@ -41,7 +41,6 @@ class _NavBarFlappyState extends State<NavBarFlappy> {
           children: [
             myTimer(context),
             menu(context),
-            play(context),
             sudoku(context),
             vutrdle(context),
             settings(context),
@@ -120,40 +119,6 @@ class _NavBarFlappyState extends State<NavBarFlappy> {
   }
 
   //Nastavenie text button, ktory sa po stlaceni dostane na hlavnu stranku vyberu hry
-  //textu nastavujeme pozadovane parametre a graficke prevedenie
-
-  play(context) {
-    return Container(
-      width: SizeConfig.screenWidth * 0.60,
-      margin: EdgeInsets.only(
-          top: SizeConfig.screenHeight * 0.18,
-          right: SizeConfig.screenWidth * 0.2),
-      child: TextButton(
-        style: TextButton.styleFrom(
-          foregroundColor: Colors.white,
-        ),
-        child: Text('Hrát',
-            style: TextStyle(
-              fontSize: SizeConfig.safeBlockHorizontal * 10,
-            )),
-        onPressed: () => {
-          globals.isTimeOff = false,
-          Timer(
-            const Duration(seconds: 1),
-            () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MainScreen()),
-              );
-              globals.isTimeOff = true;
-            },
-          ),
-        },
-      ),
-    );
-  }
-
   //textu nastavujeme pozadovane parametre a graficke prevedenie
   menu(context) {
     return Container(
