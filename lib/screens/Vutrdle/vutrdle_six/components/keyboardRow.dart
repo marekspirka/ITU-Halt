@@ -1,6 +1,6 @@
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
-import 'package:Halt/screens/Vutrdle/controller.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/controller_six.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data/keys_map.dart';
@@ -17,7 +17,7 @@ class KeyboardRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Consumer<Controller>(builder: (_, notifier, __) {
+    return Consumer<ControllerSix>(builder: (_, notifier, __) {
       int index = 0;
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +55,7 @@ class KeyboardRow extends StatelessWidget {
                             // provider will pull method of controller thanks to <Controller>
                             // e.key holds which key was tapped
                             // listen:false to -> we only want to read controller, not listen to it
-                            Provider.of<Controller>(context, listen: false)
+                            Provider.of<ControllerSix>(context, listen: false)
                                 .setKeyTapped(value: e.key, context: context);
                           },
                           child: Center(

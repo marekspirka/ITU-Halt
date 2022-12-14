@@ -1,11 +1,12 @@
+import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
 import 'package:flutter/material.dart';
 import 'package:Halt/screens/ChooseGame/NavBar_main.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
-import 'package:Halt/screens/Vutrdle/pages/vutrdle.dart';
+
 import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/scale.dart';
 import 'package:provider/provider.dart';
-import 'package:Halt/screens/Vutrdle/controller.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -14,7 +15,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-        drawer: NavBar(),
+        drawer: const NavBar(),
         appBar: AppBar(
           title: const Text('Halt.'),
           titleTextStyle: const TextStyle(fontSize: 35),
@@ -47,8 +48,8 @@ class MainScreen extends StatelessWidget {
     return Center(
         child: InkWell(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => SudokuScreen()));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const SudokuScreen()));
       },
       child: Container(
         height: SizeConfig.safeBlockVertical * 26,
@@ -97,8 +98,8 @@ class MainScreen extends StatelessWidget {
             builder: (context) => MultiProvider(providers: [
                   ChangeNotifierProvider(
                       create: (_) =>
-                          Controller()) //make controller accessible throughout the project
-                ], child: VutrdleScreen())));
+                          ControllerFive()) //make controller accessible throughout the project
+                ], child: const VutrdleScreenFive())));
       },
       child: Container(
         height: SizeConfig.safeBlockVertical * 26,

@@ -1,14 +1,15 @@
-import 'package:Halt/screens/Vutrdle/components/stats_box_lost.dart';
-import 'package:Halt/screens/Vutrdle/components/stats_box_won.dart';
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
-import 'package:Halt/screens/Vutrdle/data/helper_values.dart';
-import 'package:Halt/screens/Vutrdle/data/keys_map.dart';
-import 'package:Halt/screens/Vutrdle/data/stats.dart';
-import 'package:Halt/screens/Vutrdle/models/tile_model.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/components/stats_box_lost.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/components/stats_box_won.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/data/helper_values.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/data/keys_map.dart';
+import 'package:Halt/screens/Vutrdle/stats.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/models/tile_model.dart';
+
 import 'package:flutter/material.dart';
 
 // handles the key data and game logic
-class Controller extends ChangeNotifier {
+class ControllerFive extends ChangeNotifier {
   int currentTile = 0; // current tile within a row
   int currentRow = 0; // current row we are working on
   String correctWord = "";

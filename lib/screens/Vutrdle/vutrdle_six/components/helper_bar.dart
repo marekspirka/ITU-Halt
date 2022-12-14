@@ -1,6 +1,6 @@
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
-import 'package:Halt/screens/Vutrdle/controller.dart';
-import 'package:Halt/screens/Vutrdle/data/helper_values.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/controller_six.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/data/helper_values.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +15,7 @@ class HelperBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Consumer<Controller>(builder: (_, notifier, __) {
+    return Consumer<ControllerSix>(builder: (_, notifier, __) {
       int index = 0;
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,

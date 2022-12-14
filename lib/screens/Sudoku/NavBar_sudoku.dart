@@ -2,20 +2,21 @@ import 'dart:io';
 import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/screens/Settings/settings.dart';
-import 'package:Halt/screens/Vutrdle/pages/vutrdle.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
 import 'package:flutter/material.dart';
 import 'package:Halt/scale.dart';
 import 'package:provider/provider.dart';
 
-import '../Vutrdle/controller.dart';
-
 class NavBarSudoku extends StatelessWidget {
+  const NavBarSudoku({super.key});
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Drawer(
       width: SizeConfig.screenWidth * 0.60,
-      backgroundColor: Color(0xff361320).withOpacity(0.95),
+      backgroundColor: const Color(0xff361320).withOpacity(0.95),
       child: Container(
         alignment: Alignment.center,
         child: Column(
@@ -40,7 +41,7 @@ play(context) {
           right: SizeConfig.screenWidth * 0.25),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Hrát',
             style: TextStyle(
@@ -50,7 +51,7 @@ play(context) {
           Navigator.pop(context);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MainScreen()),
+            MaterialPageRoute(builder: (context) => const MainScreen()),
           );
         },
       ));
@@ -63,7 +64,7 @@ vutrdle(context) {
           right: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Vutrdle',
             style: TextStyle(
@@ -75,8 +76,8 @@ vutrdle(context) {
               builder: (context) => MultiProvider(providers: [
                     ChangeNotifierProvider(
                         create: (_) =>
-                            Controller()) //make controller accessible throughout the project
-                  ], child: VutrdleScreen()))),
+                            ControllerFive()) //make controller accessible throughout the project
+                  ], child: const VutrdleScreenFive()))),
         },
       ));
 }
@@ -87,7 +88,7 @@ flappyduck(context) {
       margin: EdgeInsets.only(left: SizeConfig.screenWidth * 0.09),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Flappy Duck',
             style: TextStyle(
@@ -110,7 +111,7 @@ settings(context) {
           left: SizeConfig.screenWidth * 0.02),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Nastavení',
             style: TextStyle(
@@ -120,7 +121,7 @@ settings(context) {
           Navigator.pop(context),
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SettingsScreen()),
+            MaterialPageRoute(builder: (context) => const SettingsScreen()),
           )
         },
       ));
@@ -131,7 +132,7 @@ quit(context) {
       margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.14),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         child: Text('Konec',
             style: TextStyle(

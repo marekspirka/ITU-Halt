@@ -1,43 +1,44 @@
 import 'dart:math';
 
 import 'package:Halt/scale.dart';
-import 'package:Halt/screens/Vutrdle/components/helper_bar.dart';
+
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
-import 'package:Halt/screens/Vutrdle/constants/words.dart';
-import 'package:Halt/screens/Vutrdle/data/keys_map.dart';
-import 'package:Halt/screens/Vutrdle/pages/NavBar_vutrdle.dart';
-import 'package:Halt/screens/Vutrdle/pages/Vutrdle_help.dart';
-import 'package:Halt/screens/Vutrdle/components/grid.dart';
+import 'package:Halt/screens/Vutrdle/constants/words_six.dart';
+import 'package:Halt/screens/Vutrdle/shared_pages/NavBar_vutrdle.dart';
+import 'package:Halt/screens/Vutrdle/shared_pages/Vutrdle_help.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/components/grid_six.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/components/helper_bar.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/controller_six.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/data/keys_map.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../components/keyboardRow.dart';
-import '../controller.dart';
 
-class VutrdleScreen extends StatefulWidget {
-  const VutrdleScreen({
+class VutrdleScreenSix extends StatefulWidget {
+  const VutrdleScreenSix({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<VutrdleScreen> createState() => _VutrdleScreenState();
+  State<VutrdleScreenSix> createState() => _VutrdleScreenSixState();
 }
 
-class _VutrdleScreenState extends State<VutrdleScreen> {
+class _VutrdleScreenSixState extends State<VutrdleScreenSix> {
   late String _word;
 
   @override
   void initState() {
     // generate random int up to the maximum in the list of words
-    final r = Random().nextInt(words.length);
-    _word = words[r];
-    correctWord = words[r];
+    final r = Random().nextInt(wordsSix.length);
+    _word = wordsSix[r];
+    correctWord = wordsSix[r];
 
     // set an instance of a build context - at the end of a frame when we DO have an instance
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // call setCorrectWord with the randomly chosen word
-      Provider.of<Controller>(context, listen: false)
+      Provider.of<ControllerSix>(context, listen: false)
           .setCorrectWord(word: _word);
     });
 
@@ -76,11 +77,11 @@ class _VutrdleScreenState extends State<VutrdleScreen> {
           children: [
             const Expanded(
               flex: 7,
-              child: Grid(),
+              child: GridSix(),
             ),
             const Expanded(
                 child: HelperBar(
-              max: 5,
+              max: 6,
             )),
             Expanded(
               flex: 4,

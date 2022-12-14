@@ -3,12 +3,13 @@ import 'dart:io';
 import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
-import 'package:Halt/screens/Vutrdle/data/keys_map.dart';
-import 'package:Halt/screens/Vutrdle/data/stats.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/data/keys_map.dart';
+import 'package:Halt/screens/Vutrdle/stats.dart';
+
 import 'package:flutter/material.dart';
 
-class StatsBoxLost extends StatelessWidget {
-  const StatsBoxLost({super.key});
+class StatsBoxWon extends StatelessWidget {
+  const StatsBoxWon({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,6 @@ class StatsBoxLost extends StatelessWidget {
           size.width * 0.1, size.height * 0.15),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
               alignment: Alignment.centerRight,
@@ -28,26 +28,13 @@ class StatsBoxLost extends StatelessWidget {
               icon: const Icon(Icons.clear)),
           const Expanded(
               child: Text(
-            'TENTOKRÁT TO NEVYŠLO :(',
+            'GRATULACE!',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 25,
+              fontSize: 30,
             ),
           )),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: Expanded(
-              child: Text(
-                'Hledané slovo bylo:    $correctWord',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-              ),
-            ),
-          ),
           Expanded(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

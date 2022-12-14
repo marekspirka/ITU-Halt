@@ -2,12 +2,11 @@ import 'dart:io';
 import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/Settings/settings.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
-import 'package:Halt/screens/Vutrdle/pages/vutrdle.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
 import 'package:flutter/material.dart';
 import 'package:Halt/scale.dart';
 import 'package:provider/provider.dart';
-
-import '../Vutrdle/controller.dart';
 
 class NavBarFlappy extends StatelessWidget {
   const NavBarFlappy({super.key});
@@ -52,7 +51,7 @@ play(context) {
           Navigator.pop(context);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MainScreen()),
+            MaterialPageRoute(builder: (context) => const MainScreen()),
           );
         },
       ));
@@ -75,7 +74,7 @@ sudoku(context) {
           Navigator.pop(context);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SudokuScreen()),
+            MaterialPageRoute(builder: (context) => const SudokuScreen()),
           );
         },
       ));
@@ -98,8 +97,8 @@ vutrdle(context) {
               builder: (context) => MultiProvider(providers: [
                     ChangeNotifierProvider(
                         create: (_) =>
-                            Controller()) //make controller accessible throughout the project
-                  ], child: VutrdleScreen()))),
+                            ControllerFive()) //make controller accessible throughout the project
+                  ], child: const VutrdleScreenFive()))),
         },
       ));
 }
@@ -122,7 +121,7 @@ settings(context) {
           Navigator.pop(context),
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SettingsScreen()),
+            MaterialPageRoute(builder: (context) => const SettingsScreen()),
           )
         },
       ));

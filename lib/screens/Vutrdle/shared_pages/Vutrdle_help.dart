@@ -1,5 +1,10 @@
 import 'package:Halt/scale.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/controller_six.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/pages/vutrdle_six.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NavBarVutrdleHelp extends StatelessWidget {
   const NavBarVutrdleHelp({super.key});
@@ -15,7 +20,7 @@ class NavBarVutrdleHelp extends StatelessWidget {
           child: Container(
               alignment: Alignment.center,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     'Jak se tato hra hraje?\n',
@@ -103,6 +108,48 @@ class NavBarVutrdleHelp extends StatelessWidget {
                             )),
                       ),
                     ],
+                  ),
+                  Text(
+                    '\nPočet písmen ve slově:',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: SizeConfig.safeBlockHorizontal * 6,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 200,
+                    height: 30,
+                    child: InkWell(
+                      radius: 100,
+                      onTap: () => {
+                        Navigator.pop(context),
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => MultiProvider(providers: [
+                                  ChangeNotifierProvider(
+                                      create: (_) =>
+                                          ControllerFive()) //make controller accessible throughout the project
+                                ], child: const VutrdleScreenFive()))),
+                      },
+                      child: Image.asset('assets/images/five.png'),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 200,
+                    height: 30,
+                    child: InkWell(
+                      radius: 100,
+                      onTap: () => {
+                        Navigator.pop(context),
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => MultiProvider(providers: [
+                                  ChangeNotifierProvider(
+                                      create: (_) =>
+                                          ControllerSix()) //make controller accessible throughout the project
+                                ], child: const VutrdleScreenSix()))),
+                      },
+                      child: Image.asset('assets/images/six.png'),
+                    ),
                   ),
                 ],
               )),

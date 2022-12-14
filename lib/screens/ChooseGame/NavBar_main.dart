@@ -3,8 +3,9 @@ import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/screens/Settings/settings.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
-import 'package:Halt/screens/Vutrdle/controller.dart';
-import 'package:Halt/screens/Vutrdle/pages/vutrdle.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
+
 import 'package:flutter/material.dart';
 import 'package:Halt/scale.dart';
 import 'package:provider/provider.dart';
@@ -99,8 +100,8 @@ vutrdle(context) {
               builder: (context) => MultiProvider(providers: [
                     ChangeNotifierProvider(
                         create: (_) =>
-                            Controller()) //make controller accessible throughout the project
-                  ], child: const VutrdleScreen()))),
+                            ControllerFive()) //make controller accessible throughout the project
+                  ], child: const VutrdleScreenFive()))),
         },
       ));
 }

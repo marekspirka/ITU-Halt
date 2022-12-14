@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
-import 'package:Halt/screens/Vutrdle/controller.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/controller_six.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +45,7 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
     // consumer -> will listen to other components and run builder
     // builder -> the component will rebuild when values in controller change
     // every time a letter is entered, builder rebuilds the widget and shows relevant text
-    return Consumer<Controller>(builder: (_, notifier, __) {
+    return Consumer<ControllerSix>(builder: (_, notifier, __) {
       String text = "";
       Color fontColor = Colors.white;
       if (widget.index < notifier.tilesEntered.length) {
