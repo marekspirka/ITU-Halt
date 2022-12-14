@@ -1,9 +1,11 @@
+/**
+ * Creator Marek Spirka
+ */
 import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
 import 'package:flutter/material.dart';
 import 'package:Halt/screens/ChooseGame/NavBar_main.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
-
 import 'package:Halt/screens/FlappyDuck/flappyduck.dart';
 import 'package:Halt/scale.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +46,8 @@ class MainScreen extends StatelessWidget {
             )));
   }
 
+  //Nastavenie button, ktory sa po stlaceni dostane na cast aplikacie kde je hra sudoku
+  //tlacidlu nastavujeme pozadovane parametre a graficke prevedenie
   sudoku_button(BuildContext context) {
     return Center(
         child: InkWell(
@@ -90,6 +94,8 @@ class MainScreen extends StatelessWidget {
     ));
   }
 
+  //Nastavenie button, ktory sa po stlaceni dostane na cast aplikacie kde je hra vutrdle
+  //tlacidlu nastavujeme pozadovane parametre a graficke prevedenie
   vutrdle_button(BuildContext context) {
     return Center(
         child: InkWell(
@@ -140,6 +146,8 @@ class MainScreen extends StatelessWidget {
     ));
   }
 
+  //Nastavenie button, ktory sa po stlaceni dostane na cast aplikacie kde je hra flappy duck
+  //tlacidlu nastavujeme pozadovane parametre a graficke prevedenie
   flappy_duck_button(BuildContext context) {
     return Center(
         child: InkWell(

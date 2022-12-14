@@ -8,7 +8,6 @@ import 'package:Halt/screens/Settings/settings.dart';
 import 'package:Halt/screens/Sudoku/sudoku.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
-
 import 'package:flutter/material.dart';
 import 'package:Halt/scale.dart';
 import 'package:provider/provider.dart';
