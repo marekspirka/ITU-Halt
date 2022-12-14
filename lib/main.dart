@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'screens/loading_screen.dart';
+import 'globals.dart' as globals;
 
 void main() {
-  //Timer(Duration(seconds: timeMap['time']!), () {
-  //  exit(0);
-  //});
+  globals.isGlobal = true;
   runApp(const MyApp());
 }
 
@@ -28,7 +27,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
 
 ////////////////////////////////////////////DO TO///////////////////////////////////////////////////////
 ///2. Doplnit Help Navbar pre Hry - Spravene uz len doplnit pucky pre help

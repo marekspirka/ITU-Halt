@@ -3,7 +3,13 @@
 import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Settings/settings_logic.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
+
+import 'package:Halt/scale.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:intl/intl.dart';
+import '../../globals.dart' as globals;
+import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 
 // ANDY INSERT PROMENNA HERE ⬇️
@@ -73,8 +79,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         )),
                     value: _isTimerSwitched,
                     onChanged: (value) async {
+                      _isTimerSwitched = value;
                       setState(() {
-                        _isTimerSwitched = value;
+                        globalTimeSet();
+                        // Timer(Duration(minutes: globals.userTime), () {
+                        //   exit(0);
+                        // });
                       });
                       SettingsData.saveTimerToggle(isToggled: _isTimerSwitched);
                       if (await SettingsData.getTimerToggle()) {
@@ -187,5 +197,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
     );
+  }
+
+  void globalTimeSet() {
+    DateTime now = DateTime.now();
+    String myTime = DateFormat('mm:ss').format(now);
+    globals.startTime = DateFormat('mm:ss').parse(myTime);
+
+    globals.isTimeOn = true;
+    globals.isTimeOff = true;
   }
 }

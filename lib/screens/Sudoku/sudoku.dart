@@ -1,14 +1,16 @@
-import '../../scale.dart';
+import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Sudoku/constants/sudoku_colors.dart';
 import 'package:Halt/screens/Sudoku/components/blok_item.dart';
 import 'package:Halt/screens/Sudoku/components/inner_blok.dart';
 import 'package:Halt/screens/Sudoku/components/class.dart';
 import 'package:Halt/screens/Sudoku/NavBar_sudoku.dart';
 import 'package:Halt/screens/Sudoku/Sudoku_help.dart';
+
 import 'package:flutter/material.dart';
 import 'package:quiver/iterables.dart';
-
 import 'dart:math';
+
+import '../../globals.dart' as globals;
 
 import 'package:sudoku_solver_generator/sudoku_solver_generator.dart';
 
@@ -57,8 +59,9 @@ class _SudokuScreenState extends State<SudokuScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    (globals.isTimeOn) ? globals.isTimeOff = true : globals.isTimeOff = false;
     return Scaffold(
-      drawer: NavBarSudoku(),
+      drawer: const NavBarSudoku(),
       endDrawer: NavBarSudokuHelp(),
       appBar: AppBar(
         actions: [
@@ -358,7 +361,8 @@ class _SudokuScreenState extends State<SudokuScreen> {
                       // TODO zpátky
                       return ElevatedButton(
                         //onPressed: () => setInput(index + 1),
-                        onPressed: () => generatePuzzle(),
+                        onPressed: () => generateSudoku(),
+
                         style: ElevatedButton.styleFrom(
                           backgroundColor: sudokuBlack50,
                           shape: RoundedRectangleBorder(
@@ -551,9 +555,9 @@ class _SudokuScreenState extends State<SudokuScreen> {
 
     // set input data or clear data
     if (item.text == number.toString() || number == null) {
-      // for (var element in innerBloks) {
-      //  element.clearExist();
-      // }
+      for (var element in innerBloks) {
+        element.clearExist();
+      }
       item.setEmpty();
       if (number != null) {
         inputClassBlok[number - 1].numberInput++;
@@ -581,9 +585,9 @@ class _SudokuScreenState extends State<SudokuScreen> {
     String textInput =
         innerBloks[focusClass.indexBox!].blokItem[focusClass.indexChar!].text!;
 
-    // for (var element in innerBloks) {
-    //   element.clearExist();
-    // }
+    for (var element in innerBloks) {
+      element.clearExist();
+    }
 
     innerBloks.where((element) => element.index ~/ 3 == rowNoBox).forEach((e) =>
         e.setExistValue(focusClass.indexChar!, focusClass.indexBox!, textInput,
