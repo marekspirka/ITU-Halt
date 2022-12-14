@@ -3,10 +3,10 @@
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/shared_components/stats_box_lost.dart';
 import 'package:Halt/screens/Vutrdle/shared_components/stats_box_won.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_six/components/tile.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_six/data/helper_values.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_six/data/keys_map.dart';
 import 'package:Halt/screens/Vutrdle/stats.dart';
-import 'package:Halt/screens/Vutrdle/vutrdle_six/models/tile_model.dart';
 
 import 'package:flutter/material.dart';
 

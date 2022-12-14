@@ -140,3 +140,11 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
     });
   }
 }
+
+class TileModel {
+  final String letter;
+  AnswerStage answerStage;
+
+  TileModel(
+      {required this.letter, required this.answerStage}); //class constructor
+}
