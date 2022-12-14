@@ -26,6 +26,7 @@ class ControllerFive extends ChangeNotifier {
     for (int i = 0; i < helperList.length; i++) {
       helperMap[helperList[i]] = HelperStage.notguessed;
     }
+    notifyListeners();
   }
 
   //method that handles individually tapped keys

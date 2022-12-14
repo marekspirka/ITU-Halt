@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:Halt/scale.dart';
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
@@ -14,6 +15,7 @@ class StatsBoxWon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     final size = MediaQuery.of(context).size;
     return AlertDialog(
       insetPadding: EdgeInsets.fromLTRB(size.width * 0.1, size.height * 0.15,
@@ -27,19 +29,24 @@ class StatsBoxWon extends StatelessWidget {
                 Navigator.maybePop(context);
               },
               icon: const Icon(Icons.clear)),
-          const Expanded(
+          Expanded(
               child: Text(
             'GRATULACE!',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 30,
+              fontSize: SizeConfig.safeBlockHorizontal * 8,
+              color: Colors.black,
             ),
           )),
           Expanded(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: const Text('Momentální skóre: '),
+              ),
               Container(
                 height: 50,
                 width: 50,
@@ -58,10 +65,6 @@ class StatsBoxWon extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                child: const Text('v řadě'),
-              )
             ],
           )),
           Expanded(
@@ -70,13 +73,13 @@ class StatsBoxWon extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                child: const Text('Nejvyšší skóre: '),
+                child: const Text('Nejvyšší skóre:       '),
               ),
               Container(
                 height: 50,
                 width: 50,
                 decoration: BoxDecoration(
-                  color: wordleYellow,
+                  color: wordleGreen,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: FittedBox(
@@ -95,6 +98,7 @@ class StatsBoxWon extends StatelessWidget {
           Expanded(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -106,23 +110,14 @@ class StatsBoxWon extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  color: wordleYellow,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const FittedBox(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('5',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center),
-                  ),
-                ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('5',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.center),
               ),
             ],
           )),
@@ -144,12 +139,6 @@ class StatsBoxWon extends StatelessWidget {
                                 create: (_) =>
                                     ControllerFive()) //make controller accessible throughout the project
                           ], child: const VutrdleScreenFive())));
-                  // //reset game history
-                  // Navigator.pushAndRemoveUntil(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => const MainScreen()),
-                  //     (route) => false);
                 },
                 child: const Text('Hádej další')),
           )),

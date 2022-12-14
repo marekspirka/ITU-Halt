@@ -1,11 +1,13 @@
 import 'dart:io';
 
-import 'package:Halt/screens/ChooseGame/main_screen.dart';
 import 'package:Halt/screens/Vutrdle/constants/answer_stages.dart';
 import 'package:Halt/screens/Vutrdle/constants/colors.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/controller_five.dart';
 import 'package:Halt/screens/Vutrdle/vutrdle_five/data/keys_map.dart';
 import 'package:Halt/screens/Vutrdle/stats.dart';
+import 'package:Halt/screens/Vutrdle/vutrdle_five/pages/vutrdle_five.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StatsBoxLost extends StatelessWidget {
   const StatsBoxLost({super.key});
@@ -53,6 +55,10 @@ class StatsBoxLost extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: const Text('Momentální skóre: '),
+              ),
+              Container(
                 height: 50,
                 width: 50,
                 decoration: BoxDecoration(
@@ -70,10 +76,6 @@ class StatsBoxLost extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                child: const Text('v řadě'),
-              )
             ],
           )),
           Expanded(
@@ -82,13 +84,13 @@ class StatsBoxLost extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                child: const Text('Nejvyšší skóre: '),
+                child: const Text('Nejvyšší skóre:       '),
               ),
               Container(
                 height: 50,
                 width: 50,
                 decoration: BoxDecoration(
-                  color: wordleYellow,
+                  color: wordleGreen,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: FittedBox(
@@ -149,12 +151,13 @@ class StatsBoxLost extends StatelessWidget {
                   //reset key colors
                   keysMap.updateAll(
                       (key, value) => value = AnswerStage.notAnswered);
-                  //reset game history
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MainScreen()),
-                      (route) => false);
+                  Navigator.pop(context);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MultiProvider(providers: [
+                            ChangeNotifierProvider(
+                                create: (_) =>
+                                    ControllerFive()) //make controller accessible throughout the project
+                          ], child: const VutrdleScreenFive())));
                 },
                 child: const Text('Hádej další')),
           )),
