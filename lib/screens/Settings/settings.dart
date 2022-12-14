@@ -44,15 +44,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
     showCupertinoModalPopup(
         context: context,
         builder: (_) => Container(
-              width: 300,
-              height: 250,
+              width: SizeConfig.screenWidth * 0.89,
+              height: SizeConfig.screenHeight * 0.3,
               child: CupertinoPicker(
-                backgroundColor: Colors.white,
-                itemExtent: 30,
+                backgroundColor: Colors.black.withOpacity(0.95),
+                itemExtent: 40,
                 scrollController: FixedExtentScrollController(initialItem: 1),
                 children: timerValues
                     .map((item) => Center(
-                          child: Text(item),
+                          child: Text(
+                            item,
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ))
                     .toList(),
                 onSelectedItemChanged: (value) {
@@ -133,7 +136,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               // user input -> for how long shold the app be running
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

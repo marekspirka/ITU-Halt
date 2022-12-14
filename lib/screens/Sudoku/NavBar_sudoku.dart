@@ -30,19 +30,18 @@ class _NavBarSudokuState extends State<NavBarSudoku> {
     SizeConfig().init(context);
     return Drawer(
       width: SizeConfig.screenWidth * 0.60,
-      backgroundColor: const Color(0xff361320).withOpacity(0.95),
-      child: Container(
-        alignment: Alignment.center,
-        child: Column(
-          children: [
-            myTimer(context),
-            menu(context),
-            vutrdle(context),
-            flappyduck(context),
-            settings(context),
-            quit(context),
-          ],
-        ),
+      backgroundColor: Colors.black.withOpacity(0.8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        //odkazovanie sa na nastavenia a ine hry v Menu Bar
+        children: [
+          myTimer(context),
+          menu(context),
+          vutrdle(context),
+          flappyduck(context),
+          settings(context),
+          quit(context),
+        ],
       ),
     );
   }
@@ -82,31 +81,34 @@ class _NavBarSudokuState extends State<NavBarSudoku> {
       globalTimeSet();
       String strDigits(int n) => n.toString().padLeft(2, '0');
       final minutes =
-          strDigits(globals.userTime - globals.userTimeLeft.inMinutes);
+          strDigits(globals.userTime - globals.userTimeLeft.inMinutes - 1);
       final seconds = strDigits(59 - globals.userTimeLeft.inSeconds % 60);
       String time = '$minutes:$seconds';
 
       return Container(
-          width: SizeConfig.screenWidth * 0.60,
-          margin: EdgeInsets.only(
-            top: SizeConfig.screenHeight * 0.2,
-          ),
-          child: TextButton(
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white,
+        width: SizeConfig.screenWidth * 0.60,
+        margin: EdgeInsets.only(bottom: SizeConfig.screenWidth * 0.04),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Zbývající čas:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: SizeConfig.safeBlockHorizontal * 7,
+              ),
             ),
-            child: Text(time,
+            SizedBox(
+              height: SizeConfig.safeBlockVertical * 2,
+            ),
+            Text(time,
                 style: TextStyle(
+                  color: Colors.white,
                   fontSize: SizeConfig.safeBlockHorizontal * 10,
                 )),
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MainScreen()),
-              );
-            },
-          ));
+          ],
+        ),
+      );
     } else {
       return Container(
         width: SizeConfig.screenWidth * 0.60,
@@ -120,8 +122,8 @@ class _NavBarSudokuState extends State<NavBarSudoku> {
   menu(context) {
     return Container(
         margin: EdgeInsets.only(
-            top: SizeConfig.screenHeight * 0.12,
-            right: SizeConfig.screenWidth * 0.17),
+            right: SizeConfig.screenWidth * 0.17,
+            top: SizeConfig.screenHeight * 0.05),
         child: TextButton(
           style: TextButton.styleFrom(
             foregroundColor: Colors.white,
