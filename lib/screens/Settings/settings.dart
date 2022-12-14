@@ -31,6 +31,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   int value = 0;
   Color _minutesTextColor = const Color.fromARGB(100, 255, 255, 255);
   Color _tileBackgroundColor = const Color.fromARGB(100, 64, 64, 64);
+  final timerValues = [
+    '5',
+    '10',
+    '15',
+    '20',
+    '25',
+    '30',
+  ];
 
   void _showPicker(BuildContext context) {
     showCupertinoModalPopup(
@@ -42,17 +50,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 backgroundColor: Colors.white,
                 itemExtent: 30,
                 scrollController: FixedExtentScrollController(initialItem: 1),
-                children: [
-                  Text('5'),
-                  Text('10'),
-                  Text('15'),
-                  Text('20'),
-                  Text('25'),
-                  Text('30'),
-                ],
-                onSelectedItemChanged: (int value) {
+                children: timerValues
+                    .map((item) => Center(
+                          child: Text(item),
+                        ))
+                    .toList(),
+                onSelectedItemChanged: (value) {
                   setState(() {
-                    globals.userTime = value;
+                    globals.userTime = int.parse(timerValues[value]);
                   });
                 },
               ),
@@ -110,7 +115,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       setState(() {
                         timer = value;
                         globalTimeSet();
-                        Timer(Duration(minutes: globals.userTime - 1), () {
+                        Timer(Duration(minutes: globals.userTime), () {
                           exit(0);
                         });
                       });
