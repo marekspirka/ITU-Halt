@@ -127,7 +127,7 @@ class _NavBarState extends State<NavBar> {
         width: SizeConfig.screenWidth * 0.60,
         margin: EdgeInsets.only(
             top: SizeConfig.screenHeight * 0.13,
-            right: SizeConfig.screenWidth * 0.2),
+            right: SizeConfig.screenWidth * 0.25),
         child: TextButton(
           style: TextButton.styleFrom(
             foregroundColor: Colors.white,
@@ -275,7 +275,7 @@ class _NavBarState extends State<NavBar> {
 //textu nastavujeme pozadovane parametre a graficke prevedenie
   quit(context) {
     return Container(
-        margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.14),
+        margin: EdgeInsets.only(right: SizeConfig.screenWidth * 0.16),
         child: TextButton(
           style: TextButton.styleFrom(
             foregroundColor: Colors.white,

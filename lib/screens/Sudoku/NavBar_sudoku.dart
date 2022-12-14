@@ -121,7 +121,7 @@ class _NavBarSudokuState extends State<NavBarSudoku> {
     return Container(
         margin: EdgeInsets.only(
             top: SizeConfig.screenHeight * 0.12,
-            right: SizeConfig.screenWidth * 0.20),
+            right: SizeConfig.screenWidth * 0.17),
         child: TextButton(
           style: TextButton.styleFrom(
             foregroundColor: Colors.white,
